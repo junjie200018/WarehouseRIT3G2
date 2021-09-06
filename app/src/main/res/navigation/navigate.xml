@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigate"
+    app:startDestination="@id/home_Fragment">
+    <fragment
+        android:id="@+id/home_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.Home_Fragment"
+        android:label="fragment_home_"
+        tools:layout="@layout/fragment_home_" />
+    <fragment
+        android:id="@+id/receiveProduct_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.receiveProduct_Fragment"
+        android:label="receiveProduct_Fragment" />
+    <fragment
+        android:id="@+id/onReceivedDetail_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnReceivedDetail_Fragment"
+        android:label="fragment_on_received_detail_"
+        tools:layout="@layout/fragment_on_received_detail_" >
+        <argument
+            android:name="barcodeValue"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_onReceivedDetail_Fragment_to_onReceived_Fragment"
+            app:destination="@id/onReceived_Fragment" />
+        <action
+            android:id="@+id/action_onReceivedDetail_Fragment_to_display_Received_item_Fragment"
+            app:destination="@id/display_Received_item_Fragment" />
+        <argument
+            android:name="place"
+            app:argType="string" />
+        <argument
+            android:name="serialNo"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/onReceived_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnReceived_Fragment"
+        android:label="OnReceived_Fragment" >
+        <action
+            android:id="@+id/action_onReceived_Fragment_to_onReceivedDetail_Fragment"
+            app:destination="@id/onReceivedDetail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/display_Received_item_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.Display_Received_item_Fragment"
+        android:label="Display_Received_item_Fragment" >
+        <action
+            android:id="@+id/action_display_Received_item_Fragment_to_onReceivedDetail_Fragment"
+            app:destination="@id/onReceivedDetail_Fragment" />
+    </fragment>
+</navigation>

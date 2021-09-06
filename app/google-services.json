@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339259033751",
+    "project_id": "mobile-warehouse-ritg3",
+    "storage_bucket": "mobile-warehouse-ritg3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339259033751:android:fb3ab00baac250c6b0c1d2",
+        "android_client_info": {
+          "package_name": "my.edu.tarc.warehouserit3g2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339259033751-k0ou7b1r1do25gb1rfj6k5o3q1483li9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbyBwSDnHn5jjZVuPrIohR3aGqAvib9jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339259033751-k0ou7b1r1do25gb1rfj6k5o3q1483li9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

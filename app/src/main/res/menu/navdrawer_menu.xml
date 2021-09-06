@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_Fragment"
+        android:title="Home" />
+    <item
+        android:id="@+id/receiveProduct_Fragment"
+        android:title="Receive Product" />
+    <item
+        android:id="@+id/onReceived_Fragment"
+        android:title="On Received" />
+    <item
+        android:id="@+id/display_Received_item_Fragment"
+        android:title="On Received List" />
+</menu>

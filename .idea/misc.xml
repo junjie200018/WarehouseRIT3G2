@@ -3,10 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/drawable-v24/nav_header.xml" value="0.3828125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/OnReceivedDetail.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/activity_on_received.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/activity_on_received_detail.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/activity_production_barcode.xml" value="0.38289601554907676" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/app_bar_main.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/content_main.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/custom_barcode_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_display__received_item_.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_display__received_item_detail_.xml" value="0.12132725430597771" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_on_received_.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_on_received_detail_.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_receive_product_.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml" value="0.264" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_menu.xml" value="0.2222222222222222" />
         <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml" value="0.21331521739130435" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

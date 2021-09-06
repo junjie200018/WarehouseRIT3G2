@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".On_Received">
+
+
+    <!--app:layout_constraintTop_toBottomOf="@+id/barcodeView"-->
+
+
+    <TextView
+        android:id="@+id/txtValueLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scanned Value: "
+
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="696dp" />
+
+    <TextView
+        android:id="@+id/txtValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="{{please scan first}}"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="696dp" />
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="315dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="156dp"
+        android:text="Scan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="694dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/img" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
