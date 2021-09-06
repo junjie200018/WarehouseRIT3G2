@@ -97,12 +97,9 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
             override fun onQueryTextSubmit(query: String?): Boolean {
 
-//                binding.searchView.clearFocus()
-//                productList.forEach{
-//                    if (it.partNo.contains(query.toString())){
-//                        myRecyclerView.filter.filter(query)
-//                    }
-//                }
+
+
+
                 Log.w(ContentValues.TAG, "get value 3 = ${query}")
 
                 return true
@@ -110,6 +107,9 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 Log.w(ContentValues.TAG, "get value 3 = ${newText}")
+
+
+
 
                 return true
             }

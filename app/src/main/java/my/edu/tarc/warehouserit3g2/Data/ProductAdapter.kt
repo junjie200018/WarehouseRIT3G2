@@ -16,10 +16,10 @@ import kotlin.collections.ArrayList
 class ProductAdapter (private val productList :MutableList<Product>, private val listener: OnItemClickListener ) : RecyclerView.Adapter<ProductAdapter.myViewHolder>(), Filterable{
 
     var searchV = ArrayList<Product>();
-    fun setData(searchV: ArrayList<Product>){
-        this.searchV = searchV
-        notifyDataSetChanged()
-    }
+//    fun setData(searchV: ArrayList<Product>){
+//        this.searchV = searchV
+//        notifyDataSetChanged()
+//    }
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         val partNo:TextView = itemView.findViewById(R.id.PartNo)
         val serialNo:TextView =itemView.findViewById(R.id.SerialNo)
@@ -60,6 +60,7 @@ class ProductAdapter (private val productList :MutableList<Product>, private val
     }
 
     override fun getFilter(): Filter {
+        Log.w(ContentValues.TAG, "search value 5 = ")
         return object: Filter(){
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
                 Log.w(ContentValues.TAG, "search value 2 = ${charSequence}")
