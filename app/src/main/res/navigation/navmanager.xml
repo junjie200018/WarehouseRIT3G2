@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navmanager"
+    app:startDestination="@id/homeManager_Fragment">
+
+    <fragment
+        android:id="@+id/homeManager_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.HomeManager_Fragment"
+        android:label="fragment_home_manager_"
+        tools:layout="@layout/fragment_home_manager_" />
+    <fragment
+        android:id="@+id/productMovement_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.ProductMovement_Fragment"
+        android:label="ProductMovement_Fragment" />
+</navigation>
