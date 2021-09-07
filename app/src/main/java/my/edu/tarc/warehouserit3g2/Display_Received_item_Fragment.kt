@@ -29,6 +29,9 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
     private lateinit var binding: FragmentDisplayReceivedItemBinding
      var productList: MutableList<Product> = ArrayList()
+    lateinit var adapter: ProductAdapter
+    lateinit var myRecyclerView : RecyclerView
+
     private val navController by lazy { NavHostFragment.findNavController(this)}
 
     lateinit var searchValue : ArrayList<Product>
@@ -44,7 +47,8 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         val db = Firebase.firestore
         productList.clear()
 
-       
+
+        myRecyclerView = binding.productRecycleView
 
 
 //        val productList = listOf<Product>(
@@ -84,36 +88,33 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
 
 
-                val myRecyclerView : RecyclerView = binding.productRecycleView
-                myRecyclerView.adapter = ProductAdapter(productList, this)
-                myRecyclerView.setHasFixedSize(true)
+//                val myRecyclerView : RecyclerView = binding.productRecycleView
+                adapter = ProductAdapter(productList, this)
+                myRecyclerView.adapter = adapter
+
+                binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                    android.widget.SearchView.OnQueryTextListener {
+                    val myRecyclerView : RecyclerView = binding.productRecycleView
+
+
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        Log.w(ContentValues.TAG, "get value 3 = ${query}")
+
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        Log.w(ContentValues.TAG, "get value 3 = ${newText}")
+
+                       adapter.filter.filter(newText)
+
+
+                        return false
+                    }
+                })
             }
 
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
-            val myRecyclerView : RecyclerView = binding.productRecycleView
-
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-
-
-
-                Log.w(ContentValues.TAG, "get value 3 = ${query}")
-
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Log.w(ContentValues.TAG, "get value 3 = ${newText}")
-
-
-
-
-                return true
-            }
-        })
 
 
       return binding.root
