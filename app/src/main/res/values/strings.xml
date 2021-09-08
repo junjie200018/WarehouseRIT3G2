@@ -2,4 +2,13 @@
     <string name="app_name">WarehouseRIT3G2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="part_number">Part Number</string>
+    <string name="quantity">Quantity</string>
+    <string name="preview1">P000</string>
+    <string name="preview2">0</string>
+    <string name="submit">Submit</string>
+    <string name="warehouse">Warehouse</string>
+    <string name="factory">Factory</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

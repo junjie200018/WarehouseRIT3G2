@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="my.edu.tarc.warehouserit3g2">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".KtApplication"
         android:allowBackup="true"
@@ -12,6 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WarehouseRIT3G2">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD_LxfwkERcAETSTY_pUOyjw1tYe-vj0WQ" />
+
+        <activity
+            android:name=".MapActivity"
+            android:exported="true" />
         <activity
             android:name=".ManagerActivity"
             android:exported="true"
