@@ -1,17 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_Fragment"
         android:title="Home" />
     <item
-        android:id="@+id/receiveProduct_Fragment"
-        android:title="Receive Product" />
+        android:title="Receive Product">
+        <menu>
+            <item
+                android:id="@+id/receiveProduct_Fragment"
+
+                android:title="Receive Product" />
+            <item
+                android:id="@+id/onReceived_Fragment"
+                android:icon="@drawable/receiveproduct"
+                android:title="On Received" />
+            <item
+                android:id="@+id/display_Received_item_Fragment"
+                android:icon="@drawable/list"
+                android:title="On Received List" />
+        </menu>
+    </item>
+
     <item
-        android:id="@+id/onReceived_Fragment"
-        android:title="On Received" />
+        android:title="Rack">
+        <menu>
+            <item
+                android:id="@+id/onRack_Product_Fragment"
+
+                android:title="On Rack" />
+            <item
+                android:id="@+id/addRack"
+                android:title="Add Rack"/>
+            <item
+                android:id="@+id/onRack_Display_Fragment"
+                android:title="Display Rack"
+                />
+            <item
+                android:id="@+id/changeRack_product_Fragment"
+                android:title="Change Rack"
+                />
+        </menu>
+    </item>
+
     <item
-        android:id="@+id/display_Received_item_Fragment"
-        android:title="On Received List" />
+        android:title="Scrap">
+        <menu>
+            <item
+                android:id="@+id/scanScrap_Fragment"
+                android:icon="@drawable/scrapdelete"
+                android:title="Scrap Meterial"
+                />
+        </menu>
+    </item>
 </menu>

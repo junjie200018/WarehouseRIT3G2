@@ -1,5 +1,6 @@
 package my.edu.tarc.warehouserit3g2
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -11,33 +12,29 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
+import my.edu.tarc.warehouserit3g2.databinding.FragmentScanScrapBinding
 
-
-class OnReceived_Fragment : Fragment() {
+class ScanScrap_Fragment : Fragment() {
 
     var scannedResult: String = ""
-    private lateinit var binding: FragmentOnReceivedBinding
-    private val navController by lazy { NavHostFragment.findNavController(this)}
+    private lateinit var binding: FragmentScanScrapBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_received_, container, false)
-
-
-        binding.btnScan.setOnClickListener {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_scan_scrap, container, false)
+        // Inflate the layout for this fragment
+        binding.ScrapScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
                 intentIntegrator.initiateScan()
             }
         }
-
         return binding.root
     }
 
@@ -52,23 +49,21 @@ class OnReceived_Fragment : Fragment() {
             if (result.contents != null) {
                 scannedResult = result.contents
                 binding.textView6.text = scannedResult
-                binding.txtValue.text = scannedResult
+                binding.textView6 .text = scannedResult
                 Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
                 val valueBarcode : String = scannedResult
 
 
 
-                db.collection("Barcode").document(scannedResult)
+                db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
 //                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
-                            val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(valueBarcode, "receive" , "0")
 
-                            navController.navigate(action)
-
+                            basicAlert(scannedResult)
                         }
                     }
 
@@ -82,23 +77,29 @@ class OnReceived_Fragment : Fragment() {
         }
     }
 
+    fun basicAlert(serialNo: String) {
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//
-//        outState?.putString("scannedResult", scannedResult)
-//        super.onSaveInstanceState(outState)
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//
-//        savedInstanceState?.let {
-//            scannedResult = it.getString("scannedResult").toString()
-//            binding.txtValue.text = scannedResult
-//            Log.w(ContentValues.TAG, "partNo 3 = ${scannedResult}")
-//        }
-//    }
+        val db = Firebase.firestore
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+        builder.setTitle("Scrap Meterial")
 
 
+        builder.setMessage("Are you sure put product ${serialNo} to scrap ?? ")
 
+        builder.setPositiveButton("Save") { dialog, which ->
+            db.collection("ReceivedProduct").document(serialNo)
+                .update(
+                    mapOf(
+                        "Status" to "scrap"
+                    )
+                )
+
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+
+        }
+        builder.show()
+    }
 }

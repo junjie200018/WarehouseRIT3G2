@@ -50,7 +50,9 @@ class EmployeeActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home_Fragment, R.id.receiveProduct_Fragment, R.id.onReceived_Fragment, R.id.display_Received_item_Fragment
+                R.id.home_Fragment, R.id.receiveProduct_Fragment, R.id.onReceived_Fragment,
+                R.id.display_Received_item_Fragment, R.id.onRack_Product_Fragment, R.id.onRack_Display_Fragment,
+                R.id.changeRack_product_Fragment, R.id.scanScrap_Fragment
             ), drawerLayout
         )
 

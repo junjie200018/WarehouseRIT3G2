@@ -9,23 +9,27 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment
 import my.edu.tarc.warehouserit3g2.R
-import java.util.*
-import kotlin.collections.ArrayList
 
-class ProductAdapter (private var productList :MutableList<Product>, private val listener: OnItemClickListener ) : RecyclerView.Adapter<ProductAdapter.myViewHolder>(), Filterable{
+//import android.content.ContentValues
+//import android.util.Log
+//import android.view.View
+//import android.view.ViewGroup
+//import android.widget.Filter
+//import android.widget.Filterable
+//import androidx.recyclerview.widget.RecyclerView
+//import my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment
 
-    var searchV = ArrayList<Product>();
-//    fun setData(searchV: ArrayList<Product>){
-//        this.searchV = searchV
-//        notifyDataSetChanged()
-//    }
+class RackAdapter(
+    private var rackList: ArrayList<String>, private val listener: OnRack_Display_Fragment
+) : RecyclerView.Adapter<RackAdapter.myViewHolder>(), Filterable {
+
+    var searchV = ArrayList<String>();
+
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
-        val partNo:TextView = itemView.findViewById(R.id.PartNo)
-        val serialNo:TextView =itemView.findViewById(R.id.SerialNo)
-
-
+        val rackid:TextView = itemView.findViewById(R.id.RackID)
         init {
             Log.w(ContentValues.TAG, "search value 30 = ")
             itemView.setOnClickListener(this)
@@ -38,33 +42,11 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
                 listener.onItemClick(position)
             }
         }
-    }
 
+    }
     init {
-        searchV = productList as ArrayList<Product>
+        searchV = rackList
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
-        Log.w(ContentValues.TAG, "search value 42 = ")
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.received_item, parent, false)
-
-        return myViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: myViewHolder, position: Int) {
-        Log.w(ContentValues.TAG, "search value 49 = ")
-
-        val currentProduct = searchV[position]
-//        holder.itemView.setOnClickListener(
-        holder.partNo.text = currentProduct.partNo
-        holder.serialNo.text = currentProduct.SerialNo
-    }
-
-    override fun getItemCount(): Int {
-        Log.w(ContentValues.TAG, "search value 57 = ")
-        return searchV.size
-    }
-
 
     interface OnItemClickListener{
 
@@ -72,25 +54,44 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
+        Log.w(ContentValues.TAG, "search value 42 = ")
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.display_rack, parent, false)
+
+        return myViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: myViewHolder, position: Int) {
+        Log.w(ContentValues.TAG, "search value 49 = ")
+
+        val currentRack = searchV[position]
+//        holder.itemView.setOnClickListener(
+        holder.rackid.text = currentRack
+
+    }
+
+    override fun getItemCount(): Int {
+        return searchV.size
+    }
+
     override fun getFilter(): Filter {
-        Log.w(ContentValues.TAG, "search value 5 = ")
         return object: Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 Log.w(ContentValues.TAG, "search value 75 = ${charSearch} ")
                 if (charSearch.isEmpty()) {
                     Log.w(ContentValues.TAG, "77 ")
-                    searchV = productList as ArrayList<Product>
+                    searchV = rackList
 
 
                 } else {
-                    val resultList = ArrayList<Product>()
-                    for (row in productList) {
+                    val resultList = ArrayList<String>()
+                    for (row in rackList) {
                         Log.w(ContentValues.TAG, " 999 ")
-                       if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch)){
-                           Log.w(ContentValues.TAG, "search value 83 = ${row} ")
-                           resultList.add(row)
-                       }
+                        if(row.contains(charSearch) || row.contains(charSearch)){
+                            Log.w(ContentValues.TAG, "search value 83 = ${row} ")
+                            resultList.add(row)
+                        }
                     }
                     searchV = resultList
                     Log.w(ContentValues.TAG, "search value 88 = ${searchV} ")
@@ -104,13 +105,10 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
                 Log.w(ContentValues.TAG, "final= ${filterResults} ")
-                searchV = filterResults!!.values as ArrayList<Product>
+                searchV = filterResults!!.values as ArrayList<String>
                 notifyDataSetChanged()
             }
 
         }
     }
-
-
-
 }

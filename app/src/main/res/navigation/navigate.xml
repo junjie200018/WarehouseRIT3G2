@@ -50,4 +50,97 @@
             android:id="@+id/action_display_Received_item_Fragment_to_onReceivedDetail_Fragment"
             app:destination="@id/onReceivedDetail_Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/onRack_Product_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Product_Fragment"
+        android:label="OnRack_Product_Fragment" >
+        <action
+            android:id="@+id/action_onRack_Product_Fragment_to_onRack_Rack_Fragment"
+            app:destination="@id/onRack_Rack_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onRack_Rack_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Rack_Fragment"
+        android:label="fragment_on_rack__rack_"
+        tools:layout="@layout/fragment_on_rack__rack_" >
+        <argument
+            android:name="serialNoOnRack"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_onRack_Rack_Fragment_to_onRack_Detail_Fragment"
+            app:destination="@id/onRack_Detail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRack"
+        android:name="my.edu.tarc.warehouserit3g2.AddRack"
+        android:label="fragment_add_rack"
+        tools:layout="@layout/fragment_add_rack" />
+    <fragment
+        android:id="@+id/onRack_Detail_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Detail_Fragment"
+        android:label="fragment_on_rack_detail"
+        tools:layout="@layout/fragment_on_rack_detail" >
+        <argument
+            android:name="serialNo"
+            app:argType="string" />
+        <argument
+            android:name="RackId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_onRack_Detail_Fragment_to_onRack_Product_Fragment"
+            app:destination="@id/onRack_Product_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onRack_Display_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment"
+        android:label="OnRack_Display_Fragment" >
+        <action
+            android:id="@+id/action_onRack_Display_Fragment_to_onRack_Product_Display_Fragment"
+            app:destination="@id/onRack_Product_Display_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onRack_Product_Display_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Product_Display_Fragment"
+        android:label="OnRack_Product_Display_Fragment" >
+        <argument android:name="rackId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_onRack_Product_Display_Fragment_to_onRack_Display_Detail_Fragment"
+            app:destination="@id/onRack_Display_Detail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onRack_Display_Detail_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.OnRack_Display_Detail_Fragment"
+        android:label="fragment_on_rack_display_detail"
+        tools:layout="@layout/fragment_on_rack_display_detail" >
+        <argument
+            android:name="serialNo"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_onRack_Display_Detail_Fragment_to_onRack_Display_Fragment"
+            app:destination="@id/onRack_Display_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeRack_product_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.changeRack_product_Fragment"
+        android:label="changeRack_product_Fragment" >
+        <action
+            android:id="@+id/action_changeRack_product_Fragment_to_changeRack_Rack_Fragment"
+            app:destination="@id/changeRack_Rack_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeRack_Rack_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.changeRack_Rack_Fragment"
+        android:label="changeRack_Rack_Fragment" >
+        <argument
+            android:name="serialNo"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_changeRack_Rack_Fragment_to_changeRack_product_Fragment"
+            app:destination="@id/changeRack_product_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanScrap_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.ScanScrap_Fragment"
+        android:label="ScanScrap_Fragment" />
 </navigation>
