@@ -14,4 +14,22 @@
         android:id="@+id/productMovement_Fragment2"
         android:name="my.edu.tarc.warehouserit3g2.ProductMovement_Fragment"
         android:label="ProductMovement_Fragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="my.edu.tarc.warehouserit3g2.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/transitList_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.TransitList_Fragment"
+        android:label="fragment_transit_list_"
+        tools:layout="@layout/fragment_transit_list_" >
+        <action
+            android:id="@+id/action_transitList_Fragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>

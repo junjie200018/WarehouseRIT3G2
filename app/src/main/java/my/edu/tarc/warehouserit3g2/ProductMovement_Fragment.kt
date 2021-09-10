@@ -34,8 +34,7 @@ class ProductMovement_Fragment : Fragment() {
 
     private lateinit var selectedPart :String
     private lateinit var selectedQuantity :Number
-    private lateinit var selectedWarehouse :String
-    private lateinit var selectedFactory :String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +47,10 @@ class ProductMovement_Fragment : Fragment() {
 
         val sprPart = binding.sprPart
         val sprQuan = binding.sprQuan
-        val sprWarehouse = binding.sprWarehouse
-        val sprFactory = binding.sprFactory
+        val sprFrom = binding.sprFrom
+        val sprTo = binding.sprTo
+        var selectedFrom :String = ""
+        var selectedTo :String = " "
 
         //firestore + coroutine IO
         GlobalScope.launch(IO) {
@@ -63,17 +64,10 @@ class ProductMovement_Fragment : Fragment() {
                         partNo[x] = product.data?.get("partNo").toString()
                         quantity[x] = product.data?.get("quantity").toString().toInt()
                     }
-
-//                    data.forEach { product ->
-//                        partNo[x] = product.data?.get("partNo").toString()
-//                        quantity[x] = product.data?.get("quantity").toString().toInt()
-//                        x++
-//                    }
-                    //Log.d(ContentValues.TAG, "partNo= ${partNo[0]}")
                 }.await()
 
             //===================get warehouse===================
-            db.collection("warehouse").get()
+            db.collection("Warehouse").get()
                 .addOnSuccessListener { documents ->
                     warehouse = arrayOfNulls(documents.size())
                     for ((x,doc) in documents.withIndex()){
@@ -82,7 +76,7 @@ class ProductMovement_Fragment : Fragment() {
                 }.await()
 
             //===================get factory===================
-            db.collection("factory").get()
+            db.collection("Factory").get()
                 .addOnSuccessListener { documents ->
                     factory = arrayOfNulls(documents.size())
                     for ((x,doc) in documents.withIndex()){
@@ -142,22 +136,22 @@ class ProductMovement_Fragment : Fragment() {
                         }
                     }
                 //==================== generate warehouse dropdownlist ====================
-                val adapterWarehouse: ArrayAdapter<String> = ArrayAdapter<String>(
+                val adapterFrom: ArrayAdapter<String> = ArrayAdapter<String>(
                     activity?.applicationContext!!,
                     android.R.layout.simple_spinner_item,
-                    warehouse
+                    (warehouse+factory)
                 )
-                adapterWarehouse.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sprWarehouse.adapter = adapterWarehouse
+                adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sprFrom.adapter = adapterFrom
 
                 //==================== generate factory dropdownlist ====================
-                val adapterFactory: ArrayAdapter<String> = ArrayAdapter<String>(
+                val adapterTo: ArrayAdapter<String> = ArrayAdapter<String>(
                     activity?.applicationContext!!,
                     android.R.layout.simple_spinner_item,
-                    factory
+                    (factory+warehouse)
                 )
-                adapterFactory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                sprFactory.adapter = adapterFactory
+                adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                sprTo.adapter = adapterTo
             }
 
             //==================== on quantity click ====================
@@ -170,20 +164,25 @@ class ProductMovement_Fragment : Fragment() {
                 }
             }
 
-            //==================== on warehouse click ====================
-            sprWarehouse.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            //==================== on from click ====================
+            sprFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    selectedWarehouse = parent?.getItemAtPosition(position).toString()
+
+                    if (duplicateCheck( parent?.getItemAtPosition(position).toString() ,selectedTo))
+                        selectedFrom = parent?.getItemAtPosition(position).toString()
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     //empty
                 }
             }
 
-            //==================== on factory click ====================
-            sprFactory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            //==================== on to click ====================
+            sprTo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    selectedFactory = parent?.getItemAtPosition(position).toString()
+
+                    if (duplicateCheck(selectedFrom,parent?.getItemAtPosition(position).toString()))
+                        selectedTo = parent?.getItemAtPosition(position).toString()
+
                 }
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     //empty
@@ -191,30 +190,41 @@ class ProductMovement_Fragment : Fragment() {
             }
 
             binding.btnSubmit.setOnClickListener(){
-                CoroutineScope(IO).launch{
-                    val selectedProd = hashMapOf(
-                        "partNo" to selectedPart,
-                        "quantity" to selectedQuantity,
-                        "warehouse" to selectedWarehouse,
-                        "factory" to selectedFactory
-                    )
 
-                    db.collection("Transfer").add(selectedProd)
-                        .addOnSuccessListener {
-                            Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(context,"Action failed, Please Try Again",Toast.LENGTH_SHORT).show()
-                        }
+                if (duplicateCheck(selectedFrom,selectedTo)){
+                    CoroutineScope(IO).launch{
+                        val selectedProd = hashMapOf(
+                            "partNo" to selectedPart,
+                            "quantity" to selectedQuantity,
+                            "from" to selectedFrom,
+                            "to" to selectedTo,
+                            "status" to "pending"
+                        )
+
+                        db.collection("Transfer").add(selectedProd)
+                            .addOnSuccessListener {
+                                Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_LONG).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(context,"Action failed, Please Try Again",Toast.LENGTH_LONG).show()
+                            }
+                    }
                 }
+
             }
         }
-
-
-
         // Inflate the layout for this fragment
         return binding.root
     }
 
+    private fun duplicateCheck(loc1 :String, loc2 :String) :Boolean{
+        Log.d(ContentValues.TAG, "log= ${loc1}")
+        Log.d(ContentValues.TAG, "log= ${loc2}")
+        if (loc1 == loc2){
+            Toast.makeText(context,"Departure and destination cannot be the same",Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
 
 }

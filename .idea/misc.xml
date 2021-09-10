@@ -9,9 +9,13 @@
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/content_manager.xml" value="0.35260416666666666" />
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_home_manager_.xml" value="0.36666666666666664" />
+        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_map.xml" value="0.264" />
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_on_received_detail_.xml" value="0.36666666666666664" />
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_product_movement_.xml" value="0.4" />
+        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml" value="0.36666666666666664" />
         <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/navmanager.xml" value="0.35260416666666666" />
+        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/transit_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
