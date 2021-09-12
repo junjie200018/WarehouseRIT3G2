@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.databinding.DataBindingUtil
@@ -29,8 +30,7 @@ class receiveProduct_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_receive_product_, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receive_product_, container, false)
         binding.submitBtn.setOnClickListener {
 
             val productID = binding.EnterProductID.text.toString()
@@ -45,7 +45,7 @@ class receiveProduct_Fragment : Fragment() {
             var quantityDataBase = ""
             var checkExist = 0
 
-            if (productID.isEmpty() || qty.isEmpty()) {
+            if (productID.isEmpty() || qty.isEmpty() || productID.isBlank() || qty.isBlank()) {
 
                 Toast.makeText(
                     context,
@@ -53,6 +53,8 @@ class receiveProduct_Fragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                binding.EnterProductID.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                binding.EnterQty.onEditorAction(EditorInfo.IME_ACTION_DONE)
 
                 db.collection("Barcode")
                     .get()
@@ -63,6 +65,7 @@ class receiveProduct_Fragment : Fragment() {
                             pdID = document.id
                             partNumberDatabase = document.data.get("partNo").toString()
                             quantityDataBase = document.data.get("quantity").toString()
+
 
 
                             if (productID == partNumberDatabase && qty == quantityDataBase) {

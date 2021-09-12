@@ -15,29 +15,29 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import my.edu.tarc.warehouserit3g2.databinding.FragmentChangeRackProductBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 
-
-class OnReceived_Fragment : Fragment() {
+class changeRack_product_Fragment : Fragment() {
 
     var scannedResult: String = ""
-    private lateinit var binding: FragmentOnReceivedBinding
+    private lateinit var binding: FragmentChangeRackProductBinding
     private val navController by lazy { NavHostFragment.findNavController(this)}
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_received_, container, false)
 
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_change_rack_product, container, false)
 
-        binding.btnScan.setOnClickListener {
+        binding.ChangeRackProductScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
                 intentIntegrator.initiateScan()
             }
         }
-
         return binding.root
     }
 
@@ -52,23 +52,32 @@ class OnReceived_Fragment : Fragment() {
             if (result.contents != null) {
                 scannedResult = result.contents
                 binding.textView6.text = scannedResult
-                binding.txtValue.text = scannedResult
+                binding.txtValue2 .text = scannedResult
                 Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
-                val valueBarcode : String = scannedResult
+//                val valueBarcode : String = scannedResult
 
 
 
-                db.collection("Barcode").document(scannedResult)
+                db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
                         if(result.data == null){
-                            Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Invalid QR code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
-                            val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(valueBarcode, "receive" , "0")
 
-                            navController.navigate(action)
+                            if(result.data?.get("Status").toString() != "scrap"){
+                                if(result.data?.get("RackID").toString() != ""){
+//
+                                    Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+                                    val action : NavDirections = changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(scannedResult)
+                                    navController.navigate(action)
 
+                                }else {
+                                    Toast.makeText(context, "Product not in rack. Please try again !!", Toast.LENGTH_LONG).show()
+                                }
+                            }else{
+                                Toast.makeText(context, "Product already become scrap. Please try again !!", Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
 
@@ -81,24 +90,6 @@ class OnReceived_Fragment : Fragment() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//
-//        outState?.putString("scannedResult", scannedResult)
-//        super.onSaveInstanceState(outState)
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//
-//        savedInstanceState?.let {
-//            scannedResult = it.getString("scannedResult").toString()
-//            binding.txtValue.text = scannedResult
-//            Log.w(ContentValues.TAG, "partNo 3 = ${scannedResult}")
-//        }
-//    }
-
 
 
 }

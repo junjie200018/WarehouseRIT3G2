@@ -125,8 +125,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                     binding.imagePreview.setImageBitmap(bitmap)
 
                     binding.btnOk.setOnClickListener {
-                        Navigation.findNavController(it)
-                            .navigate(R.id.action_onReceivedDetail_Fragment_to_display_Received_item_Fragment)
+                        Navigation.findNavController(it).navigate(R.id.action_onReceivedDetail_Fragment_to_display_Received_item_Fragment)
 
                     }
 
@@ -140,7 +139,7 @@ class OnReceivedDetail_Fragment : Fragment() {
     }
 
 
-    fun generateQRCode(text: String): Bitmap {
+    private fun generateQRCode(text: String): Bitmap {
         val width = 400
         val height = 400
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -165,7 +164,10 @@ class OnReceivedDetail_Fragment : Fragment() {
             "serialNo" to serialNo,
             "Status" to Status,
             "ReceivedDate" to Date,
-            "ReceivedBy" to ReceivedBy
+            "ReceivedBy" to ReceivedBy,
+            "RackID" to "",
+            "RackInDate" to "",
+            "RackOutDate" to "",
         )
 
         db.collection("ReceivedProduct").document(serialNo).set(barcodeValue)
