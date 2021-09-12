@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.okhttp.Dispatcher
@@ -31,6 +32,8 @@ class ProductMovement_Fragment : Fragment() {
     private lateinit var quantity :Array<Number?>
     private lateinit var warehouse :Array<String?>
     private lateinit var factory :Array<String?>
+    private lateinit var warehouseLoc :Array<GeoPoint?>
+    private lateinit var factoryLoc :Array<GeoPoint?>
 
     private lateinit var selectedPart :String
     private lateinit var selectedQuantity :Number
@@ -70,8 +73,10 @@ class ProductMovement_Fragment : Fragment() {
             db.collection("Warehouse").get()
                 .addOnSuccessListener { documents ->
                     warehouse = arrayOfNulls(documents.size())
+                    warehouseLoc = arrayOfNulls(documents.size())
                     for ((x,doc) in documents.withIndex()){
                         warehouse[x] = doc.id
+                        warehouseLoc[x] = doc.getGeoPoint("location")
                     }
                 }.await()
 
@@ -79,8 +84,10 @@ class ProductMovement_Fragment : Fragment() {
             db.collection("Factory").get()
                 .addOnSuccessListener { documents ->
                     factory = arrayOfNulls(documents.size())
+                    factoryLoc = arrayOfNulls(documents.size())
                     for ((x,doc) in documents.withIndex()){
                         factory[x] = doc.id
+                        factoryLoc[x] = doc.getGeoPoint("location")
                     }
                 }.await()
 
@@ -192,22 +199,29 @@ class ProductMovement_Fragment : Fragment() {
             binding.btnSubmit.setOnClickListener(){
 
                 if (duplicateCheck(selectedFrom,selectedTo)){
+                    val wLoc = (warehouse+factory).indexOf(selectedFrom)
+
                     CoroutineScope(IO).launch{
                         val selectedProd = hashMapOf(
                             "partNo" to selectedPart,
                             "quantity" to selectedQuantity,
                             "from" to selectedFrom,
                             "to" to selectedTo,
-                            "status" to "pending"
+                            "status" to "pending",
+                            "location" to (warehouseLoc+factoryLoc)[wLoc]
                         )
 
                         db.collection("Transfer").add(selectedProd)
                             .addOnSuccessListener {
-                                Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_LONG).show()
+                                Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_SHORT).show()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(context,"Action failed, Please Try Again",Toast.LENGTH_LONG).show()
                             }
+                        selectedPart = ""
+                        selectedQuantity = 0
+                        selectedFrom = ""
+                        selectedTo = ""
                     }
                 }
 

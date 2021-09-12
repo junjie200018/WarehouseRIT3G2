@@ -38,11 +38,6 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        ActivityCompat.requestPermissions(
-            this.requireActivity(),
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
-        )
-
         val db = Firebase.firestore
         val args = MapFragmentArgs.fromBundle(requireArguments())
 
@@ -85,40 +80,8 @@ class MapFragment : Fragment() {
 //            }
         }
 
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_map, container, false)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.checkSelfPermission(
-                    this.requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                    this.requireContext(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return
-            }
-            googleMap.isMyLocationEnabled = false
-        } else {
-            googleMap.isMyLocationEnabled = true
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

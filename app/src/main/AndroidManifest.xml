@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".KtApplication"
@@ -16,10 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WarehouseRIT3G2">
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD_LxfwkERcAETSTY_pUOyjw1tYe-vj0WQ" />
-
         <activity
             android:name=".MapActivity"
             android:exported="true" />
@@ -28,14 +29,15 @@
             android:exported="true"
             android:theme="@style/Theme.WarehouseRIT3G2.NoActionBar" />
         <activity
+            android:name=".DriverActivity"
+            android:exported="true"
+            android:theme="@style/Theme.WarehouseRIT3G2.NoActionBar" />
+        <activity
             android:name=".EmployeeActivity"
             android:exported="true"
             android:theme="@style/Theme.WarehouseRIT3G2.NoActionBar" />
         <activity
             android:name=".OnReceivedDetail"
-            android:exported="true" />
-        <activity
-            android:name=".DisplayNewProductDetail"
             android:exported="true" />
         <activity
             android:name=".On_Received"

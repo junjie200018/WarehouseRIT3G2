@@ -11,36 +11,37 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import my.edu.tarc.warehouserit3g2.databinding.ActivityDriverBinding
 import my.edu.tarc.warehouserit3g2.databinding.ActivityManagerBinding
 
-class ManagerActivity : AppCompatActivity() {
+class DriverActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var binding: ActivityManagerBinding
+    private lateinit var binding: ActivityDriverBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_manager)
+        //setContentView(R.layout.activity_driver)
 
         //binding
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_manager)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_driver)
 
         //side menu
         drawerLayout = binding.drawerLayout
-        setSupportActionBar(binding.appBarManager.toolbar)
+        setSupportActionBar(binding.appBarDriver.toolbar)
 
-        binding.appBarManager.fab.setOnClickListener { view ->
+        binding.appBarDriver.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.managerNavHostFragment)
+        val navController = findNavController(R.id.DriverNavHostFragment)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.transitList_Fragment
+                R.id.homeDriver_Fragment,R.id.pickupListFragment
             ),drawerLayout
         )
 
@@ -49,7 +50,7 @@ class ManagerActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.managerNavHostFragment)
+        val navController = this.findNavController(R.id.DriverNavHostFragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
