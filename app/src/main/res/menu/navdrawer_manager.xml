@@ -10,6 +10,10 @@
         android:title="Stock In" />
 
     <item
+        android:id="@+id/stockOut_Fragment"
+        android:title="Stock Out" />
+
+    <item
         android:id="@+id/productMovement_Fragment2"
         android:title="Product Movement"/>
 

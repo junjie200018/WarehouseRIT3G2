@@ -3,28 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/activity_driver.xml" value="0.264" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/activity_employee.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/activity_manager.xml" value="0.17831813576494426" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/activity_map.xml" value="0.2710526315789474" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/app_bar_driver.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/app_bar_manager.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/content_driver.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/content_manager.xml" value="0.35260416666666666" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_home_driver_.xml" value="0.35260416666666666" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_home_manager_.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_map.xml" value="0.264" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_on_received_detail_.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_pickup_list.xml" value="0.264" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_product_movement_.xml" value="0.4" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_tracking.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/navmanager.xml" value="0.35260416666666666" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/transit_item.xml" value="0.36666666666666664" />
-        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_driver.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_employee.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_manager.xml" value="0.1" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_map.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/app_bar_manager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/content_manager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/dropdown_sort.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_add_rack.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_scan_scrap.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_detail_.xml" value="0.3888888888888889" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_in_.xml" value="0.4" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_out_.xml" value="0.264" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_tracking.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/nav_header.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/stock_in_item.xml" value="0.35311143270622286" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/stock_out_item.xml" value="0.536" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/transit_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_manager.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

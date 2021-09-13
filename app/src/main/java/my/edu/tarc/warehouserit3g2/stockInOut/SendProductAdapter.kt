@@ -8,36 +8,34 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.warehouserit3g2.R
 
-class RecProductAdapter (private val RecProductList : ArrayList<Stock>) : RecyclerView.Adapter<RecProductAdapter.myViewHolder>() {
+class SendProductAdapter (private val SendProductList : ArrayList<Stock>) : RecyclerView.Adapter<SendProductAdapter.myViewHolder>() {
 
     class myViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val partNo: TextView = itemView.findViewById(R.id.PartNo)
-        val recDate: TextView = itemView.findViewById(R.id.recDate)
-        val recBy: TextView = itemView.findViewById(R.id.recBy)
+        val partNo: TextView = itemView.findViewById(R.id.PartNo1)
+        val reason: TextView = itemView.findViewById(R.id.reason)
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.stock_in_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.stock_out_item, parent, false)
         return myViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
-        val currentRecProduct = RecProductList[position]
+        val currentRecProduct = SendProductList[position]
         holder.partNo.text = currentRecProduct.PartNo
-        holder.recBy.text = currentRecProduct.RecBy
-        holder.recDate.text = currentRecProduct.RecDate
+        holder.reason.text = currentRecProduct.Status
 
         holder.itemView.setOnClickListener {
             val serialNo = currentRecProduct.SerialNo
-            val action = StockIn_FragmentDirections.actionStockInFragmentToStockDetailFragment(serialNo)
+            val action = StockOut_FragmentDirections.actionStockOutFragmentToStockDetailFragment(serialNo)
             Navigation.findNavController(it).navigate(action)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return RecProductList.size
+        return SendProductList.size
 
     }
 

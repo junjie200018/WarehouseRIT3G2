@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2.Data
+package my.edu.tarc.warehouserit3g2.person
 
 import android.content.Context
 import androidx.room.Database

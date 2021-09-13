@@ -14,7 +14,7 @@ import my.edu.tarc.warehouserit3g2.databinding.FragmentStockDetailBinding
 
 class StockDetail_Fragment : Fragment() {
     private lateinit var binding: FragmentStockDetailBinding
-    private lateinit var recProduct : ReceivedProduct
+    private lateinit var recProduct : Stock
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class StockDetail_Fragment : Fragment() {
         db.collection("ReceivedProduct").document(args.serialNo)
             .get()
             .addOnSuccessListener { recPro ->
-                recProduct = ReceivedProduct(
+                recProduct = Stock(
                     recPro.data?.get("PartNo").toString(),
                     recPro.data?.get("ReceivedBy").toString(),
                     recPro.data?.get("ReceivedDate").toString(),
@@ -48,6 +48,9 @@ class StockDetail_Fragment : Fragment() {
                 }
                 if (recProduct.RackInDate != "") {
                     binding.rackindate.isVisible = true
+                }
+                if (recProduct.RackOutDate != "") {
+                    binding.rackoutdate.isVisible = true
                 }
             }
 

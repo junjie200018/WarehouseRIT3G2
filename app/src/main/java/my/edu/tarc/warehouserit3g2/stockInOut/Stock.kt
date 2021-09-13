@@ -1,6 +1,6 @@
 package my.edu.tarc.warehouserit3g2.stockInOut
 
-data class ReceivedProduct(
+data class Stock(
     var PartNo: String,
     var RecBy : String,
     var RecDate: String,

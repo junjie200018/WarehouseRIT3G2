@@ -7,7 +7,7 @@
     <data>
         <variable
             name="stockDetail"
-            type="my.edu.tarc.warehouserit3g2.stockInOut.ReceivedProduct" />
+            type="my.edu.tarc.warehouserit3g2.stockInOut.Stock" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +135,10 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="@={stockDetail.recBy}"
-                        android:textSize="20sp" />
+                        android:textColor="#2538D6"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="Cx" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -238,6 +241,31 @@
                         android:layout_margin="10dp"
                         android:layout_weight="1"
                         android:text="@={stockDetail.rackInDate}"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rackoutdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/cantata_one"
+                        android:text="Rack In Date :"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/tvrackoutdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="@={stockDetail.rackOutDate}"
                         android:textSize="20sp" />
                 </LinearLayout>
 

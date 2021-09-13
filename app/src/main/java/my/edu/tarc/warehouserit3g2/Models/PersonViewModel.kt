@@ -2,7 +2,7 @@ package my.edu.tarc.warehouserit3g2.Models
 
 
 import androidx.lifecycle.ViewModel
-import my.edu.tarc.warehouserit3g2.Data.Person
+import my.edu.tarc.warehouserit3g2.person.Person
 
 
 class PersonViewModel: ViewModel() {

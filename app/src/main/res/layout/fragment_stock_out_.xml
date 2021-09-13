@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/stockInRecyclerView"
+            android:id="@+id/stockOutRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
@@ -18,11 +18,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27"
-            tools:listitem="@layout/stock_in_item" />
+            app:layout_constraintTop_toBottomOf="@+id/textView28"
+            tools:listitem="@layout/stock_out_item" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -35,35 +35,35 @@
 
 
         <ImageView
-            android:id="@+id/ascending"
+            android:id="@+id/ascending2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/sortBySpinner"
-            app:layout_constraintStart_toEndOf="@+id/sortBySpinner"
-            app:layout_constraintTop_toTopOf="@+id/sortBySpinner"
+            app:layout_constraintBottom_toBottomOf="@+id/sortBySpinner2"
+            app:layout_constraintStart_toEndOf="@+id/sortBySpinner2"
+            app:layout_constraintTop_toTopOf="@+id/sortBySpinner2"
             app:srcCompat="@drawable/sort_ascending_icon" />
 
         <ImageView
-            android:id="@+id/descending"
+            android:id="@+id/descending2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:clickable="false"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/sortBySpinner"
-            app:layout_constraintStart_toEndOf="@+id/sortBySpinner"
-            app:layout_constraintTop_toTopOf="@+id/sortBySpinner"
+            app:layout_constraintBottom_toBottomOf="@+id/sortBySpinner2"
+            app:layout_constraintStart_toEndOf="@+id/sortBySpinner2"
+            app:layout_constraintTop_toTopOf="@+id/sortBySpinner2"
             app:srcCompat="@drawable/sort_descending_icon" />
 
         <Spinner
-            android:id="@+id/sortBySpinner"
+            android:id="@+id/sortBySpinner2"
             android:layout_width="200dp"
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView27"
-            app:layout_constraintStart_toEndOf="@+id/textView27"
-            app:layout_constraintTop_toTopOf="@+id/textView27"
+            app:layout_constraintBottom_toBottomOf="@+id/textView28"
+            app:layout_constraintStart_toEndOf="@+id/textView28"
+            app:layout_constraintTop_toTopOf="@+id/textView28"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

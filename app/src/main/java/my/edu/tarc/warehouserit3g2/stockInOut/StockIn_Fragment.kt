@@ -24,7 +24,7 @@ class StockIn_Fragment : Fragment() {
 
     private lateinit var binding: FragmentStockInBinding
     private lateinit var myRecyclerView : RecyclerView
-    private var RecProductList = ArrayList<ReceivedProduct>()
+    private var RecProductList = ArrayList<Stock>()
     private val sortBy = arrayOf("Part No", "Received By", "Received Date")
     private var select: String = "Part No"
 
@@ -37,7 +37,7 @@ class StockIn_Fragment : Fragment() {
             R.layout.support_simple_spinner_dropdown_item, sortBy)
         binding.sortBySpinner.adapter = arrayAdapter
 
-
+        RecProductList.clear()
 
         val db = Firebase.firestore
         CoroutineScope(Dispatchers.IO).launch {
@@ -47,7 +47,7 @@ class StockIn_Fragment : Fragment() {
                 .addOnSuccessListener { result ->
                     for (recPro in result) {
                         if (recPro.data?.get("Status") == "In Rack" || recPro.data?.get("Status") == "Received") {
-                            val recP = ReceivedProduct(
+                            val recP = Stock(
                                 recPro.data?.get("PartNo").toString(),
                                 recPro.data?.get("ReceivedBy").toString(),
                                 recPro.data?.get("ReceivedDate").toString(),
