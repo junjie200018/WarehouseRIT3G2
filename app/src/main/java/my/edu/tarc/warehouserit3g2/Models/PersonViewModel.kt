@@ -8,7 +8,7 @@ import my.edu.tarc.warehouserit3g2.Data.Person
 class PersonViewModel: ViewModel() {
     private lateinit var aPerson : Person
 
-    fun getUsername(): Person {
+    fun getPerson(): Person {
         return aPerson
     }
 

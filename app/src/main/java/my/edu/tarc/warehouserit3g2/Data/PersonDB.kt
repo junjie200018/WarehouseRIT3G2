@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 
 
 @Database (entities = [Person::class] , version = 1, exportSchema = false)
-abstract class PersonDB:RoomDatabase() {
-    abstract val personDao: PersonDB
+abstract class PersonDB:RoomDatabase(){
+    abstract val personDao: PersonDao
 
     companion object {
 
@@ -23,7 +23,7 @@ abstract class PersonDB:RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         PersonDB::class.java,
-                        "MyProductDatabase"
+                        "PersonDatabase"
                     )
                         .fallbackToDestructiveMigration()
                         .build()

@@ -30,7 +30,6 @@ class EmployeeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_employee)
 
         drawerLayout = binding.drawerLayout
-
         setSupportActionBar(binding.appBarMain.toolbar)
 
         binding.appBarMain.fab.setOnClickListener { view ->
@@ -45,8 +44,7 @@ class EmployeeActivity : AppCompatActivity() {
         val navController = findNavController(R.id.myNavHostFragment)
 
         Person = PersonViewModel.getInstance()
-        username.text = Person.getUsername().username
-
+        username.text = Person.getPerson().fullName
 
         appBarConfiguration = AppBarConfiguration(
             setOf(

@@ -32,4 +32,21 @@
             android:id="@+id/action_transitList_Fragment_to_mapFragment"
             app:destination="@id/mapFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stockIn_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.stockInOut.StockIn_Fragment"
+        android:label="Stock In" >
+        <action
+            android:id="@+id/action_stockIn_Fragment_to_stockDetail_Fragment"
+            app:destination="@id/stockDetail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockDetail_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.stockInOut.StockDetail_Fragment"
+        android:label="fragment_stock_detail_"
+        tools:layout="@layout/fragment_stock_detail_" >
+        <argument
+            android:name="SerialNo"
+            app:argType="string" />
+    </fragment>
 </navigation>
