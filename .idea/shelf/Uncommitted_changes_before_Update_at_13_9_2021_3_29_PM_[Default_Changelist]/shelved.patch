@@ -1,0 +1,121 @@
+Index: app/src/main/res/navigation/navdriver.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/navdriver\"\r\n    app:startDestination=\"@id/homeDriver_Fragment\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/homeDriver_Fragment\"\r\n        android:name=\"my.edu.tarc.warehouserit3g2.HomeDriver_Fragment\"\r\n        android:label=\"fragment_home_driver_\"\r\n        tools:layout=\"@layout/fragment_home_driver_\" />\r\n    <fragment\r\n        android:id=\"@+id/trackingFragment\"\r\n        android:name=\"my.edu.tarc.warehouserit3g2.TrackingFragment\"\r\n        android:label=\"TrackingFragment\" >\r\n        <argument\r\n            android:name=\"id\"\r\n            app:argType=\"string\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/pickupListFragment\"\r\n        android:name=\"my.edu.tarc.warehouserit3g2.PickupListFragment\"\r\n        android:label=\"fragment_pickup_list\"\r\n        tools:layout=\"@layout/fragment_pickup_list\" >\r\n        <action\r\n            android:id=\"@+id/action_pickupListFragment_to_trackingFragment\"\r\n            app:destination=\"@id/trackingFragment\" />\r\n    </fragment>\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/navdriver.xml b/app/src/main/res/navigation/navdriver.xml
+--- a/app/src/main/res/navigation/navdriver.xml	(revision 24ddd1a25ca6ad11f02f932709ca9e10075a48ad)
++++ b/app/src/main/res/navigation/navdriver.xml	(date 1631513654928)
+@@ -17,6 +17,9 @@
+         <argument
+             android:name="id"
+             app:argType="string" />
++        <action
++            android:id="@+id/action_trackingFragment_to_homeDriver_Fragment"
++            app:destination="@id/homeDriver_Fragment" />
+     </fragment>
+     <fragment
+         android:id="@+id/pickupListFragment"
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.Manifest\r\nimport android.annotation.SuppressLint\r\nimport android.app.PendingIntent\r\nimport android.content.ContentValues\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.content.pm.PackageManager\r\nimport android.graphics.Color\r\nimport android.os.Build\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.app.ActivityCompat\r\nimport androidx.core.content.ContextCompat\r\nimport com.google.android.gms.location.*\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.OnMapReadyCallback\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.CircleOptions\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.google.firebase.firestore.GeoPoint\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.Dispatchers.Main\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.tasks.await\r\nimport kotlinx.coroutines.withContext\r\n\r\n\r\n//const val REQUEST_LOCATION_PERMISSION = 1\r\n//const val GEOFENCE_LOCATION_PERMISSION = 11\r\nconst val GEOFENCE_RADIUS = 100\r\nconst val GEOFENCE_ID = \"GEOFENCE_ID\"\r\nconst val GEOFENCE_EXPIRATION = 2 * 60 * 60 * 1000 // 2hr\r\nconst val GEOFENCE_DWELL_DELAY = 10 * 1000 // 10 secs // 2 minutes\r\nconst val GEOFENCE_LOCATION_REQUEST_CODE = 12345\r\nconst val CAMERA_ZOOM_LEVEL = 13f\r\nconst val LOCATION_REQUEST_CODE = 123\r\n\r\nclass TrackingFragment : Fragment() {\r\n    lateinit var mapFragment: SupportMapFragment\r\n    lateinit var gMap: GoogleMap\r\n    lateinit var id: String\r\n    lateinit var geofencingClient: GeofencingClient\r\n    private lateinit var fusedLocationClient: FusedLocationProviderClient\r\n    lateinit var destinationLoc: GeoPoint\r\n\r\n    lateinit var client :FusedLocationProviderClient\r\n    val loopTrack = object : LocationCallback() {\r\n        override fun onLocationResult(locationResult: LocationResult) {\r\n            val location = locationResult.lastLocation\r\n            val geoPoint = GeoPoint(location.latitude, location.longitude)\r\n            //Get a reference to the database, so your app can perform read and write operations//\r\n            db.collection(\"Transfer\").document(id)\r\n                .update(\"location\", geoPoint)\r\n\r\n            //des lat = 4.8228315\r\n            //des long = 100.7109581\r\n\r\n            val latmin = destinationLoc.latitude - 0.0001 //4.8227315\r\n            val latmax = destinationLoc.latitude + 0.0001 //4.8229315\r\n            val longmin = destinationLoc.longitude - 0.0001 //100.7108581\r\n            val longmax = destinationLoc.longitude + 0.0001 //100.7110581\r\n\r\n            if ((location.latitude >= latmin) && (location.latitude <= latmax)){\r\n                if ((location.longitude >= longmin) && (location.longitude <= longmax)){\r\n                    Log.d(ContentValues.TAG, \"in\")\r\n                    Firebase.firestore.collection(\"Transfer\").document(id)\r\n                        .update(\"status\", \"complete\")\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n//    lateinit var geofence: Geofence\r\n\r\n    //    private val callback = OnMapReadyCallback { googleMap ->\r\n//        gMap = googleMap\r\n//        gMap.uiSettings.isMyLocationButtonEnabled = true\r\n//        map.uiSettings.isZoomControlsEnabled = true\r\n//\r\n//        enableMyLocation()\r\n//        Log.d(ContentValues.TAG, \"qwer\")\r\n//    }\r\n    @SuppressLint(\"MissingPermission\")\r\n    private val callback = OnMapReadyCallback { googleMap ->\r\n        gMap = googleMap\r\n        gMap.uiSettings.isMyLocationButtonEnabled = true\r\n        gMap.uiSettings.isZoomControlsEnabled = true\r\n\r\n        if (!isLocationPermissionGranted()) {\r\n            val permissions = mutableListOf(\r\n                Manifest.permission.ACCESS_FINE_LOCATION,\r\n                Manifest.permission.ACCESS_COARSE_LOCATION\r\n            )\r\n            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n                permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)\r\n            }\r\n            ActivityCompat.requestPermissions(\r\n                this.requireActivity(),\r\n                permissions.toTypedArray(),\r\n                LOCATION_REQUEST_CODE\r\n            )\r\n        } else {\r\n            this.gMap.isMyLocationEnabled = true\r\n\r\n            // Zoom to last known location\r\n            fusedLocationClient.lastLocation.addOnSuccessListener {\r\n                if (it != null) {\r\n                    with(gMap) {\r\n                        val latLng = LatLng(it.latitude, it.longitude)\r\n                        moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM_LEVEL))\r\n                    }\r\n                } else {\r\n                    with(gMap) {\r\n                        moveCamera(\r\n                            CameraUpdateFactory.newLatLngZoom(\r\n                                LatLng(65.01355297927051, 25.464019811372978),\r\n                                CAMERA_ZOOM_LEVEL\r\n                            )\r\n                        )\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        requestLocationUpdates(true)\r\n    }\r\n\r\n    val db = Firebase.firestore\r\n//================================================================================================\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        id = MapFragmentArgs.fromBundle(requireArguments()).id\r\n        Log.d(ContentValues.TAG, \"id= ${id}\")\r\n\r\n        GlobalScope.launch(IO) {\r\n            var dest = \"\"\r\n            var collection = \"\"\r\n            db.collection(\"Transfer\").document(id).get()\r\n                .addOnSuccessListener { data ->\r\n                    Log.d(ContentValues.TAG, \"line 74\")\r\n                    dest = data?.get(\"to\").toString()\r\n\r\n                    if (dest.contains(\"Warehouse\"))\r\n                        collection = \"Warehouse\"\r\n                    else\r\n                        collection = \"Factory\"\r\n\r\n                }.await()\r\n\r\n            Log.d(ContentValues.TAG, \"destination= ${dest}\")\r\n            Log.d(ContentValues.TAG, \"col= ${collection}\")\r\n\r\n            db.collection(collection).document(dest).get()\r\n                .addOnSuccessListener { data ->\r\n                    destinationLoc = data.getGeoPoint(\"location\")!!\r\n                    Log.d(ContentValues.TAG, \"destination1= ${destinationLoc}\")\r\n                }.await()\r\n\r\n\r\n            withContext(Main) {\r\n\r\n                var location = LatLng(destinationLoc!!.latitude, destinationLoc!!.longitude)\r\n\r\n                gMap.addMarker(\r\n                    MarkerOptions().position(location)\r\n                        .title(\"Current location\")\r\n                ).showInfoWindow()\r\n                gMap.addCircle(\r\n                    CircleOptions()\r\n                        .center(location)\r\n                        .strokeColor(Color.argb(50, 70, 70, 70))\r\n                        .fillColor(Color.argb(70, 150, 150, 150))\r\n                        .radius(GEOFENCE_RADIUS.toDouble())\r\n                )\r\n                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, CAMERA_ZOOM_LEVEL))\r\n\r\n                //createGeoFence(LatLng(location.latitude, location.longitude), geofencingClient)\r\n            }\r\n        }\r\n        //empty\r\n        return inflater.inflate(R.layout.fragment_tracking, container, false)\r\n    }\r\n\r\n    //\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        mapFragment = childFragmentManager.findFragmentById(R.id.tMap) as SupportMapFragment\r\n        mapFragment?.getMapAsync(callback)\r\n\r\n        fusedLocationClient =\r\n            LocationServices.getFusedLocationProviderClient(this.requireActivity())\r\n        geofencingClient = LocationServices.getGeofencingClient(this.requireActivity())\r\n\r\n        Log.d(ContentValues.TAG, \"1234\")\r\n    }\r\n\r\n\r\n    private fun requestLocationUpdates(track: Boolean) {\r\n        val request = LocationRequest()\r\n\r\n        //Specify how often your app should request the device’s location//\r\n        request.setInterval(1000 * 10)\r\n\r\n        //Get the most accurate location data available//\r\n        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)\r\n\r\n        //variable\r\n        client = LocationServices.getFusedLocationProviderClient(this.activity)\r\n\r\n        val permission = ContextCompat.checkSelfPermission(\r\n            this.requireContext(),\r\n            android.Manifest.permission.ACCESS_FINE_LOCATION\r\n        )\r\n\r\n        if (track) {\r\n            //If the app currently has access to the location permission...//\r\n            if (permission == PackageManager.PERMISSION_GRANTED) {\r\n                //...then request location updates//\r\n                client.requestLocationUpdates(request, loopTrack, null)\r\n            }\r\n        } else\r\n            client.removeLocationUpdates(loopTrack)\r\n\r\n    }\r\n\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n        requestLocationUpdates(false)\r\n    }\r\n\r\n//    private fun createGeoFence(location: LatLng, geofencingClient: GeofencingClient) {\r\n//        val geofence = Geofence.Builder()\r\n//            .setRequestId(GEOFENCE_ID)\r\n//            .setCircularRegion(location.latitude, location.longitude, GEOFENCE_RADIUS.toFloat())\r\n//            .setExpirationDuration(GEOFENCE_EXPIRATION.toLong()) //2hr\r\n//            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL)\r\n//            .setLoiteringDelay(GEOFENCE_DWELL_DELAY)\r\n//            .build()\r\n//\r\n//        Log.d(ContentValues.TAG, \"geolatlng = ${location}\")\r\n//        Log.d(ContentValues.TAG, \"geoid = ${id}\")\r\n//\r\n//\r\n//        val geofenceRequest = GeofencingRequest.Builder()\r\n//            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)\r\n//            .addGeofence(geofence)\r\n//            .build()\r\n//\r\n//        val intent = Intent(this.requireContext(), GeofenceBroadcastReceiver::class.java)\r\n//            .putExtra(\"id\", id)\r\n//\r\n//        val pendingIntent = PendingIntent.getBroadcast(\r\n//            this.context,\r\n//            0,\r\n//            intent,\r\n//            PendingIntent.FLAG_UPDATE_CURRENT\r\n//        )\r\n//\r\n//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n//            if (ContextCompat.checkSelfPermission(\r\n//                    this.requireContext(),\r\n//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION\r\n//                ) != PackageManager.PERMISSION_GRANTED\r\n//            ) {\r\n//                ActivityCompat.requestPermissions(\r\n//                    this.requireActivity(),\r\n//                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),\r\n//                    GEOFENCE_LOCATION_REQUEST_CODE\r\n//                )\r\n//                Log.d(ContentValues.TAG, \"line 318\")\r\n//            } else {\r\n//                Log.d(ContentValues.TAG, \"line 320\")\r\n//                geofencingClient.addGeofences(geofenceRequest, pendingIntent)\r\n//            }\r\n//        } else {\r\n//            Log.d(ContentValues.TAG, \"line 323\")\r\n//            geofencingClient.addGeofences(geofenceRequest, pendingIntent)\r\n//        }\r\n//    }\r\n\r\n    private fun isLocationPermissionGranted(): Boolean {\r\n        return ContextCompat.checkSelfPermission(\r\n            this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION\r\n        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(\r\n            this.requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION\r\n        ) == PackageManager.PERMISSION_GRANTED\r\n    }\r\n\r\n    override fun onRequestPermissionsResult(\r\n        requestCode: Int,\r\n        permissions: Array<out String>,\r\n        grantResults: IntArray\r\n    ) {\r\n        if (requestCode == GEOFENCE_LOCATION_REQUEST_CODE) {\r\n            if (permissions.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {\r\n                Toast.makeText(\r\n                    this.requireContext(),\r\n                    \"This application needs background location to work on Android 10 and higher\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n                Log.d(ContentValues.TAG, \"line 350\")\r\n            }\r\n        }\r\n        if (requestCode == LOCATION_REQUEST_CODE) {\r\n            if (\r\n                grantResults.isNotEmpty() && (\r\n                        grantResults[0] == PackageManager.PERMISSION_GRANTED ||\r\n                                grantResults[1] == PackageManager.PERMISSION_GRANTED)\r\n            ) {\r\n                if (ActivityCompat.checkSelfPermission(\r\n                        this.requireContext(),\r\n                        Manifest.permission.ACCESS_FINE_LOCATION\r\n                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(\r\n                        this.requireContext(),\r\n                        Manifest.permission.ACCESS_COARSE_LOCATION\r\n                    ) != PackageManager.PERMISSION_GRANTED\r\n                ) {\r\n                    return\r\n                }\r\n                gMap.isMyLocationEnabled = true\r\n                callback\r\n            } else {\r\n                Toast.makeText(\r\n                    this.context,\r\n                    \"The app needs location permission to function\",\r\n                    Toast.LENGTH_LONG\r\n                ).show()\r\n            }\r\n\r\n            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n                if (grantResults.isNotEmpty() && grantResults[2] != PackageManager.PERMISSION_GRANTED) {\r\n                    Toast.makeText(\r\n                        this.context,\r\n                        \"This application needs background location to work on Android 10 and higher\",\r\n                        Toast.LENGTH_LONG\r\n                    ).show()\r\n                    Log.d(ContentValues.TAG, \"line 386\")\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n//    companion object {\r\n//        fun removeGeofences(context: Context, triggeringGeofenceList: MutableList<Geofence>) {\r\n//            val geofenceIdList = mutableListOf<String>()\r\n//            for (entry in triggeringGeofenceList) {\r\n//                geofenceIdList.add(entry.requestId)\r\n//            }\r\n//            LocationServices.getGeofencingClient(context).removeGeofences(geofenceIdList)\r\n//        }\r\n//    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt	(revision 24ddd1a25ca6ad11f02f932709ca9e10075a48ad)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt	(date 1631516761079)
+@@ -2,6 +2,7 @@
+ 
+ import android.Manifest
+ import android.annotation.SuppressLint
++import android.app.AlertDialog
+ import android.app.PendingIntent
+ import android.content.ContentValues
+ import android.content.Context
+@@ -18,6 +19,8 @@
+ import android.widget.Toast
+ import androidx.core.app.ActivityCompat
+ import androidx.core.content.ContextCompat
++import androidx.navigation.NavDirections
++import androidx.navigation.fragment.NavHostFragment
+ import com.google.android.gms.location.*
+ import com.google.android.gms.maps.CameraUpdateFactory
+ import com.google.android.gms.maps.GoogleMap
+@@ -54,6 +57,7 @@
+     lateinit var geofencingClient: GeofencingClient
+     private lateinit var fusedLocationClient: FusedLocationProviderClient
+     lateinit var destinationLoc: GeoPoint
++    private val navController by lazy { NavHostFragment.findNavController(this) }
+ 
+     lateinit var client :FusedLocationProviderClient
+     val loopTrack = object : LocationCallback() {
+@@ -74,9 +78,19 @@
+ 
+             if ((location.latitude >= latmin) && (location.latitude <= latmax)){
+                 if ((location.longitude >= longmin) && (location.longitude <= longmax)){
+-                    Log.d(ContentValues.TAG, "in")
++                    //Log.d(ContentValues.TAG, "in")
+                     Firebase.firestore.collection("Transfer").document(id)
+                         .update("status", "complete")
++
++                    val builder = AlertDialog.Builder(this@TrackingFragment.requireContext())
++                    builder.setTitle("Arrived!")
++                    builder.setMessage("You have arrived the destination\nSelect \"Ok\" to back to homepage")
++
++                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
++                        val action :NavDirections = TrackingFragmentDirections.actionTrackingFragmentToHomeDriverFragment()
++                        navController.navigate(action)
++                    }
++                    builder.show()
+                 }
+             }
+         }
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 24ddd1a25ca6ad11f02f932709ca9e10075a48ad)
++++ b/.idea/gradle.xml	(date 1631512175183)
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+new file mode 100644
+--- /dev/null	(date 1631516690436)
++++ b/.idea/deploymentTargetDropDown.xml	(date 1631516690436)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="deploymentTargetDropDown">
++    <runningDeviceTargetSelectedWithDropDown>
++      <Target>
++        <type value="RUNNING_DEVICE_TARGET" />
++        <deviceKey>
++          <Key>
++            <type value="VIRTUAL_DEVICE_PATH" />
++            <value value="C:\Users\Dvp\.android\avd\Pixel_3a_API_30_2.avd" />
++          </Key>
++        </deviceKey>
++      </Target>
++    </runningDeviceTargetSelectedWithDropDown>
++    <timeTargetWasSelectedWithDropDown value="2021-09-13T07:04:37.779202600Z" />
++  </component>
++</project>
+\ No newline at end of file

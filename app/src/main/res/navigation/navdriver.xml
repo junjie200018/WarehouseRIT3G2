@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navdriver"
-    app:startDestination="@id/homeDriver_Fragment">
+    app:startDestination="@id/pickupListFragment">
 
-    <fragment
-        android:id="@+id/homeDriver_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.HomeDriver_Fragment"
-        android:label="fragment_home_driver_"
-        tools:layout="@layout/fragment_home_driver_" />
     <fragment
         android:id="@+id/trackingFragment"
         android:name="my.edu.tarc.warehouserit3g2.TrackingFragment"
@@ -17,6 +12,9 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_trackingFragment_to_pickupListFragment"
+            app:destination="@id/pickupListFragment" />
     </fragment>
     <fragment
         android:id="@+id/pickupListFragment"

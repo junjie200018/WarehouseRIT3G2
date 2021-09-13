@@ -2,6 +2,7 @@ package my.edu.tarc.warehouserit3g2
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.ContentValues
 import android.content.Context
@@ -18,6 +19,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -44,7 +47,7 @@ const val GEOFENCE_ID = "GEOFENCE_ID"
 const val GEOFENCE_EXPIRATION = 2 * 60 * 60 * 1000 // 2hr
 const val GEOFENCE_DWELL_DELAY = 10 * 1000 // 10 secs // 2 minutes
 const val GEOFENCE_LOCATION_REQUEST_CODE = 12345
-const val CAMERA_ZOOM_LEVEL = 13f
+const val CAMERA_ZOOM_LEVEL = 15f
 const val LOCATION_REQUEST_CODE = 123
 
 class TrackingFragment : Fragment() {
@@ -54,6 +57,7 @@ class TrackingFragment : Fragment() {
     lateinit var geofencingClient: GeofencingClient
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var destinationLoc: GeoPoint
+    private val navController by lazy { NavHostFragment.findNavController(this) }
 
     lateinit var client :FusedLocationProviderClient
     val loopTrack = object : LocationCallback() {
@@ -74,9 +78,20 @@ class TrackingFragment : Fragment() {
 
             if ((location.latitude >= latmin) && (location.latitude <= latmax)){
                 if ((location.longitude >= longmin) && (location.longitude <= longmax)){
-                    Log.d(ContentValues.TAG, "in")
+                    //Log.d(ContentValues.TAG, "in")
                     Firebase.firestore.collection("Transfer").document(id)
                         .update("status", "complete")
+
+                    val builder = AlertDialog.Builder(this@TrackingFragment.requireContext())
+                    builder.setTitle("Arrived!")
+                    builder.setMessage("You have arrived the destination\nSelect \"Ok\" to back to homepage")
+
+                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                        val action :NavDirections = TrackingFragmentDirections.actionTrackingFragmentToPickupListFragment()
+                        navController.navigate(action)
+                    }
+                    builder.show()
+                    requestLocationUpdates(false)
                 }
             }
         }
@@ -180,13 +195,7 @@ class TrackingFragment : Fragment() {
                     MarkerOptions().position(location)
                         .title("Current location")
                 ).showInfoWindow()
-                gMap.addCircle(
-                    CircleOptions()
-                        .center(location)
-                        .strokeColor(Color.argb(50, 70, 70, 70))
-                        .fillColor(Color.argb(70, 150, 150, 150))
-                        .radius(GEOFENCE_RADIUS.toDouble())
-                )
+
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, CAMERA_ZOOM_LEVEL))
 
                 //createGeoFence(LatLng(location.latitude, location.longitude), geofencingClient)

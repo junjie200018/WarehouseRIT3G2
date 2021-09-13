@@ -41,7 +41,7 @@ class DriverActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeDriver_Fragment,R.id.pickupListFragment
+                R.id.pickupListFragment
             ),drawerLayout
         )
 

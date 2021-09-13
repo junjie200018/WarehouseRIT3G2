@@ -70,6 +70,7 @@ class PickupListFragment : Fragment(), TransitAdapter.OnItemClickListener {
         GlobalScope.launch(Dispatchers.IO){
             db.collection("Transfer").document(clickedItem.id)
                 .update("status", "inTransit")
+
             withContext(Main){
                 val action: NavDirections = PickupListFragmentDirections.actionPickupListFragmentToTrackingFragment(clickedItem.id)
                 navController.navigate(action)
