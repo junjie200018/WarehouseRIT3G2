@@ -17,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedDetailBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +26,7 @@ import java.util.*
 class OnReceivedDetail_Fragment : Fragment() {
 
     private lateinit var binding: FragmentOnReceivedDetailBinding
+    private lateinit var Person: PersonViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +43,7 @@ class OnReceivedDetail_Fragment : Fragment() {
         val db = Firebase.firestore
         val place = args.place
         val seNo = args.serialNo
+        Person = PersonViewModel.getInstance()
 
 
       //  binding.tvtPartNo.text = args.barcodeValue
@@ -63,7 +66,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                         var no = String.format("%07d", number)
                         val sdf = SimpleDateFormat("dd/M/yyyy")
                         val currentDate = sdf.format(Date())
-                        val receivedBy = "Data Kang"
+                        val receivedBy = Person.getUsername().fullName
 
                         partNumberDatabase = result.data?.get("partNo").toString()
                         quantityDataBase = result.data?.get("quantity").toString()
@@ -85,7 +88,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                         binding.tvtPartNo.text = partNumberDatabase.toString()
                         binding.tvtQuantity.text = quantityDataBase.toString()
                         binding.tvtSerialNo.text = serialNumber.toString()
-                        binding.tvtStatus.text = "received"
+                        binding.tvtStatus.text = "Received"
                         binding.tvtReceivedDate.text = currentDate
                         binding.tvtReceivedBy.text = receivedBy
                         saveData(
@@ -115,7 +118,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                 .addOnSuccessListener { result ->
 
                     binding.tvtPartNo.text = result.data?.get("PartNo").toString()
-                    binding.tvtQuantity.text = result.data?.get("quantity").toString()
+                    binding.tvtQuantity.text = result.data?.get("Quantity").toString()
                     binding.tvtSerialNo.text = result.id
                     binding.tvtStatus.text = result.data?.get("Status").toString()
                     binding.tvtReceivedDate.text = result.data?.get("ReceivedDate").toString()
@@ -160,8 +163,8 @@ class OnReceivedDetail_Fragment : Fragment() {
         val db = Firebase.firestore
         val barcodeValue = hashMapOf(
             "PartNo" to partNo,
-            "quantity" to quantity.toInt(),
-            "serialNo" to serialNo,
+            "Quantity" to quantity.toInt(),
+            "SerialNo" to serialNo,
             "Status" to Status,
             "ReceivedDate" to Date,
             "ReceivedBy" to ReceivedBy,

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:scrollbarSize="6dp"
+    app:cardBackgroundColor="#B2E2E8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:clickable="false">
+
+        <TextView
+            android:id="@+id/ScrapPartNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/displaySerial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ScrapPartNo"
+
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="7dp"
+            android:text="Serial No :" />
+
+        <TextView
+            android:id="@+id/displayRackOutDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/displaySerial"
+
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="9dp"
+            android:text="RackOut Date : " />
+
+        <TextView
+            android:id="@+id/ScrapSerialNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ScrapPartNo"
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="9dp"
+            android:layout_toEndOf="@id/displaySerial"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/rackOutDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ScrapSerialNo"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="7dp"
+            android:layout_toEndOf="@id/displayRackOutDate"
+            android:text="TextView" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

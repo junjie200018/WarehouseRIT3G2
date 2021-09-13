@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="#B2E2E8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:clickable="false">
+
+        <TextView
+            android:id="@+id/TransitPartNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/displayQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TransitPartNo"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="15dp"
+            android:text="Quantity : " />
+
+        <TextView
+            android:id="@+id/displayFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/displayQuantity"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="15dp"
+            android:text="From :" />
+
+        <TextView
+            android:id="@+id/displayTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/displayFrom"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:text="To :" />
+
+        <TextView
+            android:id="@+id/TransitQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="37dp"
+            android:layout_toEndOf="@id/displayQuantity"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/TransitFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TransitQuantity"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@id/displayFrom"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/TransitDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TransitFrom"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/displayTo"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

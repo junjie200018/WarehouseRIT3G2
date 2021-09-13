@@ -17,6 +17,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentScanScrapBinding
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class ScanScrap_Fragment : Fragment() {
 
@@ -27,9 +30,16 @@ class ScanScrap_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_scan_scrap, container, false)
         // Inflate the layout for this fragment
         binding.ScrapScan.setOnClickListener {
+
+//            val intent: Intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("BarcodeNumber", scannedResult)
+//            Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+//            startActivity(intent)
+
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
                 intentIntegrator.initiateScan()
@@ -63,8 +73,19 @@ class ScanScrap_Fragment : Fragment() {
                         }else{
 //                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
 
-                            basicAlert(scannedResult)
-                        }
+                            if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
+
+                                basicAlert(scannedResult)
+                            }else{
+                                Toast.makeText(
+                                    context,
+                                    "The Product already become scrap or already transit. Please try again!!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+
+                    }
                     }
 
 
@@ -80,6 +101,14 @@ class ScanScrap_Fragment : Fragment() {
     fun basicAlert(serialNo: String) {
 
         val db = Firebase.firestore
+        var sdf = SimpleDateFormat("dd/M/yyyy")
+        var currentDate = sdf.format(Date())
+
+        db.collection("ReceivedProduct").document(serialNo)
+            .get()
+            .addOnSuccessListener { result ->
+
+            }
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
         builder.setTitle("Scrap Meterial")
@@ -88,13 +117,23 @@ class ScanScrap_Fragment : Fragment() {
         builder.setMessage("Are you sure put product ${serialNo} to scrap ?? ")
 
         builder.setPositiveButton("Save") { dialog, which ->
-            db.collection("ReceivedProduct").document(serialNo)
-                .update(
-                    mapOf(
-                        "Status" to "scrap"
-                    )
-                )
 
+            db.collection("ReceivedProduct").document(serialNo)
+                .get()
+                .addOnSuccessListener { result ->
+
+                    if(result.data?.get("RackID").toString() == ""){
+                        currentDate = ""
+                    }
+
+                    db.collection("ReceivedProduct").document(serialNo)
+                        .update(
+                            mapOf(
+                                "RackOutDate" to currentDate.toString(),
+                                "Status" to "Scrap"
+                            )
+                        )
+                }
         }
 
         builder.setNegativeButton("Cancel") { dialog, which ->
@@ -102,4 +141,7 @@ class ScanScrap_Fragment : Fragment() {
         }
         builder.show()
     }
+
+
+
 }

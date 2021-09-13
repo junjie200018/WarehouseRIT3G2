@@ -143,4 +143,76 @@
         android:id="@+id/scanScrap_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.ScanScrap_Fragment"
         android:label="ScanScrap_Fragment" />
+    <fragment
+        android:id="@+id/profileEdit_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:label="fragment_profile_edit"
+        tools:layout="@layout/fragment_profile_edit" >
+        <action
+            android:id="@+id/action_profileEdit_Fragment_to_changePass_Fragment"
+            app:destination="@id/changePass_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logout"
+        android:name="my.edu.tarc.warehouserit3g2.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/changePass_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:label="fragment_change_pass"
+        tools:layout="@layout/fragment_change_pass" >
+        <action
+            android:id="@+id/action_changePass_Fragment_to_profileEdit_Fragment"
+            app:destination="@id/profileEdit_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiveProductList_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.ReceiveProductList_Fragment"
+        android:label="ReceiveProductList_Fragment" >
+        <action
+            android:id="@+id/action_receiveProductList_Fragment_to_displayBarcode_Fragment"
+            app:destination="@id/displayBarcode_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayBarcode_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.displayBarcode_Fragment"
+        android:label="displayBarcode_Fragment" >
+        <argument
+            android:name="barcodeNo"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_displayBarcode_Fragment_to_receiveProductList_Fragment"
+            app:destination="@id/receiveProductList_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scrapList_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.scrapList_Fragment"
+        android:label="fragment_scrap_list_"
+        tools:layout="@layout/fragment_scrap_list_" >
+        <action
+            android:id="@+id/action_scrapList_Fragment_to_displayScrap_Fragment"
+            app:destination="@id/displayScrap_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayScrap_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.displayScrap_Fragment"
+        android:label="fragment_display_scrap"
+        tools:layout="@layout/fragment_display_scrap" >
+        <action
+            android:id="@+id/action_displayScrap_Fragment_to_scrapList_Fragment"
+            app:destination="@id/scrapList_Fragment" />
+        <argument
+            android:name="serialNo"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayTransit_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.DisplayTransit_Fragment"
+        android:label="fragment_display_transit"
+        tools:layout="@layout/fragment_display_transit" />
+    <fragment
+        android:id="@+id/scanTransit_Product_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.scanTransit_Product_Fragment"
+        android:label="scanTransit_Product_Fragment" />
 </navigation>

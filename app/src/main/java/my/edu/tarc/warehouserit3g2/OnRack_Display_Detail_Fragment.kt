@@ -49,14 +49,14 @@ class OnRack_Display_Detail_Fragment : Fragment() {
                         OutDate = "-"
                     }
                     binding.tvtPN.text = result.data?.get("PartNo").toString()
-                    binding.tvtQ.text  = result.data?.get("quantity").toString()
+                    binding.tvtQ.text  = result.data?.get("Quantity").toString()
                     binding.tvtRN.text = result.data?.get("RackID").toString()
                     binding.tvtRND.text= InDate
                     binding.tvtROD.text= OutDate
                     binding.tvtRB.text = result.data?.get("ReceivedBy").toString()
                     binding.tvtRD.text = result.data?.get("ReceivedDate").toString()
                     binding.tvtS.text  = result.data?.get("Status").toString()
-                    binding.tvtSN.text = result.data?.get("serialNo").toString()
+                    binding.tvtSN.text = result.data?.get("SerialNo").toString()
                 }
             }
 

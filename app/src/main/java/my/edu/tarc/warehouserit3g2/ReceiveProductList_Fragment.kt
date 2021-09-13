@@ -15,16 +15,18 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Data.RackAdapter
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackDisplayBinding
+import my.edu.tarc.warehouserit3g2.Data.Product
+import my.edu.tarc.warehouserit3g2.Data.ReceiveProductAdapter
+import my.edu.tarc.warehouserit3g2.Data.newProductBarcode
+import my.edu.tarc.warehouserit3g2.databinding.FragmentReceiveProductListBinding
 
 
-class OnRack_Display_Fragment : Fragment(), RackAdapter.OnItemClickListener {
+class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListener {
 
 
-    private lateinit var binding: FragmentOnRackDisplayBinding
-    var rack = ArrayList<String>()
-    lateinit var adapter: RackAdapter
+    private lateinit var binding: FragmentReceiveProductListBinding
+    var receiveProduct = ArrayList<newProductBarcode>()
+    lateinit var adapter: ReceiveProductAdapter
     lateinit var myRecyclerView : RecyclerView
     private val navController by lazy { NavHostFragment.findNavController(this)}
 
@@ -32,27 +34,33 @@ class OnRack_Display_Fragment : Fragment(), RackAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_rack_display, container, false)
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_receive_product_list_, container, false)
         val db = Firebase.firestore
-        rack.clear()
+        receiveProduct.clear()
+        myRecyclerView = binding.ReceiveProductRecycleView
 
-        myRecyclerView = binding.RackRecycleView
-
-        db.collection("Rack").orderBy("Rack ID")
+        db.collection("Barcode").orderBy("partNo")
             .get()
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                    rack.add(document.id)
+
+                    val p = newProductBarcode(
+                        "${document.id}",
+                        "${document.data.get("partNo").toString()}",
+                        "${document.data.get("quantity").toString()}"
+                    )
+                    receiveProduct.add(p)
                 }
 
-                adapter = RackAdapter(rack,this)
+                adapter = ReceiveProductAdapter(receiveProduct,this)
                 myRecyclerView.adapter = adapter
 
-                binding.rackSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                binding.receiveProductsearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
-                    val myRecyclerView : RecyclerView = binding.RackRecycleView
+//                    val myRecyclerView : RecyclerView = binding
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -71,17 +79,16 @@ class OnRack_Display_Fragment : Fragment(), RackAdapter.OnItemClickListener {
                     }
                 })
             }
-        return binding.root
+
+       return binding.root
     }
 
     override fun onItemClick(position: Int) {
         Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
-        val clickedItem  = rack[position]
+        val clickedItem  = receiveProduct[position]
         Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${clickedItem}")
-        val action : NavDirections = OnRack_Display_FragmentDirections.actionOnRackDisplayFragmentToOnRackProductDisplayFragment(clickedItem)
+        val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
         navController.navigate(action)
 //        ProductAdapter.notifyItemChanged(position)
     }
-
-
 }
