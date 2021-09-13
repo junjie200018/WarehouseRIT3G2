@@ -58,6 +58,7 @@ class TrackingFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var destinationLoc: GeoPoint
     private val navController by lazy { NavHostFragment.findNavController(this) }
+    lateinit var product :String
 
     lateinit var client :FusedLocationProviderClient
     val loopTrack = object : LocationCallback() {
@@ -79,8 +80,11 @@ class TrackingFragment : Fragment() {
             if ((location.latitude >= latmin) && (location.latitude <= latmax)){
                 if ((location.longitude >= longmin) && (location.longitude <= longmax)){
                     //Log.d(ContentValues.TAG, "in")
-                    Firebase.firestore.collection("Transfer").document(id)
+                    db.collection("Transfer").document(id)
                         .update("status", "complete")
+//comment line 173
+                    db.collection("ReceivedProduct").document(product)
+                        .update("Status", "Complete")
 
                     val builder = AlertDialog.Builder(this@TrackingFragment.requireContext())
                     builder.setTitle("Arrived!")
@@ -169,6 +173,7 @@ class TrackingFragment : Fragment() {
                 .addOnSuccessListener { data ->
                     Log.d(ContentValues.TAG, "line 74")
                     dest = data?.get("to").toString()
+                    product = data?.get("SerialNo").toString()
 
                     if (dest.contains("Warehouse"))
                         collection = "Warehouse"

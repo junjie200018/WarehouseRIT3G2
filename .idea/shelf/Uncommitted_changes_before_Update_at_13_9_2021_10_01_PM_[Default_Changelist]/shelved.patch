@@ -1,0 +1,98 @@
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.Manifest\r\nimport android.content.ContentValues\r\nimport android.content.pm.PackageManager\r\nimport android.os.Build\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.core.app.ActivityCompat\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport android.widget.Toast\r\nimport androidx.annotation.RequiresApi\r\nimport java.time.LocalTime\r\nimport java.time.format.DateTimeFormatter\r\n\r\n\r\nclass MapFragment : Fragment() {\r\n\r\n    lateinit var googleMap: GoogleMap\r\n    lateinit var map: SupportMapFragment\r\n\r\n    @RequiresApi(Build.VERSION_CODES.O)\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        val db = Firebase.firestore\r\n        val args = MapFragmentArgs.fromBundle(requireArguments())\r\n\r\n//        Log.d(ContentValues.TAG, \"id= ${id}\")\r\n\r\n        GlobalScope.launch(IO) {\r\n\r\n            db.collection(\"Transfer\").document(args.id)\r\n                .addSnapshotListener { value, e ->\r\n\r\n                    //time\r\n                    val currentTime =\r\n                        LocalTime.now().format(DateTimeFormatter.ofPattern(\"HH:mm:ss\"))\r\n                    //null check\r\n                    if (value != null && value.exists()) {\r\n                        //get from db\r\n                        val geoPoint = value.getGeoPoint(\"location\")\r\n                        var location = LatLng(geoPoint!!.latitude, geoPoint!!.longitude)\r\n\r\n                        //map\r\n                        map.getMapAsync {\r\n                            googleMap = it\r\n                            //marker and zoom\r\n                            var marker = googleMap.addMarker(MarkerOptions()\r\n                                .position(location)\r\n                                .title(currentTime)\r\n                            )\r\n                            googleMap.animateCamera(\r\n                                CameraUpdateFactory.newLatLngZoom(marker.position, 15f)\r\n                            )\r\n                            Log.d(ContentValues.TAG, \"time= ${currentTime}\")\r\n                        }\r\n                    } else {\r\n                        Toast.makeText(context, \"Error found is $e\", Toast.LENGTH_SHORT)\r\n                            .show()\r\n                    }\r\n                }\r\n//            withContext(Main){\r\n//\r\n//            }\r\n        }\r\n\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_map, container, false)\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        map = childFragmentManager.findFragmentById(R.id.fMap) as SupportMapFragment\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt	(revision 80e7cb095aacee6cca55b7e591b93df850ff3e39)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt	(date 1631541141135)
+@@ -70,6 +70,11 @@
+                             )
+                             Log.d(ContentValues.TAG, "time= ${currentTime}")
+                         }
++
++                        if ((value.get("status")).toString() == "complete"){
++                            getFragmentManager()?.popBackStack()
++                        }
++
+                     } else {
+                         Toast.makeText(context, "Error found is $e", Toast.LENGTH_SHORT)
+                             .show()
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.content.ContentValues\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ProgressBar\r\nimport androidx.navigation.NavDirections\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.tasks.await\r\nimport kotlinx.coroutines.withContext\r\nimport my.edu.tarc.warehouserit3g2.Data.Transit\r\nimport my.edu.tarc.warehouserit3g2.Data.TransitAdapter\r\nimport java.util.ArrayList\r\n\r\nclass TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {\r\n\r\n    lateinit var myRecyclerView: RecyclerView\r\n    var transitList: MutableList<Transit> = ArrayList()\r\n\r\n    private val navController by lazy { NavHostFragment.findNavController(this) }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        //declaration\r\n        val view = inflater.inflate(R.layout.fragment_transit_list_, container, false)\r\n        myRecyclerView = view.findViewById(R.id.rvTransit)\r\n        val load :ProgressBar = view.findViewById(R.id.loadingIndi)\r\n        val db = Firebase.firestore\r\n\r\n        //=================== get data ===================\r\n        db.collection(\"Transfer\").get()\r\n            .addOnSuccessListener { data ->\r\n                for (item in data) {\r\n                    //if item is in transit status\r\n                    if (item.data.get(\"status\").toString() == \"inTransit\") {\r\n                        var t = Transit(\r\n                            item.id,\r\n                            item.data.get(\"from\").toString(),\r\n                            item.data.get(\"to\").toString()\r\n                        )\r\n                        //push into arraylist if doesnt exist\r\n                        if (!transitList.contains(t)){\r\n                            transitList.add(t)\r\n                        }\r\n\r\n//                        Log.d(ContentValues.TAG, \"t= ${t}\")\r\n                    }\r\n                }\r\n//                Log.d(ContentValues.TAG, \"list= ${transitList}\")\r\n                myRecyclerView.adapter = TransitAdapter(transitList, this)\r\n                load.visibility = View.INVISIBLE\r\n            }\r\n        return view\r\n    }\r\n\r\n    override fun onItemClick(position: Int) {\r\n        val clickedItem: Transit = transitList[position]\r\n        val action: NavDirections =\r\n            TransitList_FragmentDirections.actionTransitListFragmentToMapFragment(clickedItem.id)\r\n\r\n        navController.navigate(action)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(revision 80e7cb095aacee6cca55b7e591b93df850ff3e39)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(date 1631540717523)
+@@ -8,6 +8,7 @@
+ import android.view.View
+ import android.view.ViewGroup
+ import android.widget.ProgressBar
++import androidx.fragment.app.FragmentTransaction
+ import androidx.navigation.NavDirections
+ import androidx.navigation.fragment.NavHostFragment
+ import androidx.recyclerview.widget.RecyclerView
+@@ -73,4 +74,13 @@
+ 
+         navController.navigate(action)
+     }
++
++    override fun onResume() {
++        super.onResume()
++        val currentFragment = requireFragmentManager().findFragmentByTag("transitTag")
++        val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
++        fragmentTransaction.detach(currentFragment!!)
++        fragmentTransaction.attach(currentFragment!!)
++        fragmentTransaction.commit()
++    }
+ }
+\ No newline at end of file
+Index: .idea/deploymentTargetDropDown.xml
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+deleted file mode 100644
+--- a/.idea/deploymentTargetDropDown.xml	(revision 80e7cb095aacee6cca55b7e591b93df850ff3e39)
++++ /dev/null	(revision 80e7cb095aacee6cca55b7e591b93df850ff3e39)
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="deploymentTargetDropDown">
+-    <runningDeviceTargetSelectedWithDropDown>
+-      <Target>
+-        <type value="RUNNING_DEVICE_TARGET" />
+-        <deviceKey>
+-          <Key>
+-            <type value="VIRTUAL_DEVICE_PATH" />
+-            <value value="C:\Users\Dvp\.android\avd\Pixel_3a_API_30_2.avd" />
+-          </Key>
+-        </deviceKey>
+-      </Target>
+-    </runningDeviceTargetSelectedWithDropDown>
+-    <timeTargetWasSelectedWithDropDown value="2021-09-13T07:04:37.779202600Z" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_transit_list_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/contraintLayout\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".TransitList_Fragment\" >\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rvTransit\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:listitem=\"@layout/transit_item\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"/>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/loadingIndi\"\r\n        style=\"?android:attr/progressBarStyle\"\r\n        android:layout_width=\"70dp\"\r\n        android:layout_height=\"70dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_transit_list_.xml b/app/src/main/res/layout/fragment_transit_list_.xml
+--- a/app/src/main/res/layout/fragment_transit_list_.xml	(revision 80e7cb095aacee6cca55b7e591b93df850ff3e39)
++++ b/app/src/main/res/layout/fragment_transit_list_.xml	(date 1631540717890)
+@@ -3,6 +3,7 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/contraintLayout"
++    android:tag="transitTag"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:context=".TransitList_Fragment" >

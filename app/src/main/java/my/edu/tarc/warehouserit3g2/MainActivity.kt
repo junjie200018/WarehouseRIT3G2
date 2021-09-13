@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         val db = Firebase.firestore
 
         binding.btnLogin.setOnClickListener {
+            binding.loadingIndi.visibility = View.VISIBLE
             val InputUsername = binding.username.text.toString().trim()
             val InputPassword = binding.password.text.toString()
 //            val passHash = BCrypt.withDefaults().hashToString(12, "12345".toCharArray())
@@ -113,6 +115,7 @@ class MainActivity : AppCompatActivity() {
                                             "Login Successful",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        binding.loadingIndi.visibility = View.INVISIBLE
                                         startActivity(intent)
 
                                     } else if (aPerson.role == "manager") {
@@ -122,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                                             "Login Successful",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        binding.loadingIndi.visibility = View.INVISIBLE
                                         startActivity(intent)
                                     } else if (aPerson.role == "driver") {
                                         val intent = Intent(this, DriverActivity::class.java)
@@ -130,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                                             "Login Successful",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        binding.loadingIndi.visibility = View.INVISIBLE
                                         startActivity(intent)
                                     }
 
@@ -161,6 +166,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun intent(role:String) {
+        binding.loadingIndi.visibility = View.INVISIBLE
         if(role == "worker") {
             val intent = Intent(this, EmployeeActivity::class.java)
             startActivity(intent)
