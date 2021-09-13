@@ -51,20 +51,29 @@ class OnRack_Detail_Fragment : Fragment() {
                 binding.tvtSerialN.text = serialNo
                 binding.tvtRackOutDate.text = "-"
 
-                val RackInValue = hashMapOf(
-                    "PartNo" to result.data?.get("PartNo").toString(),
-                    "ReceivedBy" to result.data?.get("ReceivedBy").toString(),
-                    "ReceivedDate" to result.data?.get("ReceivedDate").toString(),
-                    "Status" to rackStatus,
-                    "quantity" to result.data?.get("quantity").toString(),
-                    "serialNo" to result.data?.get("serialNo").toString(),
-                    "RackID" to rackId,
-                    "RackInDate" to rackInDate,
-                    "RackOutDate" to "",
-                )
+//                val RackInValue = hashMapOf(
+//                    "PartNo" to result.data?.get("PartNo").toString(),
+//                    "ReceivedBy" to result.data?.get("ReceivedBy").toString(),
+//                    "ReceivedDate" to result.data?.get("ReceivedDate").toString(),
+//                    "Status" to rackStatus,
+//                    "Quantity" to result.data?.get("Quantity").toString(),
+//                    "SerialNo" to result.data?.get("SerialNo").toString(),
+//                    "RackID" to rackId,
+//                    "RackInDate" to rackInDate,
+//                    "RackOutDate" to "",
+//                )
 
                 //db.collection("RackIn").document("").update(RackInValue as Map<String, Any>)
-                db.collection("ReceivedProduct").document(serialNo).set(RackInValue)
+//                db.collection("ReceivedProduct").document(serialNo).set(RackInValue)
+                db.collection("ReceivedProduct").document(serialNo)
+                    .update(
+                        mapOf(
+                            "RackID" to rackId,
+                            "RackInDate" to rackInDate,
+                            "RackOutDate" to "",
+                            "Status" to rackStatus
+                        )
+                    )
 
 
 

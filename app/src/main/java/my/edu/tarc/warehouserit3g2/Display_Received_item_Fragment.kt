@@ -21,6 +21,7 @@ import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBindin
 import java.util.Locale.filter
 import androidx.appcompat.widget.SearchView
 import com.google.common.collect.Sets.filter
+import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,10 +32,9 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
      var productList: MutableList<Product> = ArrayList()
     lateinit var adapter: ProductAdapter
     lateinit var myRecyclerView : RecyclerView
-
     private val navController by lazy { NavHostFragment.findNavController(this)}
-
     lateinit var searchValue : ArrayList<Product>
+    private lateinit var Person: PersonViewModel
 
 
 
@@ -59,20 +59,26 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
         val partNumber : Array<String?> = arrayOfNulls<String>(100)
         val serialNumber : Array<String?> = arrayOfNulls<String>(100)
-        db.collection("ReceivedProduct")
+        Person = PersonViewModel.getInstance()
+        var fullname = Person.getUsername().fullName
+        Log.w(ContentValues.TAG, "name = ${fullname}")
+        db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
             .get()
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-                    if(document.data?.get("Status").toString() != "scrap") {
+                    if(document.data?.get("Status").toString() != "Scrap" && document.data?.get("Status").toString() != "Transit") {
 
-                        val p = Product("${document.data.get("PartNo").toString()}", "${document.id}")
+                        val p = Product("${document.data.get("PartNo").toString()}", "${document.id}", "${document.data?.get("ReceivedDate").toString()}", "${document.data?.get("Quantity").toString()}")
                         productList.add(p)
+
+                        Log.w(ContentValues.TAG, "name2 = ${productList}")
                     }
                 }
 
+                productList.sortBy { it.partNo }
 
                 adapter = ProductAdapter(productList, this)
                 myRecyclerView.adapter = adapter

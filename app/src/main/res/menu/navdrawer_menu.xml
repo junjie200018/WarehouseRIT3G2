@@ -11,6 +11,10 @@
 
                 android:title="Receive Product" />
             <item
+                android:id="@+id/receiveProductList_Fragment"
+                android:icon="@drawable/list"
+                android:title="Production List" />
+            <item
                 android:id="@+id/onReceived_Fragment"
                 android:icon="@drawable/receiveproduct"
                 android:title="On Received" />
@@ -18,6 +22,8 @@
                 android:id="@+id/display_Received_item_Fragment"
                 android:icon="@drawable/list"
                 android:title="On Received List" />
+
+
         </menu>
     </item>
 
@@ -33,7 +39,7 @@
                 android:title="Add Rack"/>
             <item
                 android:id="@+id/onRack_Display_Fragment"
-                android:title="Display Rack"
+                android:title="Display Rack Item"
                 />
             <item
                 android:id="@+id/changeRack_product_Fragment"
@@ -50,6 +56,47 @@
                 android:icon="@drawable/scrapdelete"
                 android:title="Scrap Meterial"
                 />
+            <item
+                android:id="@+id/scrapList_Fragment"
+                android:icon="@drawable/scrapdelete"
+                android:title="Scrap List"
+                />
         </menu>
     </item>
+
+    <item
+        android:title="Transit">
+        <menu>
+            <item
+                android:id="@+id/displayTransit_Fragment"
+
+                android:title="Transit List"
+                />
+            <item
+                android:id="@+id/scanTransit_Product_Fragment"
+
+                android:title="Scan Transit Product"
+                />
+        </menu>
+    </item>
+
+
+    <item
+        android:title="Setting">
+        <menu>
+    <item
+        android:id="@+id/profileEdit_Fragment"
+        android:icon="@drawable/setting"
+        android:title="Edit Profile"
+        />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Logout"
+        />
+        </menu>
+    </item>
+
+
+
 </menu>

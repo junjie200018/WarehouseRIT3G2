@@ -72,17 +72,18 @@ class OnRack_Product_Fragment : Fragment() {
                             ).show()
                         } else {
 
-                            if(documents.data?.get("Status").toString() != "scrap"){
-                                db.collection("ReceivedProduct")
-                                    .get()
-                                    .addOnSuccessListener { result ->
+                            Log.w(ContentValues.TAG, "status  = ${documents.data?.get("Status").toString()}")
+                            if((documents.data?.get("Status").toString() != "Scrap" ) && (documents.data?.get("Status").toString() != "Transit") ){
+//                                db.collection("ReceivedProduct").document(scannedResult)
+//                                    .get()
+//                                    .addOnSuccessListener { result ->
 
-                                        for(document in result){
-                                            if(document.data.get("RackID").toString() != ""){
+//                                        for(document in result){
+                                            if(documents.data?.get("RackID").toString() != ""){
                                                 checkExist = 1
                                                 Log.w(ContentValues.TAG, "exist")
-                                                break
-                                            }
+//                                                break
+//                                            }
                                         }
 
                                         if(checkExist == 0){
@@ -93,12 +94,12 @@ class OnRack_Product_Fragment : Fragment() {
                                             Log.w(ContentValues.TAG, "quantity 3 = ${checkExist}")
                                             Toast.makeText(
                                                 context,
-                                                "The Product already exist in a rack. Please try again!!",
+                                                "The Product already exist in a rack.",
                                                 Toast.LENGTH_LONG
                                             ).show()
                                             checkExist = 0
                                         }
-                                    }
+//                                    }
 
 
 
@@ -106,7 +107,7 @@ class OnRack_Product_Fragment : Fragment() {
                             }else{
                                 Toast.makeText(
                                     context,
-                                    "The Product already become scrap. Please try again!!",
+                                    "The Product already become scrap or already transit. Please try again!!",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }

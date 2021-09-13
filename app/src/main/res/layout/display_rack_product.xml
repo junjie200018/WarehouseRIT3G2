@@ -4,37 +4,100 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="#B39ADF">
+    app:cardBackgroundColor="#B2E2E8"
+    app:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:clickable="false">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="7dp"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <TextView
-            android:id="@+id/OnRackPartNo"
+            android:id="@+id/disPartNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/imageView"
+            android:layout_marginLeft="10dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/disSerialNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/disPartNo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Serial No :" />
+
+        <TextView
+            android:id="@+id/disRackID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/disSerialNo"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Rack ID :" />
+
+        <TextView
+            android:id="@+id/disQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/disRackID"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Quantity  :" />
+
+        <TextView
+            android:id="@+id/disRackInDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/disQuantity"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="RackIn Date  :" />
+
+        <TextView
+            android:id="@+id/SerialNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/disPartNo"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/disSerialNo"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/OnRackSerialNo"
+            android:id="@+id/rackID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/OnRackPartNo"
-            android:layout_toEndOf="@id/imageView"
+            android:layout_below="@id/SerialNo"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/disRackID"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rackID"
+            android:layout_marginStart="78dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/disQuantity"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/rackInDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quantity"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/disRackInDate"
             android:text="TextView" />
     </RelativeLayout>
 

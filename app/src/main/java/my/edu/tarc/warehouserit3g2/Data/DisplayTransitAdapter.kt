@@ -9,24 +9,21 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import my.edu.tarc.warehouserit3g2.DisplayTransit_Fragment
 import my.edu.tarc.warehouserit3g2.R
-import java.util.*
-import kotlin.collections.ArrayList
 
-class ProductAdapter (private var productList :MutableList<Product>, private val listener: OnItemClickListener ) : RecyclerView.Adapter<ProductAdapter.myViewHolder>(), Filterable{
 
-    var searchV = ArrayList<Product>();
-//    fun setData(searchV: ArrayList<Product>){
-//        this.searchV = searchV
-//        notifyDataSetChanged()
-//    }
+class DisplayTransitAdapter ( private var TransitProductList: MutableList<DisplayTransit>, private val listener: DisplayTransit_Fragment
+) : RecyclerView.Adapter<DisplayTransitAdapter.myViewHolder>(), Filterable {
+
+    var searchV = ArrayList<DisplayTransit>();
+
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
-        val partNo:TextView = itemView.findViewById(R.id.PartNo)
-        val serialNo:TextView =itemView.findViewById(R.id.SerialNo)
-        val quanti:TextView = itemView.findViewById(R.id.quantity)
-        val receivedD:TextView = itemView.findViewById(R.id.receivedDate)
-
+        val partNo: TextView = itemView.findViewById(R.id.TransitPartNo)
+        val quantity: TextView = itemView.findViewById(R.id.TransitQuantity)
+        val destination: TextView = itemView.findViewById(R.id.TransitDestination)
+        val from: TextView = itemView.findViewById(R.id.TransitFrom)
 
         init {
             Log.w(ContentValues.TAG, "search value 30 = ")
@@ -40,35 +37,11 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
                 listener.onItemClick(position)
             }
         }
-    }
 
+    }
     init {
-        searchV = productList as ArrayList<Product>
+        searchV = TransitProductList as ArrayList<DisplayTransit>
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
-        Log.w(ContentValues.TAG, "search value 42 = ")
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.received_item, parent, false)
-
-        return myViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: myViewHolder, position: Int) {
-        Log.w(ContentValues.TAG, "search value 49 = ")
-
-        val currentProduct = searchV[position]
-//        holder.itemView.setOnClickListener(
-        holder.partNo.text = currentProduct.partNo
-        holder.serialNo.text = currentProduct.SerialNo
-        holder.quanti.text = currentProduct.quantity
-        holder.receivedD.text = currentProduct.date
-    }
-
-    override fun getItemCount(): Int {
-        Log.w(ContentValues.TAG, "search value 57 = ")
-        return searchV.size
-    }
-
 
     interface OnItemClickListener{
 
@@ -76,25 +49,50 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
+        Log.w(ContentValues.TAG, "search value 42 = ")
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.display_transit, parent, false)
+
+        return myViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: myViewHolder, position: Int) {
+//        Log.w(ContentValues.TAG, "search value 49 = ${current.partNo}")
+
+        val current = searchV[position]
+        Log.w(ContentValues.TAG, "search value 49 = ${current.partNo}")
+//        holder.itemView.setOnClickListener(
+        holder.partNo.text = current.partNo
+        holder.quantity.text = current.quantity
+        holder.destination.text = current.destination
+        holder.from.text = current.from
+
+    }
+
+    override fun getItemCount(): Int {
+        return searchV.size
+    }
+
     override fun getFilter(): Filter {
-        Log.w(ContentValues.TAG, "search value 5 = ")
         return object: Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 Log.w(ContentValues.TAG, "search value 75 = ${charSearch} ")
                 if (charSearch.isEmpty()) {
                     Log.w(ContentValues.TAG, "77 ")
-                    searchV = productList as ArrayList<Product>
+                    searchV = TransitProductList as ArrayList<DisplayTransit>
 
 
                 } else {
-                    val resultList = ArrayList<Product>()
-                    for (row in productList) {
+                    val resultList = ArrayList<DisplayTransit>()
+                    for (row in TransitProductList) {
                         Log.w(ContentValues.TAG, " 999 ")
-                       if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.date.contains(charSearch) || row.quantity.contains(charSearch)){
-                           Log.w(ContentValues.TAG, "search value 83 = ${row} ")
-                           resultList.add(row)
-                       }
+                        if(row.partNo.contains(charSearch) || row.quantity.contains(charSearch) || row.destination.contains(charSearch)
+                            || row.from.contains(charSearch)){
+
+                            Log.w(ContentValues.TAG, "search value 83 = ${row} ")
+                            resultList.add(row)
+                        }
                     }
                     searchV = resultList
                     Log.w(ContentValues.TAG, "search value 88 = ${searchV} ")
@@ -108,13 +106,10 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
                 Log.w(ContentValues.TAG, "final= ${filterResults} ")
-                searchV = filterResults!!.values as ArrayList<Product>
+                searchV = filterResults!!.values as ArrayList<DisplayTransit>
                 notifyDataSetChanged()
             }
 
         }
     }
-
-
-
 }

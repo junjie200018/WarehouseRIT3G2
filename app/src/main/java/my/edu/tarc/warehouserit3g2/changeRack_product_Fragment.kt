@@ -65,7 +65,7 @@ class changeRack_product_Fragment : Fragment() {
                             Toast.makeText(context, "Invalid QR code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
 
-                            if(result.data?.get("Status").toString() != "scrap"){
+                            if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
                                 if(result.data?.get("RackID").toString() != ""){
 //
                                     Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
@@ -76,7 +76,7 @@ class changeRack_product_Fragment : Fragment() {
                                     Toast.makeText(context, "Product not in rack. Please try again !!", Toast.LENGTH_LONG).show()
                                 }
                             }else{
-                                Toast.makeText(context, "Product already become scrap. Please try again !!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, "Product already become scrap or already transit", Toast.LENGTH_LONG).show()
                             }
                         }
                     }
