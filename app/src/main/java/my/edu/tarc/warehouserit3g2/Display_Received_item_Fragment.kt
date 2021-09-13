@@ -60,7 +60,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         val partNumber : Array<String?> = arrayOfNulls<String>(100)
         val serialNumber : Array<String?> = arrayOfNulls<String>(100)
         Person = PersonViewModel.getInstance()
-        var fullname = Person.getUsername().fullName
+        var fullname = Person.getPerson().fullName
         Log.w(ContentValues.TAG, "name = ${fullname}")
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
             .get()

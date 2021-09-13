@@ -8,12 +8,12 @@
     <fragment
         android:id="@+id/homeManager_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.HomeManager_Fragment"
-        android:label="fragment_home_manager_"
+        android:label="Home"
         tools:layout="@layout/fragment_home_manager_" />
     <fragment
         android:id="@+id/productMovement_Fragment2"
         android:name="my.edu.tarc.warehouserit3g2.ProductMovement_Fragment"
-        android:label="ProductMovement_Fragment" />
+        android:label="Product Movement" />
     <fragment
         android:id="@+id/mapFragment"
         android:name="my.edu.tarc.warehouserit3g2.MapFragment"
@@ -26,8 +26,8 @@
     <fragment
         android:id="@+id/transitList_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.TransitList_Fragment"
-        android:label="fragment_transit_list_"
-        tools:layout="@layout/fragment_transit_list_" >
+        android:label="Transit List"
+        tools:layout="@layout/fragment_transit_list_">
         <action
             android:id="@+id/action_transitList_Fragment_to_mapFragment"
             app:destination="@id/mapFragment" />
@@ -43,11 +43,14 @@
     <fragment
         android:id="@+id/stockDetail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.stockInOut.StockDetail_Fragment"
-        android:label="fragment_stock_detail_"
-        tools:layout="@layout/fragment_stock_detail_" >
+        android:label="Stock Detail"
+        tools:layout="@layout/fragment_stock_detail_">
         <argument
             android:name="SerialNo"
             app:argType="string" />
+        <action
+            android:id="@+id/action_stockDetail_Fragment_to_employeeProfile_Fragment"
+            app:destination="@id/employeeProfile_Fragment" />
     </fragment>
     <fragment
         android:id="@+id/stockOut_Fragment"
@@ -56,5 +59,33 @@
         <action
             android:id="@+id/action_stockOut_Fragment_to_stockDetail_Fragment"
             app:destination="@id/stockDetail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeProfile_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.EmployeeProfile_Fragment">
+        <argument
+            android:name="fullname"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/logout2"
+        android:name="my.edu.tarc.warehouserit3g2.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/profileEdit_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:label="profileEdit_Fragment" >
+        <action
+            android:id="@+id/action_profileEdit_Fragment2_to_changePass_Fragment2"
+            app:destination="@id/changePass_Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePass_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:label="ChangePass_Fragment" >
+        <action
+            android:id="@+id/action_changePass_Fragment2_to_profileEdit_Fragment2"
+            app:destination="@id/profileEdit_Fragment2" />
     </fragment>
 </navigation>

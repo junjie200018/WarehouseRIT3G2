@@ -30,15 +30,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var Person: PersonViewModel
-    private lateinit var aPerson: Person
     private lateinit var dao: PersonDao
+    private lateinit var aPerson: Person
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CoroutineScope(IO).launch {
-            dao = PersonDB.getInstance(application).personDao
+            dao = PersonDB.getInstance(applicationContext).personDao
             Person = PersonViewModel.getInstance()
-//            dao.removeAll()
+            //dao.removeAll()
 
             var person = dao.getPerson()
 
@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
                 Person.setaPerson(person)
                 if (person.role == "worker") {
                     intent("worker")
-                } else if (aPerson.role == "manager") {
+                } else if (person.role == "manager") {
                     intent("manager")
-                } else if (aPerson.role == "driver") {
+                } else if (person.role == "driver") {
                     intent("driver")
                 }
             }
@@ -97,10 +97,7 @@ class MainActivity : AppCompatActivity() {
                                 )
 
                                 if (correct.verified) {
-                                    binding.username.clearFocus()
-                                    binding.password.clearFocus()
-                                    binding.username.text?.clear()
-                                    binding.password.text?.clear()
+
 
                                     if(binding.rmbCheck.isChecked) {
                                         CoroutineScope(IO).launch {
@@ -137,6 +134,10 @@ class MainActivity : AppCompatActivity() {
                                         binding.loadingIndi.visibility = View.INVISIBLE
                                         startActivity(intent)
                                     }
+                                    binding.username.clearFocus()
+                                    binding.password.clearFocus()
+                                    binding.username.text?.clear()
+                                    binding.password.text?.clear()
 
                                 } else {
                                     binding.password.requestFocus()

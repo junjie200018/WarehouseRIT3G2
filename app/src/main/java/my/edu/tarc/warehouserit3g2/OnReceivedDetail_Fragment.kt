@@ -66,7 +66,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                         var no = String.format("%07d", number)
                         val sdf = SimpleDateFormat("dd/M/yyyy")
                         val currentDate = sdf.format(Date())
-                        val receivedBy = Person.getUsername().fullName
+                        val receivedBy = Person.getPerson().fullName
 
                         partNumberDatabase = result.data?.get("partNo").toString()
                         quantityDataBase = result.data?.get("quantity").toString()

@@ -49,7 +49,7 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
         productList.clear()
         myRecyclerView = binding.OnRackproductRecycleView
         Person = PersonViewModel.getInstance()
-        var fullname = Person.getUsername().fullName
+        var fullname = Person.getPerson().fullName
         Log.w(ContentValues.TAG, "get value 3 = ${rackId}")
 
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)

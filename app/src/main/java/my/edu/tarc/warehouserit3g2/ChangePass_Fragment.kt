@@ -38,8 +38,8 @@ class ChangePass_Fragment : Fragment() {
 
 
             Person = PersonViewModel.getInstance()
-            var userName = Person.getUsername().username
-            var oldPass = Person.getUsername().password
+            var userName = Person.getPerson().username
+            var oldPass = Person.getPerson().password
             var newPassword = binding.newPassword.text.toString()
             var retypePassword = binding.retypePassword.text.toString()
 
@@ -75,7 +75,11 @@ class ChangePass_Fragment : Fragment() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate(R.id.action_changePass_Fragment_to_profileEdit_Fragment)
+                                    if(Person.getPerson().role == "worker") {
+                                        navController.navigate(R.id.action_changePass_Fragment_to_profileEdit_Fragment)
+                                    } else if(Person.getPerson().role == "manager") {
+                                        navController.navigate(R.id.action_changePass_Fragment2_to_profileEdit_Fragment2)
+                                    }
                                 }else{
                                     Toast.makeText(
                                         context,
@@ -111,7 +115,7 @@ class ChangePass_Fragment : Fragment() {
 
     private fun checkPass (pass: String):Boolean{
 
-        var REG = "(?=.*[0-9])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,20}$"
+        var REG = "(?=.*[0-9])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[@#$%^&+=.,;:'|*_!`~])(?=\\S+$).{6,20}$"
         if(!Pattern.compile(REG).matcher(binding.newPassword.text.toString()).matches()){
             return false
         }

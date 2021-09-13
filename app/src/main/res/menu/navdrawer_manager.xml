@@ -6,19 +6,41 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/stockIn_Fragment"
-        android:title="Stock In" />
-
-    <item
-        android:id="@+id/stockOut_Fragment"
-        android:title="Stock Out" />
-
-    <item
         android:id="@+id/productMovement_Fragment2"
         android:title="Product Movement"/>
 
     <item
         android:id="@+id/transitList_Fragment"
         android:title="Transit" />
+
+    <item
+        android:title="Report">
+        <menu>
+    <item
+        android:id="@+id/stockIn_Fragment"
+        android:title="Stock In" />
+
+    <item
+        android:id="@+id/stockOut_Fragment"
+        android:title="Stock Out" />
+        </menu>
+    </item>
+
+    <item
+        android:title="Setting">
+        <menu>
+            <item
+                android:id="@+id/profileEdit_Fragment2"
+                android:icon="@drawable/setting"
+                android:title="Edit Profile"
+                />
+            <item
+                android:id="@+id/logout2"
+                android:icon="@drawable/logout"
+                android:title="Logout"
+                />
+        </menu>
+    </item>
+
 
 </menu>

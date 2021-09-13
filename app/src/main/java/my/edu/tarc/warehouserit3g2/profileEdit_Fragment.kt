@@ -17,7 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Data.Person
+import my.edu.tarc.warehouserit3g2.person.Person
 import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
 import my.edu.tarc.warehouserit3g2.databinding.FragmentChangeRackRackBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentProfileEditBinding
@@ -42,22 +42,16 @@ class profileEdit_Fragment : Fragment() {
         val db = Firebase.firestore
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_edit, container, false)
-        binding.EditUsername.setEnabled(false)
-        binding.Name.setEnabled(false)
-        binding.email.setEnabled(false)
-        binding.phone.setEnabled(false)
+        binding.EditUsername.isEnabled = false
+        binding.Name.isEnabled = false
+        binding.email.isEnabled = false
+        binding.phone.isEnabled = false
 
         Person = PersonViewModel.getInstance()
-        binding.EditUsername.setText(Person.getUsername().username)
-        binding.Name.setText(Person.getUsername().fullName)
-        binding.email.setText(Person.getUsername().email)
-        binding.phone.setText(Person.getUsername().phoneNo)
-
-
-
-
-
-
+        binding.EditUsername.setText(Person.getPerson().username)
+        binding.Name.setText(Person.getPerson().fullName)
+        binding.email.setText(Person.getPerson().email)
+        binding.phone.setText(Person.getPerson().phoneNo)
 
         binding.btnProfileEdit.setOnClickListener {
             Log.w(ContentValues.TAG, "partNo 2 ")
@@ -74,7 +68,11 @@ class profileEdit_Fragment : Fragment() {
         setupListener()
 
         binding.btnChangePass.setOnClickListener {
-            navController.navigate(R.id.action_profileEdit_Fragment_to_changePass_Fragment)
+            if(Person.getPerson().role == "worker") {
+                navController.navigate(R.id.action_profileEdit_Fragment_to_changePass_Fragment)
+            } else if(Person.getPerson().role == "manager") {
+                navController.navigate(R.id.action_profileEdit_Fragment2_to_changePass_Fragment2)
+            }
         }
 
         binding.btnProfileSubmit.setOnClickListener {

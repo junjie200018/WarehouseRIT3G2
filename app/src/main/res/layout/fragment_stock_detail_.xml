@@ -138,7 +138,8 @@
                         android:textColor="#2538D6"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        tools:text="Cx" />
+                        tools:text="Cx"
+                        android:clickable="true"/>
                 </LinearLayout>
 
                 <LinearLayout

@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentStockDetailBinding
+import my.edu.tarc.warehouserit3g2.person.EmployeeProfile_Fragment
 
 class StockDetail_Fragment : Fragment() {
     private lateinit var binding: FragmentStockDetailBinding
     private lateinit var recProduct : Stock
+    private lateinit var Person: PersonViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +30,7 @@ class StockDetail_Fragment : Fragment() {
 
         val args = StockDetail_FragmentArgs.fromBundle(requireArguments())
         val db = Firebase.firestore
+        Person = PersonViewModel.getInstance()
 
         db.collection("ReceivedProduct").document(args.serialNo)
             .get()
@@ -41,6 +47,7 @@ class StockDetail_Fragment : Fragment() {
                     recPro.data?.get("RackOutDate").toString(),
                 )
 
+                Person.setfullName(recProduct.RecBy)
                 binding.stockDetail = recProduct
 
                 if(recProduct.RackId != ""){
@@ -53,6 +60,12 @@ class StockDetail_Fragment : Fragment() {
                     binding.rackoutdate.isVisible = true
                 }
             }
+
+        binding.tvrecBy.setOnClickListener() {
+
+            var dialog = EmployeeProfile_Fragment()
+            dialog.show(parentFragmentManager,"personalInfo")
+        }
 
 
 

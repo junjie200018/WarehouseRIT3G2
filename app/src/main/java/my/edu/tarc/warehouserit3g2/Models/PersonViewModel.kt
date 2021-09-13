@@ -7,6 +7,7 @@ import my.edu.tarc.warehouserit3g2.person.Person
 
 class PersonViewModel: ViewModel() {
     private lateinit var aPerson : Person
+    private lateinit var fullName :String
 
     fun getPerson(): Person {
         return aPerson
@@ -14,6 +15,14 @@ class PersonViewModel: ViewModel() {
 
     fun setaPerson (aPerson : Person) {
         this.aPerson = aPerson
+    }
+
+    fun setfullName (fullName :String) {
+        this.fullName = fullName
+    }
+
+    fun getfullName() :String {
+        return fullName
     }
 
     companion object{
