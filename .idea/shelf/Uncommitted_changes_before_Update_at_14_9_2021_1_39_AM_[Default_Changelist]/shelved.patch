@@ -1,0 +1,485 @@
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<layout xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:layout_marginTop=\"10dp\"\r\n            tools:context=\".MainActivity\">\r\n\r\n                <androidx.cardview.widget.CardView\r\n                    android:id=\"@+id/cardView\"\r\n                    android:layout_width=\"350dp\"\r\n                    android:layout_height=\"320dp\"\r\n                    android:layout_marginStart=\"1dp\"\r\n                    android:layout_marginEnd=\"1dp\"\r\n                    app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintHorizontal_bias=\"0.495\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n                        <LinearLayout\r\n                            android:layout_width=\"match_parent\"\r\n                            android:layout_height=\"match_parent\"\r\n                            android:orientation=\"vertical\">\r\n\r\n                                <TextView\r\n                                    android:id=\"@+id/labelLogin\"\r\n                                    android:layout_width=\"match_parent\"\r\n                                    android:layout_height=\"wrap_content\"\r\n                                    android:layout_marginLeft=\"10dp\"\r\n                                    android:layout_marginTop=\"10dp\"\r\n                                    android:layout_marginRight=\"10dp\"\r\n                                    android:fontFamily=\"@font/poppins_bold\"\r\n                                    android:text=\"Login\"\r\n                                    android:textSize=\"25dp\" />\r\n\r\n                                <com.google.android.material.textfield.TextInputLayout\r\n\r\n                                    android:id=\"@+id/usernameLayout\"\r\n                                    style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n                                    android:layout_width=\"match_parent\"\r\n                                    android:layout_height=\"wrap_content\"\r\n                                    android:layout_margin=\"10dp\"\r\n                                    android:hint=\"Username\"\r\n                                    >\r\n                                        <com.google.android.material.textfield.TextInputEditText\r\n                                            android:id=\"@+id/username\"\r\n                                            android:layout_width=\"match_parent\"\r\n                                            android:layout_height=\"wrap_content\"\r\n                                            android:fontFamily=\"@font/poppins_medium\"\r\n                                            />\r\n\r\n                                </com.google.android.material.textfield.TextInputLayout>\r\n\r\n                                <com.google.android.material.textfield.TextInputLayout\r\n\r\n                                    android:id=\"@+id/passwordLayout\"\r\n                                    style=\"@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox\"\r\n                                    android:layout_width=\"match_parent\"\r\n                                    android:layout_height=\"wrap_content\"\r\n                                    android:layout_margin=\"10dp\"\r\n                                    android:hint=\"Password\"\r\n                                    app:passwordToggleEnabled=\"true\">\r\n\r\n                                        <com.google.android.material.textfield.TextInputEditText\r\n                                            android:id=\"@+id/password\"\r\n                                            android:layout_width=\"match_parent\"\r\n                                            android:layout_height=\"wrap_content\"\r\n                                            android:inputType=\"textPassword\" />\r\n\r\n                                </com.google.android.material.textfield.TextInputLayout>\r\n\r\n                                <TextView\r\n                                    android:id=\"@+id/forgetPassword\"\r\n                                    android:layout_width=\"match_parent\"\r\n                                    android:layout_height=\"wrap_content\"\r\n                                    android:layout_marginLeft=\"20dp\"\r\n                                    android:layout_marginTop=\"20dp\"\r\n                                    android:layout_marginRight=\"20dp\"\r\n                                    android:fontFamily=\"@font/poppins_medium\"\r\n                                    android:gravity=\"end\"\r\n                                    android:text=\"Forget Password?\"\r\n                                    android:textColor=\"#3F51B5\"\r\n                                    android:textSize=\"16sp\" />\r\n\r\n\r\n                        </LinearLayout>\r\n\r\n                </androidx.cardview.widget.CardView>\r\n\r\n                <LinearLayout\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"32dp\"\r\n                    android:orientation=\"horizontal\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toBottomOf=\"@+id/cardView\">\r\n\r\n                        <CheckBox\r\n                            android:id=\"@+id/rmbCheck\"\r\n                            android:layout_width=\"wrap_content\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:layout_marginLeft=\"20dp\"\r\n                            android:text=\"Remember Me\" />\r\n\r\n                        <View\r\n                            android:layout_width=\"0dp\"\r\n                            android:layout_height=\"0dp\"\r\n                            android:layout_weight=\"1\" />\r\n\r\n                        <RelativeLayout\r\n                            android:layout_width=\"200dp\"\r\n                            android:layout_height=\"wrap_content\"\r\n                            android:background=\"@drawable/button_back\">\r\n\r\n                                <TextView\r\n                                    android:id=\"@+id/btnLogin\"\r\n                                    android:layout_width=\"match_parent\"\r\n                                    android:layout_height=\"wrap_content\"\r\n                                    android:layout_marginTop=\"5dp\"\r\n                                    android:fontFamily=\"@font/poppins_bold\"\r\n                                    android:gravity=\"center\"\r\n                                    android:text=\"LOGIN\"\r\n                                    android:textColor=\"#fff\"\r\n                                    android:textSize=\"22dp\" />\r\n\r\n                        </RelativeLayout>\r\n\r\n                </LinearLayout>\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imageView3\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"180dp\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:layout_constraintTop_toTopOf=\"parent\"\r\n                    app:srcCompat=\"@drawable/ic_login_back\" />\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imageView4\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                    app:layout_constraintEnd_toEndOf=\"parent\"\r\n                    app:layout_constraintStart_toStartOf=\"parent\"\r\n                    app:srcCompat=\"@drawable/illustration\" />\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+--- a/app/src/main/res/layout/activity_main.xml	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/res/layout/activity_main.xml	(date 1631551250120)
+@@ -113,6 +113,13 @@
+                             android:layout_height="0dp"
+                             android:layout_weight="1" />
+ 
++                        <ProgressBar
++                            android:id="@+id/loadingIndi"
++                            style="?android:attr/progressBarStyle"
++                            android:layout_width="50dp"
++                            android:layout_height="50dp"
++                            android:visibility="invisible" />
++
+                         <RelativeLayout
+                             android:layout_width="200dp"
+                             android:layout_height="wrap_content"
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/PickupListFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ProgressBar\r\nimport androidx.navigation.NavDirections\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.Dispatchers.Main\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.withContext\r\nimport my.edu.tarc.warehouserit3g2.Data.Transit\r\nimport my.edu.tarc.warehouserit3g2.Data.TransitAdapter\r\nimport java.util.ArrayList\r\n\r\nclass PickupListFragment : Fragment(), TransitAdapter.OnItemClickListener {\r\n\r\n    lateinit var myRecyclerView: RecyclerView\r\n    var transitList: MutableList<Transit> = ArrayList()\r\n    val db = Firebase.firestore\r\n\r\n    private val navController by lazy { NavHostFragment.findNavController(this) }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        //declaration\r\n        val view = inflater.inflate(R.layout.fragment_pickup_list, container, false)\r\n        myRecyclerView = view.findViewById(R.id.rvPickup)\r\n        val load : ProgressBar = view.findViewById(R.id.loadingIndi)\r\n\r\n\r\n        //=================== get data ===================\r\n        db.collection(\"Transfer\").get()\r\n            .addOnSuccessListener { data ->\r\n                for (item in data) {\r\n                    //if item is in transit status\r\n                    if (item.data.get(\"status\").toString() == \"ready\") {\r\n                        var t = Transit(\r\n                            item.id,\r\n                            item.data.get(\"from\").toString(),\r\n                            item.data.get(\"to\").toString()\r\n                        )\r\n                        //push into arraylist if doesnt exist\r\n                        if (!transitList.contains(t)){\r\n                            transitList.add(t)\r\n                        }\r\n\r\n//                        Log.d(ContentValues.TAG, \"t= ${t}\")\r\n                    }\r\n                }\r\n//                Log.d(ContentValues.TAG, \"list= ${transitList}\")\r\n                myRecyclerView.adapter = TransitAdapter(transitList, this)\r\n                load.visibility = View.INVISIBLE\r\n            }\r\n        return view\r\n    }\r\n\r\n    override fun onItemClick(position: Int) {\r\n\r\n        val clickedItem: Transit = transitList[position]\r\n        GlobalScope.launch(Dispatchers.IO){\r\n            db.collection(\"Transfer\").document(clickedItem.id)\r\n                .update(\"status\", \"inTransit\")\r\n\r\n            withContext(Main){\r\n                val action: NavDirections = PickupListFragmentDirections.actionPickupListFragmentToTrackingFragment(clickedItem.id)\r\n                navController.navigate(action)\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/PickupListFragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/PickupListFragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/PickupListFragment.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/PickupListFragment.kt	(date 1631552474063)
+@@ -70,11 +70,15 @@
+         GlobalScope.launch(Dispatchers.IO){
+             db.collection("Transfer").document(clickedItem.id)
+                 .update("status", "inTransit")
+-
+             withContext(Main){
+                 val action: NavDirections = PickupListFragmentDirections.actionPickupListFragmentToTrackingFragment(clickedItem.id)
+                 navController.navigate(action)
+             }
+         }
+     }
++
++    override fun onResume() {
++        super.onResume()
++        transitList.clear()
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.Manifest\r\nimport android.content.ContentValues\r\nimport android.content.pm.PackageManager\r\nimport android.os.Build\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.core.app.ActivityCompat\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport android.widget.Toast\r\nimport androidx.annotation.RequiresApi\r\nimport java.time.LocalTime\r\nimport java.time.format.DateTimeFormatter\r\n\r\n\r\nclass MapFragment : Fragment() {\r\n\r\n    lateinit var googleMap: GoogleMap\r\n    lateinit var map: SupportMapFragment\r\n\r\n    @RequiresApi(Build.VERSION_CODES.O)\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        val db = Firebase.firestore\r\n        val args = MapFragmentArgs.fromBundle(requireArguments())\r\n\r\n//        Log.d(ContentValues.TAG, \"id= ${id}\")\r\n\r\n        GlobalScope.launch(IO) {\r\n\r\n            db.collection(\"Transfer\").document(args.id)\r\n                .addSnapshotListener { value, e ->\r\n\r\n                    //time\r\n                    val currentTime =\r\n                        LocalTime.now().format(DateTimeFormatter.ofPattern(\"HH:mm:ss\"))\r\n                    //null check\r\n                    if (value != null && value.exists()) {\r\n                        //get from db\r\n                        val geoPoint = value.getGeoPoint(\"location\")\r\n                        var location = LatLng(geoPoint!!.latitude, geoPoint!!.longitude)\r\n\r\n                        //map\r\n                        map.getMapAsync {\r\n                            googleMap = it\r\n                            //marker and zoom\r\n                            var marker = googleMap.addMarker(MarkerOptions()\r\n                                .position(location)\r\n                                .title(currentTime)\r\n                            )\r\n                            googleMap.animateCamera(\r\n                                CameraUpdateFactory.newLatLngZoom(marker.position, 15f)\r\n                            )\r\n                            Log.d(ContentValues.TAG, \"time= ${currentTime}\")\r\n                        }\r\n                    } else {\r\n                        Toast.makeText(context, \"Error found is $e\", Toast.LENGTH_SHORT)\r\n                            .show()\r\n                    }\r\n                }\r\n//            withContext(Main){\r\n//\r\n//            }\r\n        }\r\n\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_map, container, false)\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        map = childFragmentManager.findFragmentById(R.id.fMap) as SupportMapFragment\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/MapFragment.kt	(date 1631552985874)
+@@ -1,16 +1,19 @@
+ package my.edu.tarc.warehouserit3g2
+ 
+-import android.Manifest
++import android.app.AlertDialog
+ import android.content.ContentValues
+-import android.content.pm.PackageManager
+ import android.os.Build
+ import android.os.Bundle
+ import android.util.Log
+-import androidx.fragment.app.Fragment
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+-import androidx.core.app.ActivityCompat
++import android.widget.Toast
++import androidx.annotation.RequiresApi
++import androidx.fragment.app.Fragment
++import androidx.fragment.app.FragmentManager
++import androidx.fragment.app.FragmentTransaction
++import androidx.navigation.fragment.NavHostFragment
+ import com.google.android.gms.maps.CameraUpdateFactory
+ import com.google.android.gms.maps.GoogleMap
+ import com.google.android.gms.maps.SupportMapFragment
+@@ -21,8 +24,6 @@
+ import kotlinx.coroutines.Dispatchers.IO
+ import kotlinx.coroutines.GlobalScope
+ import kotlinx.coroutines.launch
+-import android.widget.Toast
+-import androidx.annotation.RequiresApi
+ import java.time.LocalTime
+ import java.time.format.DateTimeFormatter
+ 
+@@ -41,6 +42,12 @@
+         val db = Firebase.firestore
+         val args = MapFragmentArgs.fromBundle(requireArguments())
+ 
++//        val manager: FragmentManager = requireActivity().supportFragmentManager
++//        val trans: FragmentTransaction = manager.beginTransaction()
++//        val frag = requireFragmentManager().findFragmentByTag("transitTag")
++//        trans.remove(frag!!)
++//        trans.commit()
++//        manager.popBackStack()
+ //        Log.d(ContentValues.TAG, "id= ${id}")
+ 
+         GlobalScope.launch(IO) {
+@@ -70,6 +77,19 @@
+                             )
+                             Log.d(ContentValues.TAG, "time= ${currentTime}")
+                         }
++
++                        if ((value.get("status")).toString() == "complete"){
++
++                            val builder = AlertDialog.Builder(this@MapFragment.requireContext())
++                            builder.setTitle("Arrived!")
++                            builder.setMessage("Driver have arrived the destination\nSelect \"Ok\" to back to homepage")
++
++                            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
++                                getFragmentManager()?.popBackStack()
++                            }
++                            builder.show()
++                        }
++
+                     } else {
+                         Toast.makeText(context, "Error found is $e", Toast.LENGTH_SHORT)
+                             .show()
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/ProductMovement_Fragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.app.Activity\r\nimport android.content.ContentValues\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.AdapterView\r\nimport android.widget.ArrayAdapter\r\nimport android.widget.Spinner\r\nimport android.widget.Toast\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.navigation.Navigation\r\nimport com.google.firebase.firestore.GeoPoint\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport com.squareup.okhttp.Dispatcher\r\nimport kotlinx.coroutines.*\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.Dispatchers.Main\r\nimport kotlinx.coroutines.tasks.await\r\nimport my.edu.tarc.warehouserit3g2.databinding.FragmentProductMovementBinding\r\n\r\n\r\nclass ProductMovement_Fragment : Fragment() {\r\n\r\n    private lateinit var binding :FragmentProductMovementBinding\r\n    private lateinit var partNo :Array<String?>\r\n    private lateinit var quantity :Array<Number?>\r\n    private lateinit var warehouse :Array<String?>\r\n    private lateinit var factory :Array<String?>\r\n    private lateinit var warehouseLoc :Array<GeoPoint?>\r\n    private lateinit var factoryLoc :Array<GeoPoint?>\r\n\r\n    private lateinit var selectedPart :String\r\n    private lateinit var selectedQuantity :Number\r\n\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        binding =\r\n            DataBindingUtil.inflate(inflater, R.layout.fragment_product_movement_, container, false)\r\n        val db = Firebase.firestore\r\n\r\n        val sprPart = binding.sprPart\r\n        val sprQuan = binding.sprQuan\r\n        val sprFrom = binding.sprFrom\r\n        val sprTo = binding.sprTo\r\n        var selectedFrom :String = \"\"\r\n        var selectedTo :String = \" \"\r\n\r\n        //firestore + coroutine IO\r\n        GlobalScope.launch(IO) {\r\n            //=================== get partNo and quantity ===================\r\n            db.collection(\"Barcode\").get()\r\n                .addOnSuccessListener { data ->\r\n                    partNo = arrayOfNulls(data.size())\r\n                    quantity = arrayOfNulls(data.size())\r\n\r\n                    for ((x,product) in data.withIndex()){\r\n                        partNo[x] = product.data?.get(\"partNo\").toString()\r\n                        quantity[x] = product.data?.get(\"quantity\").toString().toInt()\r\n                    }\r\n                }.await()\r\n\r\n            //===================get warehouse===================\r\n            db.collection(\"Warehouse\").get()\r\n                .addOnSuccessListener { documents ->\r\n                    warehouse = arrayOfNulls(documents.size())\r\n                    warehouseLoc = arrayOfNulls(documents.size())\r\n                    for ((x,doc) in documents.withIndex()){\r\n                        warehouse[x] = doc.id\r\n                        warehouseLoc[x] = doc.getGeoPoint(\"location\")\r\n                    }\r\n                }.await()\r\n\r\n            //===================get factory===================\r\n            db.collection(\"Factory\").get()\r\n                .addOnSuccessListener { documents ->\r\n                    factory = arrayOfNulls(documents.size())\r\n                    factoryLoc = arrayOfNulls(documents.size())\r\n                    for ((x,doc) in documents.withIndex()){\r\n                        factory[x] = doc.id\r\n                        factoryLoc[x] = doc.getGeoPoint(\"location\")\r\n                    }\r\n                }.await()\r\n\r\n            binding.loadingIndi.visibility = View.INVISIBLE\r\n\r\n            //===================coroutine UI===================\r\n            withContext(Main) {\r\n                //temp val for storing selected part's quanitiy\r\n                var tempQuantity = arrayListOf<Number?>()\r\n\r\n                //===================generate part dropdownlist===================\r\n                val adapterPart: ArrayAdapter<String> = ArrayAdapter<String>(\r\n                    activity?.applicationContext!!,\r\n                    android.R.layout.simple_spinner_item,\r\n                    partNo.distinct() //remove duplicate\r\n                )\r\n                adapterPart.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)\r\n                sprPart.adapter = adapterPart\r\n\r\n                //===================when click part===================\r\n                sprPart.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {\r\n                        //if selected part\r\n                        override fun onItemSelected( parent: AdapterView<*>?,view: View?, position: Int,id: Long) {\r\n\r\n                            selectedPart = parent?.getItemAtPosition(position).toString()\r\n\r\n                            //clear existing\r\n                            tempQuantity.clear()\r\n\r\n                            //get value for quantity on selected part\r\n                            for ((x, part) in partNo.withIndex()) {\r\n                                if (part == selectedPart) {\r\n                                    tempQuantity.add(quantity[x])\r\n                                }\r\n                            }\r\n                            //convert list to array\r\n                            var convert: Array<Number?> = tempQuantity.toTypedArray()\r\n\r\n                            //==================== generate quantity dropdownlist ====================\r\n                            val adapterQuan: ArrayAdapter<Number> = ArrayAdapter<Number>(\r\n                                activity?.applicationContext!!,\r\n                                android.R.layout.simple_spinner_item,\r\n                                convert\r\n                            )\r\n                            adapterQuan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)\r\n                            sprQuan.adapter = adapterQuan\r\n                            //=======================================================================\r\n                        }\r\n\r\n                        //if didnt select part\r\n                        override fun onNothingSelected(parent: AdapterView<*>?) {\r\n                            // empty\r\n                        }\r\n                    }\r\n                //==================== generate warehouse dropdownlist ====================\r\n                val adapterFrom: ArrayAdapter<String> = ArrayAdapter<String>(\r\n                    activity?.applicationContext!!,\r\n                    android.R.layout.simple_spinner_item,\r\n                    (warehouse+factory)\r\n                )\r\n                adapterFrom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)\r\n                sprFrom.adapter = adapterFrom\r\n\r\n                //==================== generate factory dropdownlist ====================\r\n                val adapterTo: ArrayAdapter<String> = ArrayAdapter<String>(\r\n                    activity?.applicationContext!!,\r\n                    android.R.layout.simple_spinner_item,\r\n                    (factory+warehouse)\r\n                )\r\n                adapterTo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)\r\n                sprTo.adapter = adapterTo\r\n            }\r\n\r\n            //==================== on quantity click ====================\r\n            sprQuan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {\r\n                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {\r\n                    selectedQuantity = parent?.getItemAtPosition(position).toString().toInt()\r\n                }\r\n                override fun onNothingSelected(p0: AdapterView<*>?) {\r\n                    //empty\r\n                }\r\n            }\r\n\r\n            //==================== on from click ====================\r\n            sprFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {\r\n                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {\r\n\r\n                    if (duplicateCheck( parent?.getItemAtPosition(position).toString() ,selectedTo))\r\n                        selectedFrom = parent?.getItemAtPosition(position).toString()\r\n                }\r\n                override fun onNothingSelected(p0: AdapterView<*>?) {\r\n                    //empty\r\n                }\r\n            }\r\n\r\n            //==================== on to click ====================\r\n            sprTo.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {\r\n                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {\r\n\r\n                    if (duplicateCheck(selectedFrom,parent?.getItemAtPosition(position).toString()))\r\n                        selectedTo = parent?.getItemAtPosition(position).toString()\r\n\r\n                }\r\n                override fun onNothingSelected(p0: AdapterView<*>?) {\r\n                    //empty\r\n                }\r\n            }\r\n\r\n            binding.btnSubmit.setOnClickListener(){\r\n\r\n                if (duplicateCheck(selectedFrom,selectedTo)){\r\n                    val wLoc = (warehouse+factory).indexOf(selectedFrom)\r\n\r\n                    CoroutineScope(IO).launch{\r\n                        val selectedProd = hashMapOf(\r\n                            \"partNo\" to selectedPart,\r\n                            \"quantity\" to selectedQuantity,\r\n                            \"from\" to selectedFrom,\r\n                            \"to\" to selectedTo,\r\n                            \"status\" to \"pending\",\r\n                            \"location\" to (warehouseLoc+factoryLoc)[wLoc]\r\n                        )\r\n\r\n                        db.collection(\"Transfer\").add(selectedProd)\r\n                            .addOnSuccessListener {\r\n                                Toast.makeText(context,\"Sucessfully Requested\",Toast.LENGTH_SHORT).show()\r\n                            }\r\n                            .addOnFailureListener {\r\n                                Toast.makeText(context,\"Action failed, Please Try Again\",Toast.LENGTH_LONG).show()\r\n                            }\r\n                        selectedPart = \"\"\r\n                        selectedQuantity = 0\r\n                        selectedFrom = \"\"\r\n                        selectedTo = \"\"\r\n                    }\r\n                }\r\n\r\n            }\r\n        }\r\n        // Inflate the layout for this fragment\r\n        return binding.root\r\n    }\r\n\r\n    private fun duplicateCheck(loc1 :String, loc2 :String) :Boolean{\r\n        Log.d(ContentValues.TAG, \"log= ${loc1}\")\r\n        Log.d(ContentValues.TAG, \"log= ${loc2}\")\r\n        if (loc1 == loc2){\r\n            Toast.makeText(context,\"Departure and destination cannot be the same\",Toast.LENGTH_LONG).show()\r\n            return false\r\n        }\r\n        return true\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/ProductMovement_Fragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/ProductMovement_Fragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/ProductMovement_Fragment.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/ProductMovement_Fragment.kt	(date 1631553717496)
+@@ -2,6 +2,7 @@
+ 
+ import android.app.Activity
+ import android.content.ContentValues
++import android.os.Build
+ import android.os.Bundle
+ import android.util.Log
+ import androidx.fragment.app.Fragment
+@@ -12,6 +13,7 @@
+ import android.widget.ArrayAdapter
+ import android.widget.Spinner
+ import android.widget.Toast
++import androidx.annotation.RequiresApi
+ import androidx.databinding.DataBindingUtil
+ import androidx.navigation.Navigation
+ import com.google.firebase.firestore.GeoPoint
+@@ -23,6 +25,8 @@
+ import kotlinx.coroutines.Dispatchers.Main
+ import kotlinx.coroutines.tasks.await
+ import my.edu.tarc.warehouserit3g2.databinding.FragmentProductMovementBinding
++import java.time.LocalDateTime
++import java.time.format.DateTimeFormatter
+ 
+ 
+ class ProductMovement_Fragment : Fragment() {
+@@ -39,6 +43,7 @@
+     private lateinit var selectedQuantity :Number
+ 
+ 
++    @RequiresApi(Build.VERSION_CODES.O)
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+@@ -200,6 +205,7 @@
+ 
+                 if (duplicateCheck(selectedFrom,selectedTo)){
+                     val wLoc = (warehouse+factory).indexOf(selectedFrom)
++                    val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+ 
+                     CoroutineScope(IO).launch{
+                         val selectedProd = hashMapOf(
+@@ -211,7 +217,7 @@
+                             "location" to (warehouseLoc+factoryLoc)[wLoc]
+                         )
+ 
+-                        db.collection("Transfer").add(selectedProd)
++                        db.collection("Transfer").document(currentTime).set(selectedProd)
+                             .addOnSuccessListener {
+                                 Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_SHORT).show()
+                             }
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.Manifest\r\nimport android.annotation.SuppressLint\r\nimport android.app.AlertDialog\r\nimport android.app.PendingIntent\r\nimport android.content.ContentValues\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.content.pm.PackageManager\r\nimport android.graphics.Color\r\nimport android.os.Build\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.core.app.ActivityCompat\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.navigation.NavDirections\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport com.google.android.gms.location.*\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.OnMapReadyCallback\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.CircleOptions\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.google.firebase.firestore.GeoPoint\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.Dispatchers.Main\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.tasks.await\r\nimport kotlinx.coroutines.withContext\r\n\r\n\r\n//const val REQUEST_LOCATION_PERMISSION = 1\r\n//const val GEOFENCE_LOCATION_PERMISSION = 11\r\nconst val GEOFENCE_RADIUS = 100\r\nconst val GEOFENCE_ID = \"GEOFENCE_ID\"\r\nconst val GEOFENCE_EXPIRATION = 2 * 60 * 60 * 1000 // 2hr\r\nconst val GEOFENCE_DWELL_DELAY = 10 * 1000 // 10 secs // 2 minutes\r\nconst val GEOFENCE_LOCATION_REQUEST_CODE = 12345\r\nconst val CAMERA_ZOOM_LEVEL = 15f\r\nconst val LOCATION_REQUEST_CODE = 123\r\n\r\nclass TrackingFragment : Fragment() {\r\n    lateinit var mapFragment: SupportMapFragment\r\n    lateinit var gMap: GoogleMap\r\n    lateinit var id: String\r\n    lateinit var geofencingClient: GeofencingClient\r\n    private lateinit var fusedLocationClient: FusedLocationProviderClient\r\n    lateinit var destinationLoc: GeoPoint\r\n    private val navController by lazy { NavHostFragment.findNavController(this) }\r\n\r\n    lateinit var client :FusedLocationProviderClient\r\n    val loopTrack = object : LocationCallback() {\r\n        override fun onLocationResult(locationResult: LocationResult) {\r\n            val location = locationResult.lastLocation\r\n            val geoPoint = GeoPoint(location.latitude, location.longitude)\r\n            //Get a reference to the database, so your app can perform read and write operations//\r\n            db.collection(\"Transfer\").document(id)\r\n                .update(\"location\", geoPoint)\r\n\r\n            //des lat = 4.8228315\r\n            //des long = 100.7109581\r\n\r\n            val latmin = destinationLoc.latitude - 0.0001 //4.8227315\r\n            val latmax = destinationLoc.latitude + 0.0001 //4.8229315\r\n            val longmin = destinationLoc.longitude - 0.0001 //100.7108581\r\n            val longmax = destinationLoc.longitude + 0.0001 //100.7110581\r\n\r\n            if ((location.latitude >= latmin) && (location.latitude <= latmax)){\r\n                if ((location.longitude >= longmin) && (location.longitude <= longmax)){\r\n                    //Log.d(ContentValues.TAG, \"in\")\r\n                    Firebase.firestore.collection(\"Transfer\").document(id)\r\n                        .update(\"status\", \"complete\")\r\n\r\n                    val builder = AlertDialog.Builder(this@TrackingFragment.requireContext())\r\n                    builder.setTitle(\"Arrived!\")\r\n                    builder.setMessage(\"You have arrived the destination\\nSelect \\\"Ok\\\" to back to homepage\")\r\n\r\n                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->\r\n                        val action :NavDirections = TrackingFragmentDirections.actionTrackingFragmentToPickupListFragment()\r\n                        navController.navigate(action)\r\n                    }\r\n                    builder.show()\r\n                    requestLocationUpdates(false)\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n//    lateinit var geofence: Geofence\r\n\r\n    //    private val callback = OnMapReadyCallback { googleMap ->\r\n//        gMap = googleMap\r\n//        gMap.uiSettings.isMyLocationButtonEnabled = true\r\n//        map.uiSettings.isZoomControlsEnabled = true\r\n//\r\n//        enableMyLocation()\r\n//        Log.d(ContentValues.TAG, \"qwer\")\r\n//    }\r\n    @SuppressLint(\"MissingPermission\")\r\n    private val callback = OnMapReadyCallback { googleMap ->\r\n        gMap = googleMap\r\n        gMap.uiSettings.isMyLocationButtonEnabled = true\r\n        gMap.uiSettings.isZoomControlsEnabled = true\r\n\r\n        if (!isLocationPermissionGranted()) {\r\n            val permissions = mutableListOf(\r\n                Manifest.permission.ACCESS_FINE_LOCATION,\r\n                Manifest.permission.ACCESS_COARSE_LOCATION\r\n            )\r\n            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n                permissions.add(Manifest.permission.ACCESS_BACKGROUND_LOCATION)\r\n            }\r\n            ActivityCompat.requestPermissions(\r\n                this.requireActivity(),\r\n                permissions.toTypedArray(),\r\n                LOCATION_REQUEST_CODE\r\n            )\r\n        } else {\r\n            this.gMap.isMyLocationEnabled = true\r\n\r\n            // Zoom to last known location\r\n            fusedLocationClient.lastLocation.addOnSuccessListener {\r\n                if (it != null) {\r\n                    with(gMap) {\r\n                        val latLng = LatLng(it.latitude, it.longitude)\r\n                        moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM_LEVEL))\r\n                    }\r\n                } else {\r\n                    with(gMap) {\r\n                        moveCamera(\r\n                            CameraUpdateFactory.newLatLngZoom(\r\n                                LatLng(65.01355297927051, 25.464019811372978),\r\n                                CAMERA_ZOOM_LEVEL\r\n                            )\r\n                        )\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        requestLocationUpdates(true)\r\n    }\r\n\r\n    val db = Firebase.firestore\r\n//================================================================================================\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        id = MapFragmentArgs.fromBundle(requireArguments()).id\r\n        Log.d(ContentValues.TAG, \"id= ${id}\")\r\n\r\n        GlobalScope.launch(IO) {\r\n            var dest = \"\"\r\n            var collection = \"\"\r\n            db.collection(\"Transfer\").document(id).get()\r\n                .addOnSuccessListener { data ->\r\n                    Log.d(ContentValues.TAG, \"line 74\")\r\n                    dest = data?.get(\"to\").toString()\r\n\r\n                    if (dest.contains(\"Warehouse\"))\r\n                        collection = \"Warehouse\"\r\n                    else\r\n                        collection = \"Factory\"\r\n\r\n                }.await()\r\n\r\n            Log.d(ContentValues.TAG, \"destination= ${dest}\")\r\n            Log.d(ContentValues.TAG, \"col= ${collection}\")\r\n\r\n            db.collection(collection).document(dest).get()\r\n                .addOnSuccessListener { data ->\r\n                    destinationLoc = data.getGeoPoint(\"location\")!!\r\n                    Log.d(ContentValues.TAG, \"destination1= ${destinationLoc}\")\r\n                }.await()\r\n\r\n\r\n            withContext(Main) {\r\n\r\n                var location = LatLng(destinationLoc!!.latitude, destinationLoc!!.longitude)\r\n\r\n                gMap.addMarker(\r\n                    MarkerOptions().position(location)\r\n                        .title(\"Current location\")\r\n                ).showInfoWindow()\r\n\r\n                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, CAMERA_ZOOM_LEVEL))\r\n\r\n                //createGeoFence(LatLng(location.latitude, location.longitude), geofencingClient)\r\n            }\r\n        }\r\n        //empty\r\n        return inflater.inflate(R.layout.fragment_tracking, container, false)\r\n    }\r\n\r\n    //\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        mapFragment = childFragmentManager.findFragmentById(R.id.tMap) as SupportMapFragment\r\n        mapFragment?.getMapAsync(callback)\r\n\r\n        fusedLocationClient =\r\n            LocationServices.getFusedLocationProviderClient(this.requireActivity())\r\n        geofencingClient = LocationServices.getGeofencingClient(this.requireActivity())\r\n\r\n        Log.d(ContentValues.TAG, \"1234\")\r\n    }\r\n\r\n\r\n    private fun requestLocationUpdates(track: Boolean) {\r\n        val request = LocationRequest()\r\n\r\n        //Specify how often your app should request the device’s location//\r\n        request.setInterval(1000 * 10)\r\n\r\n        //Get the most accurate location data available//\r\n        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)\r\n\r\n        //variable\r\n        client = LocationServices.getFusedLocationProviderClient(this.activity)\r\n\r\n        val permission = ContextCompat.checkSelfPermission(\r\n            this.requireContext(),\r\n            android.Manifest.permission.ACCESS_FINE_LOCATION\r\n        )\r\n\r\n        if (track) {\r\n            //If the app currently has access to the location permission...//\r\n            if (permission == PackageManager.PERMISSION_GRANTED) {\r\n                //...then request location updates//\r\n                client.requestLocationUpdates(request, loopTrack, null)\r\n            }\r\n        } else\r\n            client.removeLocationUpdates(loopTrack)\r\n\r\n    }\r\n\r\n    override fun onDestroy() {\r\n        super.onDestroy()\r\n        requestLocationUpdates(false)\r\n    }\r\n\r\n//    private fun createGeoFence(location: LatLng, geofencingClient: GeofencingClient) {\r\n//        val geofence = Geofence.Builder()\r\n//            .setRequestId(GEOFENCE_ID)\r\n//            .setCircularRegion(location.latitude, location.longitude, GEOFENCE_RADIUS.toFloat())\r\n//            .setExpirationDuration(GEOFENCE_EXPIRATION.toLong()) //2hr\r\n//            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL)\r\n//            .setLoiteringDelay(GEOFENCE_DWELL_DELAY)\r\n//            .build()\r\n//\r\n//        Log.d(ContentValues.TAG, \"geolatlng = ${location}\")\r\n//        Log.d(ContentValues.TAG, \"geoid = ${id}\")\r\n//\r\n//\r\n//        val geofenceRequest = GeofencingRequest.Builder()\r\n//            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)\r\n//            .addGeofence(geofence)\r\n//            .build()\r\n//\r\n//        val intent = Intent(this.requireContext(), GeofenceBroadcastReceiver::class.java)\r\n//            .putExtra(\"id\", id)\r\n//\r\n//        val pendingIntent = PendingIntent.getBroadcast(\r\n//            this.context,\r\n//            0,\r\n//            intent,\r\n//            PendingIntent.FLAG_UPDATE_CURRENT\r\n//        )\r\n//\r\n//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n//            if (ContextCompat.checkSelfPermission(\r\n//                    this.requireContext(),\r\n//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION\r\n//                ) != PackageManager.PERMISSION_GRANTED\r\n//            ) {\r\n//                ActivityCompat.requestPermissions(\r\n//                    this.requireActivity(),\r\n//                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),\r\n//                    GEOFENCE_LOCATION_REQUEST_CODE\r\n//                )\r\n//                Log.d(ContentValues.TAG, \"line 318\")\r\n//            } else {\r\n//                Log.d(ContentValues.TAG, \"line 320\")\r\n//                geofencingClient.addGeofences(geofenceRequest, pendingIntent)\r\n//            }\r\n//        } else {\r\n//            Log.d(ContentValues.TAG, \"line 323\")\r\n//            geofencingClient.addGeofences(geofenceRequest, pendingIntent)\r\n//        }\r\n//    }\r\n\r\n    private fun isLocationPermissionGranted(): Boolean {\r\n        return ContextCompat.checkSelfPermission(\r\n            this.requireContext(), Manifest.permission.ACCESS_FINE_LOCATION\r\n        ) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(\r\n            this.requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION\r\n        ) == PackageManager.PERMISSION_GRANTED\r\n    }\r\n\r\n    override fun onRequestPermissionsResult(\r\n        requestCode: Int,\r\n        permissions: Array<out String>,\r\n        grantResults: IntArray\r\n    ) {\r\n        if (requestCode == GEOFENCE_LOCATION_REQUEST_CODE) {\r\n            if (permissions.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {\r\n                Toast.makeText(\r\n                    this.requireContext(),\r\n                    \"This application needs background location to work on Android 10 and higher\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n                Log.d(ContentValues.TAG, \"line 350\")\r\n            }\r\n        }\r\n        if (requestCode == LOCATION_REQUEST_CODE) {\r\n            if (\r\n                grantResults.isNotEmpty() && (\r\n                        grantResults[0] == PackageManager.PERMISSION_GRANTED ||\r\n                                grantResults[1] == PackageManager.PERMISSION_GRANTED)\r\n            ) {\r\n                if (ActivityCompat.checkSelfPermission(\r\n                        this.requireContext(),\r\n                        Manifest.permission.ACCESS_FINE_LOCATION\r\n                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(\r\n                        this.requireContext(),\r\n                        Manifest.permission.ACCESS_COARSE_LOCATION\r\n                    ) != PackageManager.PERMISSION_GRANTED\r\n                ) {\r\n                    return\r\n                }\r\n                gMap.isMyLocationEnabled = true\r\n                callback\r\n            } else {\r\n                Toast.makeText(\r\n                    this.context,\r\n                    \"The app needs location permission to function\",\r\n                    Toast.LENGTH_LONG\r\n                ).show()\r\n            }\r\n\r\n            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {\r\n                if (grantResults.isNotEmpty() && grantResults[2] != PackageManager.PERMISSION_GRANTED) {\r\n                    Toast.makeText(\r\n                        this.context,\r\n                        \"This application needs background location to work on Android 10 and higher\",\r\n                        Toast.LENGTH_LONG\r\n                    ).show()\r\n                    Log.d(ContentValues.TAG, \"line 386\")\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n//    companion object {\r\n//        fun removeGeofences(context: Context, triggeringGeofenceList: MutableList<Geofence>) {\r\n//            val geofenceIdList = mutableListOf<String>()\r\n//            for (entry in triggeringGeofenceList) {\r\n//                geofenceIdList.add(entry.requestId)\r\n//            }\r\n//            LocationServices.getGeofencingClient(context).removeGeofences(geofenceIdList)\r\n//        }\r\n//    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/TrackingFragment.kt	(date 1631554751691)
+@@ -58,6 +58,7 @@
+     private lateinit var fusedLocationClient: FusedLocationProviderClient
+     lateinit var destinationLoc: GeoPoint
+     private val navController by lazy { NavHostFragment.findNavController(this) }
++    lateinit var product :String
+ 
+     lateinit var client :FusedLocationProviderClient
+     val loopTrack = object : LocationCallback() {
+@@ -79,8 +80,11 @@
+             if ((location.latitude >= latmin) && (location.latitude <= latmax)){
+                 if ((location.longitude >= longmin) && (location.longitude <= longmax)){
+                     //Log.d(ContentValues.TAG, "in")
+-                    Firebase.firestore.collection("Transfer").document(id)
++                    db.collection("Transfer").document(id)
+                         .update("status", "complete")
++//comment line 173
++                    db.collection("ReceivedProduct").document(product)
++                        .update("Status", "Complete")
+ 
+                     val builder = AlertDialog.Builder(this@TrackingFragment.requireContext())
+                     builder.setTitle("Arrived!")
+@@ -169,6 +173,7 @@
+                 .addOnSuccessListener { data ->
+                     Log.d(ContentValues.TAG, "line 74")
+                     dest = data?.get("to").toString()
++                    product = data?.get("SerialNo").toString()
+ 
+                     if (dest.contains("Warehouse"))
+                         collection = "Warehouse"
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\n\r\nimport android.content.ContentValues.TAG\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.text.TextUtils\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.lifecycle.ViewModel\r\nimport at.favre.lib.crypto.bcrypt.BCrypt\r\nimport com.google.android.material.textfield.TextInputLayout\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.CoroutineScope\r\nimport kotlinx.coroutines.Dispatchers.IO\r\nimport kotlinx.coroutines.Dispatchers.Main\r\nimport kotlinx.coroutines.launch\r\n\r\nimport my.edu.tarc.warehouserit3g2.Models.PersonViewModel\r\nimport my.edu.tarc.warehouserit3g2.databinding.ActivityMainBinding\r\nimport my.edu.tarc.warehouserit3g2.person.Person\r\nimport my.edu.tarc.warehouserit3g2.person.PersonDB\r\nimport my.edu.tarc.warehouserit3g2.person.PersonDao\r\n\r\nclass MainActivity : AppCompatActivity() {\r\n\r\n    private lateinit var binding: ActivityMainBinding\r\n    private lateinit var Person: PersonViewModel\r\n    private lateinit var aPerson: Person\r\n    private lateinit var dao: PersonDao\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        CoroutineScope(IO).launch {\r\n            dao = PersonDB.getInstance(application).personDao\r\n            Person = PersonViewModel.getInstance()\r\n//            dao.removeAll()\r\n\r\n            var person = dao.getPerson()\r\n\r\n            if(person != null) {\r\n                Person.setaPerson(person)\r\n                if (person.role == \"worker\") {\r\n                    intent(\"worker\")\r\n                } else if (aPerson.role == \"manager\") {\r\n                    intent(\"manager\")\r\n                } else if (aPerson.role == \"driver\") {\r\n                    intent(\"driver\")\r\n                }\r\n            }\r\n        }\r\n        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)\r\n\r\n        val db = Firebase.firestore\r\n\r\n        binding.btnLogin.setOnClickListener {\r\n            val InputUsername = binding.username.text.toString().trim()\r\n            val InputPassword = binding.password.text.toString()\r\n//            val passHash = BCrypt.withDefaults().hashToString(12, \"12345\".toCharArray())\r\n//            Log.d(\"register\", \"$passHash\")\r\n            binding.usernameLayout.isFocusable = true\r\n            binding.usernameLayout.isEnabled = true\r\n            when {\r\n                TextUtils.isEmpty(InputUsername) -> {\r\n                    if (TextUtils.isEmpty(InputPassword)) {\r\n                        binding.passwordLayout.error = \"This field is required!\"\r\n                    } else {\r\n                        binding.passwordLayout.isErrorEnabled = false\r\n                    }\r\n                    binding.usernameLayout.error = \"This field is required!\"\r\n                    binding.username.requestFocus()\r\n                }\r\n                TextUtils.isEmpty(InputPassword) -> {\r\n                    binding.passwordLayout.error = \"This field is required!\"\r\n                    binding.usernameLayout.isErrorEnabled = false\r\n                    binding.password.requestFocus()\r\n                }\r\n                else -> {\r\n                    binding.usernameLayout.isErrorEnabled = false\r\n                    binding.passwordLayout.isErrorEnabled = false\r\n                    db.collection(\"Employees\").document(InputUsername)\r\n                        .get()\r\n                        .addOnSuccessListener { acc ->\r\n\r\n                            if (acc.data != null) {\r\n                                aPerson = Person(0,acc.data?.get(\"username\").toString(),acc.data?.get(\"password\").toString(),acc.data?.get(\"role\").toString(),\r\n                                    acc.data?.get(\"fullName\").toString(),acc.data?.get(\"email\").toString(),acc.data?.get(\"phoneNo\").toString())\r\n\r\n                                val correct = BCrypt.verifyer().verify(\r\n                                    InputPassword.toCharArray(),\r\n                                    aPerson.password\r\n                                )\r\n\r\n                                if (correct.verified) {\r\n                                    binding.username.clearFocus()\r\n                                    binding.password.clearFocus()\r\n                                    binding.username.text?.clear()\r\n                                    binding.password.text?.clear()\r\n\r\n                                    if(binding.rmbCheck.isChecked) {\r\n                                        CoroutineScope(IO).launch {\r\n                                            dao.insertPerson(aPerson)\r\n                                        }\r\n                                    }\r\n                                    Person.setaPerson(aPerson)\r\n                                    if (aPerson.role == \"worker\") {\r\n                                        val intent = Intent(this, EmployeeActivity::class.java)\r\n                                        Toast.makeText(\r\n                                            applicationContext,\r\n                                            \"Login Successful\",\r\n                                            Toast.LENGTH_LONG\r\n                                        ).show()\r\n                                        startActivity(intent)\r\n\r\n                                    } else if (aPerson.role == \"manager\") {\r\n                                        val intent = Intent(this, ManagerActivity::class.java)\r\n                                        Toast.makeText(\r\n                                            applicationContext,\r\n                                            \"Login Successful\",\r\n                                            Toast.LENGTH_LONG\r\n                                        ).show()\r\n                                        startActivity(intent)\r\n                                    } else if (aPerson.role == \"driver\") {\r\n                                        val intent = Intent(this, DriverActivity::class.java)\r\n                                        Toast.makeText(\r\n                                            applicationContext,\r\n                                            \"Login Successful\",\r\n                                            Toast.LENGTH_LONG\r\n                                        ).show()\r\n                                        startActivity(intent)\r\n                                    }\r\n\r\n                                } else {\r\n                                    binding.password.requestFocus()\r\n                                    Toast.makeText(\r\n                                        applicationContext,\r\n                                        \"Password not correct\",\r\n                                        Toast.LENGTH_LONG\r\n                                    ).show()\r\n                                }\r\n\r\n                            } else {\r\n                                binding.username.requestFocus()\r\n                                Toast.makeText(\r\n                                    applicationContext,\r\n                                    \"Username not found\",\r\n                                    Toast.LENGTH_LONG\r\n                                ).show()\r\n                            }\r\n\r\n                        }\r\n                        .addOnFailureListener { e ->\r\n                            Log.w(TAG, \"Error adding document\", e)\r\n                        }\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun intent(role:String) {\r\n        if(role == \"worker\") {\r\n            val intent = Intent(this, EmployeeActivity::class.java)\r\n            startActivity(intent)\r\n        } else if(role == \"manager\") {\r\n            val intent = Intent(this, ManagerActivity::class.java)\r\n            startActivity(intent)\r\n        } else if(role == \"driver\") {\r\n            val intent = Intent(this, DriverActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/MainActivity.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/MainActivity.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/MainActivity.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/MainActivity.kt	(date 1631551416030)
+@@ -7,6 +7,7 @@
+ import android.os.Bundle
+ import android.text.TextUtils
+ import android.util.Log
++import android.view.View
+ import android.widget.Toast
+ import androidx.databinding.DataBindingUtil
+ import androidx.lifecycle.ViewModel
+@@ -57,6 +58,7 @@
+         val db = Firebase.firestore
+ 
+         binding.btnLogin.setOnClickListener {
++            binding.loadingIndi.visibility = View.VISIBLE
+             val InputUsername = binding.username.text.toString().trim()
+             val InputPassword = binding.password.text.toString()
+ //            val passHash = BCrypt.withDefaults().hashToString(12, "12345".toCharArray())
+@@ -113,6 +115,7 @@
+                                             "Login Successful",
+                                             Toast.LENGTH_LONG
+                                         ).show()
++                                        binding.loadingIndi.visibility = View.INVISIBLE
+                                         startActivity(intent)
+ 
+                                     } else if (aPerson.role == "manager") {
+@@ -122,6 +125,7 @@
+                                             "Login Successful",
+                                             Toast.LENGTH_LONG
+                                         ).show()
++                                        binding.loadingIndi.visibility = View.INVISIBLE
+                                         startActivity(intent)
+                                     } else if (aPerson.role == "driver") {
+                                         val intent = Intent(this, DriverActivity::class.java)
+@@ -130,6 +134,7 @@
+                                             "Login Successful",
+                                             Toast.LENGTH_LONG
+                                         ).show()
++                                        binding.loadingIndi.visibility = View.INVISIBLE
+                                         startActivity(intent)
+                                     }
+ 
+@@ -161,6 +166,7 @@
+     }
+ 
+     private fun intent(role:String) {
++        binding.loadingIndi.visibility = View.INVISIBLE
+         if(role == "worker") {
+             val intent = Intent(this, EmployeeActivity::class.java)
+             startActivity(intent)
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/ManagerActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.widget.TextView\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.drawerlayout.widget.DrawerLayout\r\nimport androidx.navigation.findNavController\r\nimport androidx.navigation.ui.AppBarConfiguration\r\nimport androidx.navigation.ui.navigateUp\r\nimport androidx.navigation.ui.setupActionBarWithNavController\r\nimport androidx.navigation.ui.setupWithNavController\r\nimport com.google.android.material.navigation.NavigationView\r\nimport com.google.android.material.snackbar.Snackbar\r\nimport my.edu.tarc.warehouserit3g2.Models.PersonViewModel\r\nimport my.edu.tarc.warehouserit3g2.databinding.ActivityManagerBinding\r\n\r\nclass ManagerActivity : AppCompatActivity() {\r\n\r\n    private lateinit var drawerLayout: DrawerLayout\r\n    private lateinit var binding: ActivityManagerBinding\r\n    private lateinit var appBarConfiguration: AppBarConfiguration\r\n    private lateinit var Person: PersonViewModel\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        //setContentView(R.layout.activity_manager)\r\n\r\n        //binding\r\n        binding = DataBindingUtil.setContentView(this, R.layout.activity_manager)\r\n\r\n        //side menu\r\n        drawerLayout = binding.drawerLayout\r\n        setSupportActionBar(binding.appBarManager.toolbar)\r\n\r\n        binding.appBarManager.fab.setOnClickListener { view ->\r\n            Snackbar.make(view, \"Replace with your own action\", Snackbar.LENGTH_LONG)\r\n                .setAction(\"Action\", null).show()\r\n        }\r\n\r\n        val navView: NavigationView = binding.navView\r\n        val headerView = navView.getHeaderView(0)\r\n        val navController = findNavController(R.id.managerNavHostFragment)\r\n        val username : TextView = headerView.findViewById(R.id.usernameDis)\r\n\r\n        Person = PersonViewModel.getInstance()\r\n        username.text = Person.getPerson().fullName\r\n\r\n        appBarConfiguration = AppBarConfiguration(\r\n            setOf(\r\n                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment\r\n            ),drawerLayout\r\n        )\r\n\r\n        setupActionBarWithNavController(navController, appBarConfiguration)\r\n        navView.setupWithNavController(navController)\r\n    }\r\n\r\n    override fun onSupportNavigateUp(): Boolean {\r\n        val navController = this.findNavController(R.id.managerNavHostFragment)\r\n        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/ManagerActivity.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/ManagerActivity.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/ManagerActivity.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/ManagerActivity.kt	(date 1631544983961)
+@@ -48,7 +48,7 @@
+ 
+         appBarConfiguration = AppBarConfiguration(
+             setOf(
+-                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment
++                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment, R.id.transitList_Fragment
+             ),drawerLayout
+         )
+ 
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_employee.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_manager.xml\" value=\"0.1\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_map.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/app_bar_main.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/app_bar_manager.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/content_manager.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/dropdown_sort.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_add_rack.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_scan_scrap.xml\" value=\"0.13020833333333334\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_detail_.xml\" value=\"0.3888888888888889\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_in_.xml\" value=\"0.4\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_out_.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_tracking.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/nav_header.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/stock_in_item.xml\" value=\"0.35311143270622286\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/stock_out_item.xml\" value=\"0.536\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/transit_item.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_manager.xml\" value=\"0.25416666666666665\" />\r\n        <entry key=\"..\\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/menu/navdrawer_menu.xml\" value=\"0.25416666666666665\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/.idea/misc.xml	(date 1631551687225)
+@@ -3,6 +3,9 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
++        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
++        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_product_movement_.xml" value="0.36666666666666664" />
++        <entry key="..\:/3MobileApp/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml" value="0.36666666666666664" />
+         <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_employee.xml" value="0.25416666666666665" />
+         <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+         <entry key="..\:/Users/MSI GF75/Desktop/mobile appication development/WarehouseRIT3G2/app/src/main/res/layout/activity_manager.xml" value="0.1" />
+Index: app/src/main/res/layout/fragment_product_movement_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:tools=\"http://schemas.android.com/tools\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        tools:context=\".ProductMovement_Fragment\">\r\n\r\n        <Spinner\r\n            android:id=\"@+id/sprPart\"\r\n            android:layout_width=\"200dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:minHeight=\"48dp\"\r\n            android:contentDescription=\"@string/preview1\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/tvtPartNo\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/tvtPartNo\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/tvtPartNo\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"16dp\"\r\n            android:layout_marginTop=\"128dp\"\r\n            android:text=\"@string/part_number\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/tvtQuantity\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"16dp\"\r\n            android:layout_marginTop=\"32dp\"\r\n            android:text=\"@string/quantity\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/sprPart\" />\r\n\r\n        <Spinner\r\n            android:id=\"@+id/sprQuan\"\r\n            android:layout_width=\"200dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:contentDescription=\"@string/preview2\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/tvtQuantity\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/tvtQuantity\" />\r\n\r\n        <androidx.constraintlayout.widget.Guideline\r\n            android:id=\"@+id/guideline2\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            app:layout_constraintGuide_begin=\"85dp\" />\r\n\r\n        <Button\r\n            android:id=\"@+id/btnSubmit\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginBottom=\"200dp\"\r\n            android:text=\"@string/submit\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\" />\r\n\r\n        <Spinner\r\n            android:id=\"@+id/sprFrom\"\r\n            android:layout_width=\"200dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:contentDescription=\"@string/warehouse\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/tvWarehouse\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/tvWarehouse\" />\r\n\r\n        <Spinner\r\n            android:id=\"@+id/sprTo\"\r\n            android:layout_width=\"200dp\"\r\n            android:layout_height=\"48dp\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:contentDescription=\"@string/factory\"\r\n            app:layout_constraintBottom_toBottomOf=\"@+id/tvFactory\"\r\n            app:layout_constraintStart_toStartOf=\"@+id/guideline2\"\r\n            app:layout_constraintTop_toTopOf=\"@+id/tvFactory\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/tvWarehouse\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"16dp\"\r\n            android:layout_marginTop=\"32dp\"\r\n            android:text=\"@string/from\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/sprQuan\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/tvFactory\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_marginStart=\"16dp\"\r\n            android:layout_marginTop=\"32dp\"\r\n            android:text=\"@string/to\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toBottomOf=\"@+id/sprFrom\" />\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/loadingIndi\"\r\n            style=\"?android:attr/progressBarStyle\"\r\n            android:layout_width=\"70dp\"\r\n            android:layout_height=\"70dp\"\r\n            android:visibility=\"visible\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"parent\" />\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_product_movement_.xml b/app/src/main/res/layout/fragment_product_movement_.xml
+--- a/app/src/main/res/layout/fragment_product_movement_.xml	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/res/layout/fragment_product_movement_.xml	(date 1631552007122)
+@@ -23,9 +23,12 @@
+             android:id="@+id/tvtPartNo"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_marginStart="16dp"
++            android:layout_marginStart="32dp"
+             android:layout_marginTop="128dp"
++            android:fontFamily="@font/poppins_medium"
+             android:text="@string/part_number"
++            android:textColor="@color/black"
++            android:textSize="16sp"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
+ 
+@@ -33,10 +36,11 @@
+             android:id="@+id/tvtQuantity"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_marginStart="16dp"
+             android:layout_marginTop="32dp"
+             android:text="@string/quantity"
+-            app:layout_constraintStart_toStartOf="parent"
++            android:textColor="@color/black"
++            android:textSize="16sp"
++            app:layout_constraintStart_toStartOf="@+id/tvtPartNo"
+             app:layout_constraintTop_toBottomOf="@+id/sprPart" />
+ 
+         <Spinner
+@@ -54,7 +58,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+-            app:layout_constraintGuide_begin="85dp" />
++            app:layout_constraintGuide_begin="129dp" />
+ 
+         <Button
+             android:id="@+id/btnSubmit"
+@@ -90,20 +94,22 @@
+             android:id="@+id/tvWarehouse"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_marginStart="16dp"
+-            android:layout_marginTop="32dp"
++            android:layout_marginTop="28dp"
+             android:text="@string/from"
+-            app:layout_constraintStart_toStartOf="parent"
++            android:textColor="@color/black"
++            android:textSize="16sp"
++            app:layout_constraintStart_toStartOf="@+id/tvtQuantity"
+             app:layout_constraintTop_toBottomOf="@+id/sprQuan" />
+ 
+         <TextView
+             android:id="@+id/tvFactory"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_marginStart="16dp"
+             android:layout_marginTop="32dp"
+             android:text="@string/to"
+-            app:layout_constraintStart_toStartOf="parent"
++            android:textColor="@color/black"
++            android:textSize="16sp"
++            app:layout_constraintStart_toStartOf="@+id/tvWarehouse"
+             app:layout_constraintTop_toBottomOf="@+id/sprFrom" />
+ 
+         <ProgressBar
+Index: app/src/main/res/layout/fragment_transit_list_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/contraintLayout\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".TransitList_Fragment\" >\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/rvTransit\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:listitem=\"@layout/transit_item\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.LinearLayoutManager\"/>\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/loadingIndi\"\r\n        style=\"?android:attr/progressBarStyle\"\r\n        android:layout_width=\"70dp\"\r\n        android:layout_height=\"70dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_transit_list_.xml b/app/src/main/res/layout/fragment_transit_list_.xml
+--- a/app/src/main/res/layout/fragment_transit_list_.xml	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/res/layout/fragment_transit_list_.xml	(date 1631541706959)
+@@ -3,6 +3,7 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/contraintLayout"
++    android:tag="transitTag"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     tools:context=".TransitList_Fragment" >
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.content.ContentValues\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ProgressBar\r\nimport androidx.navigation.NavDirections\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.tasks.await\r\nimport kotlinx.coroutines.withContext\r\nimport my.edu.tarc.warehouserit3g2.Data.Transit\r\nimport my.edu.tarc.warehouserit3g2.Data.TransitAdapter\r\nimport java.util.ArrayList\r\n\r\nclass TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {\r\n\r\n    lateinit var myRecyclerView: RecyclerView\r\n    var transitList: MutableList<Transit> = ArrayList()\r\n\r\n    private val navController by lazy { NavHostFragment.findNavController(this) }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        //declaration\r\n        val view = inflater.inflate(R.layout.fragment_transit_list_, container, false)\r\n        myRecyclerView = view.findViewById(R.id.rvTransit)\r\n        val load :ProgressBar = view.findViewById(R.id.loadingIndi)\r\n        val db = Firebase.firestore\r\n\r\n        //=================== get data ===================\r\n        db.collection(\"Transfer\").get()\r\n            .addOnSuccessListener { data ->\r\n                for (item in data) {\r\n                    //if item is in transit status\r\n                    if (item.data.get(\"status\").toString() == \"inTransit\") {\r\n                        var t = Transit(\r\n                            item.id,\r\n                            item.data.get(\"from\").toString(),\r\n                            item.data.get(\"to\").toString()\r\n                        )\r\n                        //push into arraylist if doesnt exist\r\n                        if (!transitList.contains(t)){\r\n                            transitList.add(t)\r\n                        }\r\n\r\n//                        Log.d(ContentValues.TAG, \"t= ${t}\")\r\n                    }\r\n                }\r\n//                Log.d(ContentValues.TAG, \"list= ${transitList}\")\r\n                myRecyclerView.adapter = TransitAdapter(transitList, this)\r\n                load.visibility = View.INVISIBLE\r\n            }\r\n        return view\r\n    }\r\n\r\n    override fun onItemClick(position: Int) {\r\n        val clickedItem: Transit = transitList[position]\r\n        val action: NavDirections =\r\n            TransitList_FragmentDirections.actionTransitListFragmentToMapFragment(clickedItem.id)\r\n\r\n        navController.navigate(action)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(revision 9c0bfcef08191adf2304735c758d92fe52c7fa56)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(date 1631549881731)
+@@ -8,6 +8,7 @@
+ import android.view.View
+ import android.view.ViewGroup
+ import android.widget.ProgressBar
++import androidx.fragment.app.FragmentTransaction
+ import androidx.navigation.NavDirections
+ import androidx.navigation.fragment.NavHostFragment
+ import androidx.recyclerview.widget.RecyclerView
+@@ -26,6 +27,7 @@
+ 
+     lateinit var myRecyclerView: RecyclerView
+     var transitList: MutableList<Transit> = ArrayList()
++    //var pause = false
+ 
+     private val navController by lazy { NavHostFragment.findNavController(this) }
+ 
+@@ -37,7 +39,7 @@
+         //declaration
+         val view = inflater.inflate(R.layout.fragment_transit_list_, container, false)
+         myRecyclerView = view.findViewById(R.id.rvTransit)
+-        val load :ProgressBar = view.findViewById(R.id.loadingIndi)
++        val load: ProgressBar = view.findViewById(R.id.loadingIndi)
+         val db = Firebase.firestore
+ 
+         //=================== get data ===================
+@@ -52,7 +54,7 @@
+                             item.data.get("to").toString()
+                         )
+                         //push into arraylist if doesnt exist
+-                        if (!transitList.contains(t)){
++                        if (!transitList.contains(t)) {
+                             transitList.add(t)
+                         }
+ 
+@@ -73,4 +75,22 @@
+ 
+         navController.navigate(action)
+     }
++
++    //    override fun onPause() {
++//        super.onPause()
++//    }
++//
++    override fun onResume() {
++        super.onResume()
++        transitList.clear()
++    }
++//
++//        if (pause){
++//            val currentFragment = requireFragmentManager().findFragmentByTag("transitTag")
++//            val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
++//            fragmentTransaction.detach(currentFragment!!)
++//            fragmentTransaction.attach(currentFragment!!)
++//            fragmentTransaction.commit()
++//        }
++//    }
+ }
+\ No newline at end of file

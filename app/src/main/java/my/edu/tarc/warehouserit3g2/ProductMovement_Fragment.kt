@@ -2,6 +2,7 @@ package my.edu.tarc.warehouserit3g2
 
 import android.app.Activity
 import android.content.ContentValues
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.google.firebase.firestore.GeoPoint
@@ -23,6 +25,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.tasks.await
 import my.edu.tarc.warehouserit3g2.databinding.FragmentProductMovementBinding
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ProductMovement_Fragment : Fragment() {
@@ -39,6 +43,7 @@ class ProductMovement_Fragment : Fragment() {
     private lateinit var selectedQuantity :Number
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -200,6 +205,7 @@ class ProductMovement_Fragment : Fragment() {
 
                 if (duplicateCheck(selectedFrom,selectedTo)){
                     val wLoc = (warehouse+factory).indexOf(selectedFrom)
+                    val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
 
                     CoroutineScope(IO).launch{
                         val selectedProd = hashMapOf(
@@ -211,7 +217,7 @@ class ProductMovement_Fragment : Fragment() {
                             "location" to (warehouseLoc+factoryLoc)[wLoc]
                         )
 
-                        db.collection("Transfer").add(selectedProd)
+                        db.collection("Transfer").document(currentTime).set(selectedProd)
                             .addOnSuccessListener {
                                 Toast.makeText(context,"Sucessfully Requested",Toast.LENGTH_SHORT).show()
                             }

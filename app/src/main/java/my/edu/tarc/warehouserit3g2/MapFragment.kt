@@ -1,16 +1,19 @@
 package my.edu.tarc.warehouserit3g2
 
-import android.Manifest
+import android.app.AlertDialog
 import android.content.ContentValues
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -21,8 +24,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -41,6 +42,12 @@ class MapFragment : Fragment() {
         val db = Firebase.firestore
         val args = MapFragmentArgs.fromBundle(requireArguments())
 
+//        val manager: FragmentManager = requireActivity().supportFragmentManager
+//        val trans: FragmentTransaction = manager.beginTransaction()
+//        val frag = requireFragmentManager().findFragmentByTag("transitTag")
+//        trans.remove(frag!!)
+//        trans.commit()
+//        manager.popBackStack()
 //        Log.d(ContentValues.TAG, "id= ${id}")
 
         GlobalScope.launch(IO) {
@@ -70,6 +77,19 @@ class MapFragment : Fragment() {
                             )
                             Log.d(ContentValues.TAG, "time= ${currentTime}")
                         }
+
+                        if ((value.get("status")).toString() == "complete"){
+
+                            val builder = AlertDialog.Builder(this@MapFragment.requireContext())
+                            builder.setTitle("Arrived!")
+                            builder.setMessage("Driver have arrived the destination\nSelect \"Ok\" to back to homepage")
+
+                            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                                getFragmentManager()?.popBackStack()
+                            }
+                            builder.show()
+                        }
+
                     } else {
                         Toast.makeText(context, "Error found is $e", Toast.LENGTH_SHORT)
                             .show()

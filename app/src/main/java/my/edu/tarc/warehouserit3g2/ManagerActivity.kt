@@ -48,7 +48,7 @@ class ManagerActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment
+                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment, R.id.transitList_Fragment
             ),drawerLayout
         )
 

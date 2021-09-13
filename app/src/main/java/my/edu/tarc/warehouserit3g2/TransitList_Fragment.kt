@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
 
     lateinit var myRecyclerView: RecyclerView
     var transitList: MutableList<Transit> = ArrayList()
+    //var pause = false
 
     private val navController by lazy { NavHostFragment.findNavController(this) }
 
@@ -37,7 +39,7 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
         //declaration
         val view = inflater.inflate(R.layout.fragment_transit_list_, container, false)
         myRecyclerView = view.findViewById(R.id.rvTransit)
-        val load :ProgressBar = view.findViewById(R.id.loadingIndi)
+        val load: ProgressBar = view.findViewById(R.id.loadingIndi)
         val db = Firebase.firestore
 
         //=================== get data ===================
@@ -52,7 +54,7 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
                             item.data.get("to").toString()
                         )
                         //push into arraylist if doesnt exist
-                        if (!transitList.contains(t)){
+                        if (!transitList.contains(t)) {
                             transitList.add(t)
                         }
 
@@ -73,4 +75,22 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
 
         navController.navigate(action)
     }
+
+    //    override fun onPause() {
+//        super.onPause()
+//    }
+//
+    override fun onResume() {
+        super.onResume()
+        transitList.clear()
+    }
+//
+//        if (pause){
+//            val currentFragment = requireFragmentManager().findFragmentByTag("transitTag")
+//            val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+//            fragmentTransaction.detach(currentFragment!!)
+//            fragmentTransaction.attach(currentFragment!!)
+//            fragmentTransaction.commit()
+//        }
+//    }
 }

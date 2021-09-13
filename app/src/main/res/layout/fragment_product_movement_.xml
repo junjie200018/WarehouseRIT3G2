@@ -23,9 +23,12 @@
             android:id="@+id/tvtPartNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="128dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="@string/part_number"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,10 +36,11 @@
             android:id="@+id/tvtQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="@string/quantity"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvtPartNo"
             app:layout_constraintTop_toBottomOf="@+id/sprPart" />
 
         <Spinner
@@ -54,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="85dp" />
+            app:layout_constraintGuide_begin="129dp" />
 
         <Button
             android:id="@+id/btnSubmit"
@@ -90,20 +94,22 @@
             android:id="@+id/tvWarehouse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:text="@string/from"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvtQuantity"
             app:layout_constraintTop_toBottomOf="@+id/sprQuan" />
 
         <TextView
             android:id="@+id/tvFactory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="@string/to"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tvWarehouse"
             app:layout_constraintTop_toBottomOf="@+id/sprFrom" />
 
         <ProgressBar
