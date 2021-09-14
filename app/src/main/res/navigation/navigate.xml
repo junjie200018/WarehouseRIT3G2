@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigate"
-    app:startDestination="@id/home_Fragment">
+    app:startDestination="@id/onReceived_Fragment">
     <fragment
         android:id="@+id/home_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.Home_Fragment"
@@ -215,4 +215,8 @@
         android:id="@+id/scanTransit_Product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.scanTransit_Product_Fragment"
         android:label="scanTransit_Product_Fragment" />
+    <fragment
+        android:id="@+id/rackList_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.RackList_Fragment"
+        android:label="RackList_Fragment" />
 </navigation>

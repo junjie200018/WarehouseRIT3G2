@@ -44,11 +44,11 @@ class scanTransit_Product_Fragment : Fragment() {
         val db = Firebase.firestore
 
         if (result != null) {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
             if (result.contents != null) {
                 scannedResult = result.contents
 
-                Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+
                 val valueBarcode : String = scannedResult
 
 
@@ -62,11 +62,12 @@ class scanTransit_Product_Fragment : Fragment() {
 
                             var correct = 0
                             var transferID = ""
+
                             db.collection("Transfer")
                                 .get()
                                 .addOnSuccessListener { documents ->
                                     for(transferProduct in documents){
-                                        if(result.data?.get("PartNo").toString() == transferProduct.data?.get("partNo") && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity")){
+                                        if(result.data?.get("PartNo").toString() == transferProduct.data?.get("partNo").toString() && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity").toString()){
                                             correct = 1
                                             transferID = transferProduct.id
                                             break
@@ -74,20 +75,32 @@ class scanTransit_Product_Fragment : Fragment() {
                                     }
 
                                     if(correct == 1){
+                                        Toast.makeText(
+                                            context,
+                                            "Transit successful",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                         db.collection("Transfer").document(transferID)
                                             .update(
                                                 mapOf(
-                                                    "status" to "inTransit"
+                                                    "status" to "ready",
+                                                    "serialNo" to  result.data?.get("SerialNo").toString()
                                                 )
                                             )
-                                        db.collection("ReceivedProduct").document(transferID)
+                                        db.collection("ReceivedProduct").document(scannedResult)
                                             .update(
                                                 mapOf(
                                                     "Status" to "Transit"
-                                                //add serial no
+
                                                 )
                                             )
                                     }
+
+                                    Toast.makeText(
+                                        context,
+                                        "Transit unsuccessful",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                         }
                     }

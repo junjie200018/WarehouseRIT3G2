@@ -1,12 +1,14 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavDirections
@@ -70,9 +72,9 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
         val clickedItem: Transit = transitList[position]
-        val action: NavDirections =
-            TransitList_FragmentDirections.actionTransitListFragmentToMapFragment(clickedItem.id)
-
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
+        val action: NavDirections = TransitList_FragmentDirections.actionTransitListFragmentToMapFragment(clickedItem.id)
         navController.navigate(action)
     }
 

@@ -31,14 +31,12 @@ class OnRack_Display_Detail_Fragment : Fragment() {
         val serialNo = args.serialNo
         val db = Firebase.firestore
 
-        Log.d(ContentValues.TAG, "DocumentSnapshot result data: ${serialNo}")
+
 
         db.collection("ReceivedProduct").document(serialNo)
             .get()
             .addOnSuccessListener { result ->
                 if(result.data != null){
-                    Log.d(ContentValues.TAG, "DocumentSnapshot result data: ${result.data?.get("PartNo").toString()}")
-
 
                     var InDate = result.data?.get("RackInDate").toString()
                     var OutDate = result.data?.get("RackOutDate").toString()
@@ -64,11 +62,6 @@ class OnRack_Display_Detail_Fragment : Fragment() {
             Navigation.findNavController(it)
                 .navigate(R.id.action_onRack_Display_Detail_Fragment_to_onRack_Display_Fragment)
         }
-
-
-
-
-        // Inflate the layout for this fragment
       return binding.root
     }
 }

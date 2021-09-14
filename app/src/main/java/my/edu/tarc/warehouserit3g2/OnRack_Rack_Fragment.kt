@@ -52,15 +52,13 @@ class OnRack_Rack_Fragment : Fragment() {
         val db = Firebase.firestore
 
         if (result != null) {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
             if (result.contents != null) {
                 scannedResult = result.contents
-                binding.textView6.text = serialNo
-                binding.txtValue1.text = scannedResult
-                Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+//                binding.textView6.text = serialNo
+//                binding.txtValue1.text = scannedResult
+
                 val valueQRcode : String = scannedResult
-//                Toast.makeText(context, "Geted ${serialNo}", Toast.LENGTH_LONG).show()
-//                Toast.makeText(context, "Geted 2 ${valueBarcode}", Toast.LENGTH_LONG).show()
 
 
 
@@ -70,7 +68,7 @@ class OnRack_Rack_Fragment : Fragment() {
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Rack QR code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
+//
                             val action : NavDirections = OnRack_Rack_FragmentDirections.actionOnRackRackFragmentToOnRackDetailFragment(serialNo , valueQRcode)
 
                             navController.navigate(action)
@@ -79,10 +77,11 @@ class OnRack_Rack_Fragment : Fragment() {
                     }
 
 
-            } else {
-                binding.textView6.text = "scan failed"
-                Log.w(ContentValues.TAG, "scan failed")
             }
+//            else {
+//                binding.textView6.text = "scan failed"
+//                Log.w(ContentValues.TAG, "scan failed")
+//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

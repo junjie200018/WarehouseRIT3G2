@@ -46,8 +46,7 @@ class OnReceivedDetail_Fragment : Fragment() {
         Person = PersonViewModel.getInstance()
 
 
-      //  binding.tvtPartNo.text = args.barcodeValue
-        Log.w(ContentValues.TAG, "partNo 4 = ${args.barcodeValue}")
+
 
         if(place == "receive") {
 
@@ -55,10 +54,10 @@ class OnReceivedDetail_Fragment : Fragment() {
             db.collection("Barcode").document(args.barcodeValue)
                 .get()
                 .addOnSuccessListener { result ->
-                    Log.d(ContentValues.TAG, "Abaaba")
+
                     if (result.data != null) {
 
-                        Log.d(ContentValues.TAG, "DocumentSnapshot result data: ${result.data}")
+
                         val randomInt = (0..5).random()
 
                         val rnd = Random()
@@ -72,16 +71,8 @@ class OnReceivedDetail_Fragment : Fragment() {
                         quantityDataBase = result.data?.get("quantity").toString()
                         serialNumber = myArray3[randomInt] + no
 
-                        Log.d(
-                            ContentValues.TAG,
-                            "DocumentSnapshot part data: ${partNumberDatabase}"
-                        )
-                        Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${quantityDataBase}")
 
 
-
-
-                        Log.d(ContentValues.TAG, "Serial number: ${serialNumber}")
                         val bitmap = generateQRCode(serialNumber)
                         binding.imagePreview.setImageBitmap(bitmap)
 
@@ -168,9 +159,9 @@ class OnReceivedDetail_Fragment : Fragment() {
             "Status" to Status,
             "ReceivedDate" to Date,
             "ReceivedBy" to ReceivedBy,
-            "RackID" to "",
-            "RackInDate" to "",
-            "RackOutDate" to "",
+            "RackID" to "-",
+            "RackInDate" to "-",
+            "RackOutDate" to "-",
         )
 
         db.collection("ReceivedProduct").document(serialNo).set(barcodeValue)

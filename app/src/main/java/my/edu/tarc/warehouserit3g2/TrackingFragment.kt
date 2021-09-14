@@ -173,7 +173,7 @@ class TrackingFragment : Fragment() {
                 .addOnSuccessListener { data ->
                     Log.d(ContentValues.TAG, "line 74")
                     dest = data?.get("to").toString()
-                    product = data?.get("SerialNo").toString()
+                    product = data?.get("serialNo").toString()
 
                     if (dest.contains("Warehouse"))
                         collection = "Warehouse"

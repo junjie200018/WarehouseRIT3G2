@@ -61,20 +61,19 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         val serialNumber : Array<String?> = arrayOfNulls<String>(100)
         Person = PersonViewModel.getInstance()
         var fullname = Person.getPerson().fullName
-        Log.w(ContentValues.TAG, "name = ${fullname}")
+
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
             .get()
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
-                    if(document.data?.get("Status").toString() != "Scrap" && document.data?.get("Status").toString() != "Transit") {
+
+                    if(document.data?.get("Status").toString() == "In Rack" || document.data?.get("Status").toString() != "Received") {
 
                         val p = Product("${document.data.get("PartNo").toString()}", "${document.id}", "${document.data?.get("ReceivedDate").toString()}", "${document.data?.get("Quantity").toString()}")
                         productList.add(p)
 
-                        Log.w(ContentValues.TAG, "name2 = ${productList}")
                     }
                 }
 
@@ -89,13 +88,12 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${query}")
+
 
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${newText}")
 
                        adapter.filter.filter(newText)
 
@@ -115,37 +113,10 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
     override fun onItemClick(position: Int) {
         Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
         val clickedItem : Product = productList[position]
-        Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${clickedItem}")
         val action : NavDirections = Display_Received_item_FragmentDirections.actionDisplayReceivedItemFragmentToOnReceivedDetailFragment("0", "view", clickedItem.SerialNo)
 
         navController.navigate(action)
-//        ProductAdapter.notifyItemChanged(position)
-    }
 
-//    override fun onQueryTextSubmit(query: String?): Boolean {
-//return false
-//    }
-//
-//    override fun onQueryTextChange(newText: String?): Boolean {
-////        val myRecyclerView : RecyclerView = binding.productRecycleView
-////        if(newText!!.isNotEmpty()){
-////            searchValue.clear()
-////            val search = newText
-////            Log.w(ContentValues.TAG, "search value 3 = ${newText}")
-////            productList.forEach{
-////                if (it.partNo.contains(search)){
-////                    Log.w(ContentValues.TAG, "get value 3 = ${it}")
-////                    searchValue.add(it)
-////                }
-////            }
-////            myRecyclerView.adapter!!.notifyDataSetChanged()
-////        }else{
-////
-////            searchValue.clear()
-////            searchValue.addAll(productList)
-////            myRecyclerView.adapter!!.notifyDataSetChanged()
-////        }
-//        return true
-//    }
+    }
 
 }

@@ -45,7 +45,6 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
                     val p = newProductBarcode(
                         "${document.id}",
@@ -64,13 +63,12 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${query}")
+
 
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${newText}")
 
                         adapter.filter.filter(newText)
 
@@ -84,9 +82,8 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+
         val clickedItem  = receiveProduct[position]
-        Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${clickedItem}")
         val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
         navController.navigate(action)
 //        ProductAdapter.notifyItemChanged(position)

@@ -48,12 +48,12 @@ class OnReceived_Fragment : Fragment() {
         val db = Firebase.firestore
 
         if (result != null) {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
             if (result.contents != null) {
                 scannedResult = result.contents
-                binding.textView6.text = scannedResult
-                binding.txtValue.text = scannedResult
-                Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+//                binding.textView6.text = scannedResult
+//                binding.txtValue.text = scannedResult
+
                 val valueBarcode : String = scannedResult
 
 
@@ -64,7 +64,7 @@ class OnReceived_Fragment : Fragment() {
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
+//
                             val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(valueBarcode, "receive" , "0")
 
                             navController.navigate(action)
@@ -73,31 +73,18 @@ class OnReceived_Fragment : Fragment() {
                     }
 
 
-            } else {
-                binding.textView6.text = "scan failed"
-                Log.w(ContentValues.TAG, "scan failed")
             }
+//            else {
+//                binding.textView6.text = "scan failed"
+//                Log.w(ContentValues.TAG, "scan failed")
+//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//
-//        outState?.putString("scannedResult", scannedResult)
-//        super.onSaveInstanceState(outState)
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//
-//        savedInstanceState?.let {
-//            scannedResult = it.getString("scannedResult").toString()
-//            binding.txtValue.text = scannedResult
-//            Log.w(ContentValues.TAG, "partNo 3 = ${scannedResult}")
-//        }
-//    }
+
 
 
 

@@ -48,13 +48,11 @@ class changeRack_product_Fragment : Fragment() {
         val db = Firebase.firestore
 
         if (result != null) {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
             if (result.contents != null) {
                 scannedResult = result.contents
-                binding.textView6.text = scannedResult
-                binding.txtValue2 .text = scannedResult
-                Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
-//                val valueBarcode : String = scannedResult
+//                binding.textView6.text = scannedResult
+//                binding.txtValue2 .text = scannedResult
 
 
 
@@ -67,8 +65,7 @@ class changeRack_product_Fragment : Fragment() {
 
                             if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
                                 if(result.data?.get("RackID").toString() != ""){
-//
-                                    Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+
                                     val action : NavDirections = changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(scannedResult)
                                     navController.navigate(action)
 
@@ -80,12 +77,10 @@ class changeRack_product_Fragment : Fragment() {
                             }
                         }
                     }
-
-
-            } else {
-                binding.textView6.text = "scan failed"
-                Log.w(ContentValues.TAG, "scan failed")
             }
+//            else {
+//                binding.textView6.text = "scan failed"
+//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

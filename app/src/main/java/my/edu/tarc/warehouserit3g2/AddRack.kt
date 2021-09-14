@@ -61,7 +61,7 @@ class AddRack : Fragment() {
                         if(exist == 0){
                             Toast.makeText(context, "Got Value", Toast.LENGTH_SHORT).show()
                             val bitmap = generateQRCode(rackId)
-                            Log.d(ContentValues.TAG, "getfailedwith ${bitmap} ")
+
                             binding.imageQRcode.setImageBitmap(bitmap)
 
                             binding.ID.onEditorAction(EditorInfo.IME_ACTION_DONE)

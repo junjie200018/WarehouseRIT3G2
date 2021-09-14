@@ -29,8 +29,7 @@ class OnRack_Detail_Fragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_rack_detail, container, false)
         val args = OnRack_Detail_FragmentArgs.fromBundle(requireArguments())
-        Log.w(ContentValues.TAG, "partNo 4 = ${args.rackId}")
-        Log.w(ContentValues.TAG, "partNo 4 = ${args.serialNo}")
+
 
         val db = Firebase.firestore
         val sdf = SimpleDateFormat("dd/M/yyyy")
@@ -51,20 +50,7 @@ class OnRack_Detail_Fragment : Fragment() {
                 binding.tvtSerialN.text = serialNo
                 binding.tvtRackOutDate.text = "-"
 
-//                val RackInValue = hashMapOf(
-//                    "PartNo" to result.data?.get("PartNo").toString(),
-//                    "ReceivedBy" to result.data?.get("ReceivedBy").toString(),
-//                    "ReceivedDate" to result.data?.get("ReceivedDate").toString(),
-//                    "Status" to rackStatus,
-//                    "Quantity" to result.data?.get("Quantity").toString(),
-//                    "SerialNo" to result.data?.get("SerialNo").toString(),
-//                    "RackID" to rackId,
-//                    "RackInDate" to rackInDate,
-//                    "RackOutDate" to "",
-//                )
 
-                //db.collection("RackIn").document("").update(RackInValue as Map<String, Any>)
-//                db.collection("ReceivedProduct").document(serialNo).set(RackInValue)
                 db.collection("ReceivedProduct").document(serialNo)
                     .update(
                         mapOf(

@@ -60,7 +60,6 @@ class receiveProduct_Fragment : Fragment() {
                     .get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
-                            Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
 
                             pdID = document.id
                             partNumberDatabase = document.data.get("partNo").toString()
@@ -69,7 +68,7 @@ class receiveProduct_Fragment : Fragment() {
 
 
                             if (productID == partNumberDatabase && qty == quantityDataBase) {
-                                Log.w(ContentValues.TAG, "Error .")
+
                                 Toast.makeText(
                                     context,
                                     "The part number and quantity is existed. Please try another!",
@@ -77,10 +76,11 @@ class receiveProduct_Fragment : Fragment() {
                                 ).show()
                                 checkExist = 1
                                 break
-                            } else {
-                                Log.w(ContentValues.TAG, "partNo 2 = ${partNumberDatabase}")
-                                Log.w(ContentValues.TAG, "quantity 3 = ${quantityDataBase}")
                             }
+//                            else {
+//                                Log.w(ContentValues.TAG, "partNo 2 = ${partNumberDatabase}")
+//                                Log.w(ContentValues.TAG, "quantity 3 = ${quantityDataBase}")
+//                            }
 
 //
 
@@ -89,9 +89,7 @@ class receiveProduct_Fragment : Fragment() {
                         if (checkExist != 1) {
                             while (pdID == no) {
                                 no = rnd.nextInt(999999999).toString().format("%06d", number)
-                                Log.w(ContentValues.TAG, "repeat")
                             }
-                            Log.w(ContentValues.TAG, "productID 1 = ${no}")
 
 
                             val barcodeValue = hashMapOf(

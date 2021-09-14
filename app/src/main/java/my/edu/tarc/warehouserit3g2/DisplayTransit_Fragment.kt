@@ -46,15 +46,13 @@ class DisplayTransit_Fragment : Fragment(), DisplayTransitAdapter.OnItemClickLis
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+
 
 //                    if(document.data?.get("Status").toString() != "inTransit" && document.data?.get("Status").toString() != "complete") {
                     if(document.data?.get("status").toString() == "pending" ) {
                         val p = DisplayTransit("${document.data.get("partNo").toString()}", "${document.data.get("quantity").toString()}",
                         "${document.data.get("from").toString()}", "${document.data.get("to").toString()}")
                         transitProduct.add(p)
-
-                        Log.w(ContentValues.TAG, "name2 = ${transitProduct}")
                     }
                 }
 
@@ -69,16 +67,14 @@ class DisplayTransit_Fragment : Fragment(), DisplayTransitAdapter.OnItemClickLis
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${query}")
+
 
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${newText}")
 
                         adapter.filter.filter(newText)
-
 
                         return false
                     }
@@ -89,9 +85,9 @@ class DisplayTransit_Fragment : Fragment(), DisplayTransitAdapter.OnItemClickLis
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+      //  Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
         val clickedItem : DisplayTransit = transitProduct[position]
-        Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${clickedItem}")
+
 //        val action : NavDirections = Display_Received_item_FragmentDirections.actionDisplayReceivedItemFragmentToOnReceivedDetailFragment("0", "view", clickedItem.SerialNo)
 //
 //        navController.navigate(action)

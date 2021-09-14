@@ -1,12 +1,14 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -47,14 +49,13 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
             .addOnSuccessListener { result ->
                 val i = 0
                 for (document in result) {
-                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+
 
                     if(document.data?.get("Status").toString() == "Scrap") {
 
                         val p = Product("${document.data.get("PartNo").toString()}", "${document.id}","${document.data.get("RackOutDate").toString()}","")
                         productList.add(p)
 
-                        Log.w(ContentValues.TAG, "name2 = ${productList}")
                     }
                 }
 
@@ -69,13 +70,11 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${query}")
 
                         return true
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        Log.w(ContentValues.TAG, "get value 3 = ${newText}")
 
                         adapter.filter.filter(newText)
 
@@ -89,9 +88,10 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+
         val clickedItem : Product = productList[position]
-        Log.d(ContentValues.TAG, "DocumentSnapshot qty data: ${clickedItem}")
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         val action : NavDirections = scrapList_FragmentDirections.actionScrapListFragmentToDisplayScrapFragment(clickedItem.SerialNo)
 
         navController.navigate(action)

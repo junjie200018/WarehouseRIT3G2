@@ -31,12 +31,12 @@ class EmployeeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var app2: AppBarConfiguration
     private lateinit var Person: PersonViewModel
-//    private val navController by lazy { NavHostFragment.findNavController(this) }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_employee)
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_employee)
 
@@ -45,36 +45,27 @@ class EmployeeActivity : AppCompatActivity() {
 
 
 
-//        val drawerLayout: DrawerLayout = binding.drawerLayout
+
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)
         val username : TextView = headerView.findViewById(R.id.usernameDis)
         val navController = findNavController(R.id.myNavHostFragment)
-//        val profileButton : TextView = headerView.findViewById(R.id.btnProfileSetting)
+
         Person = PersonViewModel.getInstance()
         username.text = Person.getPerson().fullName
 
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.home_Fragment, R.id.receiveProduct_Fragment, R.id.onReceived_Fragment,
+                 R.id.receiveProduct_Fragment, R.id.onReceived_Fragment,
                 R.id.display_Received_item_Fragment, R.id.onRack_Product_Fragment, R.id.onRack_Display_Fragment,
                 R.id.changeRack_product_Fragment, R.id.scanScrap_Fragment,R.id.profileEdit_Fragment, R.id.receiveProductList_Fragment,
-                R.id.scrapList_Fragment, R.id.displayTransit_Fragment
+                R.id.scrapList_Fragment, R.id.displayTransit_Fragment, R.id.rackList_Fragment
             ), drawerLayout
         )
 
-
-
-        // val navController = findNavController(R.id.myNavHostFragment)
-
-//        NavigationUI.setupActionBarWithNavController(this,navController, drawerLayout)
-
-//        NavigationUI.setupWithNavController(binding.navView, navController)
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
 
     }
 
@@ -83,12 +74,5 @@ class EmployeeActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun settings() {
-
-//        var i = view.findViewById(R.id.profileEdit_Fragment)
-//        findNavController(this).navigate(R.id.profileEdit_Fragment)
-
-
-    }
 
 }

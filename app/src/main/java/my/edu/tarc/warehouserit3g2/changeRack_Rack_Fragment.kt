@@ -53,12 +53,12 @@ class changeRack_Rack_Fragment : Fragment() {
         val db = Firebase.firestore
 
         if (result != null) {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
             if (result.contents != null) {
                 scannedResult = result.contents
-                binding.textView6.text = scannedResult
-                binding.txtValue3.text = scannedResult
-                Log.w(ContentValues.TAG, "partNo 2 = ${scannedResult}")
+//                binding.textView6.text = scannedResult
+//                binding.txtValue3.text = scannedResult
+
                 val valueBarcode: String = scannedResult
 
                 db.collection("ReceivedProduct").document(serialNo)
@@ -91,10 +91,11 @@ class changeRack_Rack_Fragment : Fragment() {
                                 }
                         }
                     }
-            } else {
-                binding.textView6.text = "scan failed"
-                Log.w(ContentValues.TAG, "scan failed")
             }
+//            else {
+//                binding.textView6.text = "scan failed"
+//                Log.w(ContentValues.TAG, "scan failed")
+//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

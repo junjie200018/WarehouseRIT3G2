@@ -12,6 +12,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
@@ -96,6 +97,9 @@ class profileEdit_Fragment : Fragment() {
 
                 binding.btnProfileEdit.setVisibility(VISIBLE)
                 binding.btnProfileSubmit.setVisibility(INVISIBLE)
+                binding.Name.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                binding.email.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                binding.phone.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 Toast.makeText(
                     context,
                     "Edit successful",
@@ -177,7 +181,6 @@ class profileEdit_Fragment : Fragment() {
                 for(document in result){
                     if(binding.email.text?.contains(document.data.get("email").toString()) == true){
                         duplicate = 1
-                        Log.w(ContentValues.TAG, "chackemail")
                     }
                 }
 
@@ -198,11 +201,8 @@ class profileEdit_Fragment : Fragment() {
                     binding.email.requestFocus()
                     trueFalse = false
                 }
-                Log.w(ContentValues.TAG, "partNo 1 = ${duplicate}")
-                Log.w(ContentValues.TAG, "partNo 1 = ${trueFalse}")
-                Log.w(ContentValues.TAG, "email = ${binding.email.text}")
             }
-        Log.w(ContentValues.TAG, "partNo 2 = ${trueFalse}")
+
         if(trueFalse == false){
             return false
         }

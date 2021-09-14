@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
     app:cardBackgroundColor="#B2E2E8">
 
     <RelativeLayout
@@ -17,7 +19,9 @@
             android:id="@+id/TransitPartNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/displayQuantity"
@@ -27,7 +31,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:layout_marginTop="15dp"
-            android:text="Quantity : " />
+            android:text="Quantity : "
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/displayFrom"
@@ -37,7 +42,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="2dp"
             android:layout_marginTop="15dp"
-            android:text="From :" />
+            android:text="From :"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/displayTo"
@@ -47,7 +53,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="1dp"
             android:layout_marginTop="10dp"
-            android:text="To :" />
+            android:text="To :"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/TransitQuantity"
@@ -58,27 +65,30 @@
             android:layout_marginStart="23dp"
             android:layout_marginTop="37dp"
             android:layout_toEndOf="@id/displayQuantity"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/TransitFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/TransitQuantity"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="14dp"
             android:layout_toEndOf="@id/displayFrom"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/TransitDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/TransitFrom"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="9dp"
             android:layout_toEndOf="@id/displayTo"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
