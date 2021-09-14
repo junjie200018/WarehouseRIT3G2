@@ -1,0 +1,34 @@
+Index: app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package my.edu.tarc.warehouserit3g2\r\n\r\nimport android.content.ContentValues\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.ProgressBar\r\nimport androidx.fragment.app.FragmentTransaction\r\nimport androidx.navigation.NavDirections\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.google.firebase.firestore.ktx.firestore\r\nimport com.google.firebase.ktx.Firebase\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.GlobalScope\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.tasks.await\r\nimport kotlinx.coroutines.withContext\r\nimport my.edu.tarc.warehouserit3g2.Data.Transit\r\nimport my.edu.tarc.warehouserit3g2.Data.TransitAdapter\r\nimport java.util.ArrayList\r\n\r\nclass TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {\r\n\r\n    lateinit var myRecyclerView: RecyclerView\r\n    var transitList: MutableList<Transit> = ArrayList()\r\n    //var pause = false\r\n\r\n    private val navController by lazy { NavHostFragment.findNavController(this) }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n\r\n        //declaration\r\n        val view = inflater.inflate(R.layout.fragment_transit_list_, container, false)\r\n        myRecyclerView = view.findViewById(R.id.rvTransit)\r\n        val load: ProgressBar = view.findViewById(R.id.loadingIndi)\r\n        val db = Firebase.firestore\r\n\r\n        //=================== get data ===================\r\n        db.collection(\"Transfer\").get()\r\n            .addOnSuccessListener { data ->\r\n                for (item in data) {\r\n                    //if item is in transit status\r\n                    if (item.data.get(\"status\").toString() == \"inTransit\") {\r\n                        var t = Transit(\r\n                            item.id,\r\n                            item.data.get(\"from\").toString(),\r\n                            item.data.get(\"to\").toString()\r\n                        )\r\n                        //push into arraylist if doesnt exist\r\n                        if (!transitList.contains(t)) {\r\n                            transitList.add(t)\r\n                        }\r\n\r\n//                        Log.d(ContentValues.TAG, \"t= ${t}\")\r\n                    }\r\n                }\r\n//                Log.d(ContentValues.TAG, \"list= ${transitList}\")\r\n                myRecyclerView.adapter = TransitAdapter(transitList, this)\r\n                load.visibility = View.INVISIBLE\r\n            }\r\n        return view\r\n    }\r\n\r\n    override fun onItemClick(position: Int) {\r\n        val clickedItem: Transit = transitList[position]\r\n        val action: NavDirections =\r\n            TransitList_FragmentDirections.actionTransitListFragmentToMapFragment(clickedItem.id)\r\n\r\n        navController.navigate(action)\r\n    }\r\n\r\n    //    override fun onPause() {\r\n//        super.onPause()\r\n//    }\r\n//\r\n    override fun onResume() {\r\n        super.onResume()\r\n        transitList.clear()\r\n    }\r\n//\r\n//        if (pause){\r\n//            val currentFragment = requireFragmentManager().findFragmentByTag(\"transitTag\")\r\n//            val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()\r\n//            fragmentTransaction.detach(currentFragment!!)\r\n//            fragmentTransaction.attach(currentFragment!!)\r\n//            fragmentTransaction.commit()\r\n//        }\r\n//    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt
+--- a/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(revision 21ce812493c8cff1cd88045cf7e6fd9e1995ddba)
++++ b/app/src/main/java/my/edu/tarc/warehouserit3g2/TransitList_Fragment.kt	(date 1631643720586)
+@@ -76,21 +76,9 @@
+         navController.navigate(action)
+     }
+ 
+-    //    override fun onPause() {
+-//        super.onPause()
+-//    }
+-//
+     override fun onResume() {
+         super.onResume()
+         transitList.clear()
+     }
+-//
+-//        if (pause){
+-//            val currentFragment = requireFragmentManager().findFragmentByTag("transitTag")
+-//            val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
+-//            fragmentTransaction.detach(currentFragment!!)
+-//            fragmentTransaction.attach(currentFragment!!)
+-//            fragmentTransaction.commit()
+-//        }
+-//    }
++
+ }
+\ No newline at end of file

@@ -78,21 +78,9 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
         navController.navigate(action)
     }
 
-    //    override fun onPause() {
-//        super.onPause()
-//    }
-//
     override fun onResume() {
         super.onResume()
         transitList.clear()
     }
-//
-//        if (pause){
-//            val currentFragment = requireFragmentManager().findFragmentByTag("transitTag")
-//            val fragmentTransaction: FragmentTransaction = requireFragmentManager().beginTransaction()
-//            fragmentTransaction.detach(currentFragment!!)
-//            fragmentTransaction.attach(currentFragment!!)
-//            fragmentTransaction.commit()
-//        }
-//    }
+
 }
