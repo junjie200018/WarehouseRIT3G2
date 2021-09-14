@@ -6,14 +6,7 @@
     <item
         android:title="Receive Product">
         <menu>
-            <item
-                android:id="@+id/receiveProduct_Fragment"
 
-                android:title="Add New Product" />
-            <item
-                android:id="@+id/receiveProductList_Fragment"
-                android:icon="@drawable/list"
-                android:title="New Product List" />
             <item
                 android:id="@+id/onReceived_Fragment"
                 android:icon="@drawable/receiveproduct"
@@ -23,6 +16,10 @@
                 android:icon="@drawable/list"
                 android:title="Received Product List" />
 
+            <item
+            android:id="@+id/receiveProductList_Fragment"
+            android:icon="@drawable/list"
+            android:title="New Product List" />
 
         </menu>
     </item>
@@ -32,24 +29,25 @@
         <menu>
             <item
                 android:id="@+id/onRack_Product_Fragment"
-
+                android:icon="@drawable/scan"
                 android:title="Rack In" />
 
             <item
             android:id="@+id/onRack_Display_Fragment"
+                android:icon="@drawable/rack"
             android:title="Display Rack In Item"
             />
 
             <item
             android:id="@+id/changeRack_product_Fragment"
+                android:icon="@drawable/change"
             android:title="Change Rack"
             />
-            <item
-                android:id="@+id/addRack"
-                android:title="Add Rack"/>
+
 
             <item
                 android:id="@+id/rackList_Fragment"
+                android:icon="@drawable/list"
                 android:title="Rack List"
                 />
         </menu>
@@ -58,16 +56,17 @@
     <item
         android:title="Scrap">
         <menu>
-            <item
-                android:id="@+id/scanScrap_Fragment"
-                android:icon="@drawable/scrapdelete"
-                android:title="Scan Scrap"
-                />
+
             <item
                 android:id="@+id/scrapList_Fragment"
-                android:icon="@drawable/scrapdelete"
+                android:icon="@drawable/list"
                 android:title="Scrap List"
                 />
+            <item
+            android:id="@+id/scanScrap_Fragment"
+            android:icon="@drawable/scrapdelete"
+            android:title="Scan Scrap"
+            />
         </menu>
     </item>
 
@@ -76,6 +75,7 @@
         <menu>
             <item
                 android:id="@+id/scanTransit_Product_Fragment"
+                android:icon="@drawable/scan"
                 android:title="Scan Transit Product"
             />
             <item

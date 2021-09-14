@@ -6,6 +6,15 @@
         android:title="Home" />
 
     <item
+        android:id="@+id/receiveProduct_Fragment"
+        android:icon="@drawable/add"
+        android:title="Add Product" />
+
+    <item
+        android:id="@+id/addRack"
+        android:icon="@drawable/add"
+        android:title="Add Rack"/>
+    <item
         android:id="@+id/productMovement_Fragment2"
         android:title="Product Movement"/>
 

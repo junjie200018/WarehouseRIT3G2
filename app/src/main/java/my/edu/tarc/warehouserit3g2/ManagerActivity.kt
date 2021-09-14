@@ -33,10 +33,10 @@ class ManagerActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
         setSupportActionBar(binding.appBarManager.toolbar)
 
-        binding.appBarManager.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+//        binding.appBarManager.fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
 
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)

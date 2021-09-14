@@ -49,7 +49,7 @@ class EmployeeActivity : AppCompatActivity() {
                  R.id.receiveProduct_Fragment, R.id.onReceived_Fragment,
                 R.id.display_Received_item_Fragment, R.id.onRack_Product_Fragment, R.id.onRack_Display_Fragment,
                 R.id.changeRack_product_Fragment, R.id.scanScrap_Fragment,R.id.profileEdit_Fragment, R.id.receiveProductList_Fragment,
-                R.id.scrapList_Fragment, R.id.displayTransit_Fragment, R.id.rackList_Fragment
+                R.id.scrapList_Fragment, R.id.displayTransit_Fragment, R.id.rackList_Fragment, R.id.scanTransit_Product_Fragment
             ), drawerLayout
         )
 

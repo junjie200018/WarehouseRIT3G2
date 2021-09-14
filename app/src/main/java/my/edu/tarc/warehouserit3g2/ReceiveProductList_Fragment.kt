@@ -1,12 +1,14 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -84,6 +86,8 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
     override fun onItemClick(position: Int) {
 
         val clickedItem  = receiveProduct[position]
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
         navController.navigate(action)
 //        ProductAdapter.notifyItemChanged(position)

@@ -82,6 +82,7 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
                 })
             }
 
+
         return binding.root
     }
 

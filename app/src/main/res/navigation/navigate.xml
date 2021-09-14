@@ -10,10 +10,6 @@
         android:label="fragment_home_"
         tools:layout="@layout/fragment_home_" />
     <fragment
-        android:id="@+id/receiveProduct_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.receiveProduct_Fragment"
-        android:label="receiveProduct_Fragment" />
-    <fragment
         android:id="@+id/onReceivedDetail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnReceivedDetail_Fragment"
         android:label="fragment_on_received_detail_"
@@ -70,11 +66,6 @@
             android:id="@+id/action_onRack_Rack_Fragment_to_onRack_Detail_Fragment"
             app:destination="@id/onRack_Detail_Fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addRack"
-        android:name="my.edu.tarc.warehouserit3g2.AddRack"
-        android:label="fragment_add_rack"
-        tools:layout="@layout/fragment_add_rack" />
     <fragment
         android:id="@+id/onRack_Detail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Detail_Fragment"

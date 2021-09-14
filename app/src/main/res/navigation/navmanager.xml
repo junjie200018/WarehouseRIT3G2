@@ -87,4 +87,12 @@
         android:id="@+id/currentQty_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.currectQty.CurrentQty_Fragment"
         android:label="Stock Current Quantity" />
+    <fragment
+        android:id="@+id/receiveProduct_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.receiveProduct_Fragment"
+        android:label="receiveProduct_Fragment" />
+    <fragment
+        android:id="@+id/addRack2"
+        android:name="my.edu.tarc.warehouserit3g2.AddRack"
+        android:label="AddRack" />
 </navigation>

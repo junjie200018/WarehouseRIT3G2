@@ -1,9 +1,11 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.databinding.DataBindingUtil
@@ -105,10 +107,11 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         val clickedItem : Product = productList[position]
         val action : NavDirections = Display_Received_item_FragmentDirections.actionDisplayReceivedItemFragmentToOnReceivedDetailFragment("0", "view", clickedItem.SerialNo)
-
         navController.navigate(action)
 
     }
