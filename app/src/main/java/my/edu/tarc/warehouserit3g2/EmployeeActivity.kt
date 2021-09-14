@@ -1,25 +1,14 @@
 package my.edu.tarc.warehouserit3g2
 
-import android.content.ContentValues
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.webkit.WebViewFragment
-import android.widget.Button
 import android.widget.TextView
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavDirections
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.databinding.ActivityEmployeeBinding
 
 
@@ -30,7 +19,7 @@ class EmployeeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEmployeeBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var app2: AppBarConfiguration
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
 
 
 
@@ -51,8 +40,8 @@ class EmployeeActivity : AppCompatActivity() {
         val username : TextView = headerView.findViewById(R.id.usernameDis)
         val navController = findNavController(R.id.myNavHostFragment)
 
-        Person = PersonViewModel.getInstance()
-        username.text = Person.getPerson().fullName
+        person = ViewModel.getInstance()
+        username.text = person.getPerson().fullName
 
 
         appBarConfiguration = AppBarConfiguration(

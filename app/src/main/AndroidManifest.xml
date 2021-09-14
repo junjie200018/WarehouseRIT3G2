@@ -54,6 +54,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:noHistory="true"
+            android:theme="@style/Theme.WarehouseRIT3G2.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

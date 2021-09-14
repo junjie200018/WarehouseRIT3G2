@@ -1,7 +1,6 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -17,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedDetailBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +25,7 @@ import java.util.*
 class OnReceivedDetail_Fragment : Fragment() {
 
     private lateinit var binding: FragmentOnReceivedDetailBinding
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +42,7 @@ class OnReceivedDetail_Fragment : Fragment() {
         val db = Firebase.firestore
         val place = args.place
         val seNo = args.serialNo
-        Person = PersonViewModel.getInstance()
+        person = ViewModel.getInstance()
 
 
 
@@ -65,7 +64,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                         var no = String.format("%07d", number)
                         val sdf = SimpleDateFormat("dd/M/yyyy")
                         val currentDate = sdf.format(Date())
-                        val receivedBy = Person.getPerson().fullName
+                        val receivedBy = person.getPerson().fullName
 
                         partNumberDatabase = result.data?.get("partNo").toString()
                         quantityDataBase = result.data?.get("quantity").toString()

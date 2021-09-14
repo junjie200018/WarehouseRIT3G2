@@ -7,7 +7,7 @@ data class Stock(
     var qty   : String,
     var SerialNo : String,
     var Status : String,
-    var RackId : String,
-    var RackInDate : String,
-    var RackOutDate : String
+    var RackId : String?,
+    var RackInDate : String?,
+    var RackOutDate : String?
 )

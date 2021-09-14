@@ -61,8 +61,8 @@
     <fragment
         android:id="@+id/onRack_Rack_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Rack_Fragment"
-        android:label="fragment_on_rack__rack_"
-        tools:layout="@layout/fragment_on_rack__rack_" >
+        android:label="On Rack Scanning"
+        tools:layout="@layout/fragment_on_rack__rack_">
         <argument
             android:name="serialNoOnRack"
             app:argType="string" />
@@ -78,8 +78,7 @@
     <fragment
         android:id="@+id/onRack_Detail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Detail_Fragment"
-        android:label="fragment_on_rack_detail"
-        tools:layout="@layout/fragment_on_rack_detail" >
+        android:label="On Rack Item Detail">
         <argument
             android:name="serialNo"
             app:argType="string" />
@@ -146,8 +145,8 @@
     <fragment
         android:id="@+id/profileEdit_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
-        android:label="fragment_profile_edit"
-        tools:layout="@layout/fragment_profile_edit" >
+        android:label="Profile Edit"
+        tools:layout="@layout/fragment_profile_edit">
         <action
             android:id="@+id/action_profileEdit_Fragment_to_changePass_Fragment"
             app:destination="@id/changePass_Fragment" />
@@ -160,8 +159,8 @@
     <fragment
         android:id="@+id/changePass_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
-        android:label="fragment_change_pass"
-        tools:layout="@layout/fragment_change_pass" >
+        android:label="Change Password"
+        tools:layout="@layout/fragment_change_pass">
         <action
             android:id="@+id/action_changePass_Fragment_to_profileEdit_Fragment"
             app:destination="@id/profileEdit_Fragment" />
@@ -188,8 +187,8 @@
     <fragment
         android:id="@+id/scrapList_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.scrapList_Fragment"
-        android:label="fragment_scrap_list_"
-        tools:layout="@layout/fragment_scrap_list_" >
+        android:label="Scrap Item List"
+        tools:layout="@layout/fragment_scrap_list_">
         <action
             android:id="@+id/action_scrapList_Fragment_to_displayScrap_Fragment"
             app:destination="@id/displayScrap_Fragment" />
@@ -197,8 +196,8 @@
     <fragment
         android:id="@+id/displayScrap_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.displayScrap_Fragment"
-        android:label="fragment_display_scrap"
-        tools:layout="@layout/fragment_display_scrap" >
+        android:label="Scrap Item Detail"
+        tools:layout="@layout/fragment_display_scrap">
         <action
             android:id="@+id/action_displayScrap_Fragment_to_scrapList_Fragment"
             app:destination="@id/scrapList_Fragment" />
@@ -209,7 +208,7 @@
     <fragment
         android:id="@+id/displayTransit_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.DisplayTransit_Fragment"
-        android:label="fragment_display_transit"
+        android:label="Transit List"
         tools:layout="@layout/fragment_display_transit" />
     <fragment
         android:id="@+id/scanTransit_Product_Fragment"

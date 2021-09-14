@@ -9,13 +9,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#BD8642"
         android:theme="@style/Theme.WarehouseRIT3G2.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#8AAC3C"
             app:popupTheme="@style/Theme.WarehouseRIT3G2.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

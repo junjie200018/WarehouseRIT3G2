@@ -19,8 +19,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Data.Product
 import my.edu.tarc.warehouserit3g2.Data.ScrapAdapter
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
-import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentScrapListBinding
 
 

@@ -3,13 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navmanager"
-    app:startDestination="@id/homeManager_Fragment">
+    app:startDestination="@id/currentQty_Fragment">
 
-    <fragment
-        android:id="@+id/homeManager_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.HomeManager_Fragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home_manager_" />
     <fragment
         android:id="@+id/productMovement_Fragment2"
         android:name="my.edu.tarc.warehouserit3g2.ProductMovement_Fragment"
@@ -75,7 +70,7 @@
     <fragment
         android:id="@+id/profileEdit_Fragment2"
         android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
-        android:label="profileEdit_Fragment" >
+        android:label="Profile Edit">
         <action
             android:id="@+id/action_profileEdit_Fragment2_to_changePass_Fragment2"
             app:destination="@id/changePass_Fragment2" />
@@ -83,9 +78,13 @@
     <fragment
         android:id="@+id/changePass_Fragment2"
         android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
-        android:label="ChangePass_Fragment" >
+        android:label="Change Password">
         <action
             android:id="@+id/action_changePass_Fragment2_to_profileEdit_Fragment2"
             app:destination="@id/profileEdit_Fragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/currentQty_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.currectQty.CurrentQty_Fragment"
+        android:label="Stock Current Quantity" />
 </navigation>

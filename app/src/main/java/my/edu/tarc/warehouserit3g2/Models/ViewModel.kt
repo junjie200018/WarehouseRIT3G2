@@ -5,13 +5,10 @@ import androidx.lifecycle.ViewModel
 import my.edu.tarc.warehouserit3g2.person.Person
 
 
-class PersonViewModel: ViewModel() {
+class ViewModel: ViewModel() {
     private lateinit var aPerson : Person
     private lateinit var fullName :String
-
-    fun getPerson(): Person {
-        return aPerson
-    }
+    private lateinit var partNo :String
 
     fun setaPerson (aPerson : Person) {
         this.aPerson = aPerson
@@ -21,16 +18,28 @@ class PersonViewModel: ViewModel() {
         this.fullName = fullName
     }
 
+    fun setMin (partNo:String) {
+        this.partNo = partNo
+    }
+
     fun getfullName() :String {
         return fullName
     }
 
+    fun getPerson(): Person {
+        return aPerson
+    }
+
+    fun getMin() : String {
+        return partNo
+    }
+
     companion object{
-        private var instance : PersonViewModel? = null
+        private var instance : my.edu.tarc.warehouserit3g2.Models.ViewModel? = null
 
         fun getInstance() =
-            instance ?: synchronized(PersonViewModel::class.java){
-                instance?: PersonViewModel().also { instance = it }
+            instance ?: synchronized(ViewModel::class.java){
+                instance?: my.edu.tarc.warehouserit3g2.Models.ViewModel().also { instance = it }
             }
     }
 }

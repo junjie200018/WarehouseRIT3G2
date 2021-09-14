@@ -2,6 +2,7 @@ package my.edu.tarc.warehouserit3g2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -11,14 +12,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.databinding.ActivityDriverBinding
-import my.edu.tarc.warehouserit3g2.databinding.ActivityManagerBinding
 
 class DriverActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityDriverBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var person: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +39,16 @@ class DriverActivity : AppCompatActivity() {
         }
 
         val navView: NavigationView = binding.navView
+        val headerView = navView.getHeaderView(0)
         val navController = findNavController(R.id.DriverNavHostFragment)
+        val username : TextView = headerView.findViewById(R.id.usernameDis)
+
+        person = ViewModel.getInstance()
+        username.text = person.getPerson().fullName
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.pickupListFragment
+                R.id.pickupListFragment, R.id.profileEdit_Fragment3
             ),drawerLayout
         )
 

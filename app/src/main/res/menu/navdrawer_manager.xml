@@ -23,6 +23,10 @@
     <item
         android:id="@+id/stockOut_Fragment"
         android:title="Stock Out" />
+
+    <item
+        android:id="@+id/currentQty_Fragment"
+        android:title="Current Quantity"/>
         </menu>
     </item>
 

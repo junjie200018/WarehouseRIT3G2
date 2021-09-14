@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/trackingFragment"
         android:name="my.edu.tarc.warehouserit3g2.TrackingFragment"
-        android:label="TrackingFragment" >
+        android:label="Tracking">
         <argument
             android:name="id"
             app:argType="string" />
@@ -19,10 +19,31 @@
     <fragment
         android:id="@+id/pickupListFragment"
         android:name="my.edu.tarc.warehouserit3g2.PickupListFragment"
-        android:label="fragment_pickup_list"
-        tools:layout="@layout/fragment_pickup_list" >
+        android:label="Pick Up List"
+        tools:layout="@layout/fragment_pickup_list">
         <action
             android:id="@+id/action_pickupListFragment_to_trackingFragment"
             app:destination="@id/trackingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logout3"
+        android:name="my.edu.tarc.warehouserit3g2.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/profileEdit_Fragment3"
+        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:label="Profile Edit" >
+        <action
+            android:id="@+id/action_profileEdit_Fragment3_to_changePass_Fragment3"
+            app:destination="@id/changePass_Fragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePass_Fragment3"
+        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:label="Change Password">
+        <action
+            android:id="@+id/action_changePass_Fragment3_to_profileEdit_Fragment3"
+            app:destination="@id/profileEdit_Fragment3" />
     </fragment>
 </navigation>

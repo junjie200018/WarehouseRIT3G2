@@ -17,12 +17,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Data.Product
 import my.edu.tarc.warehouserit3g2.Data.ProductAdapter
 import my.edu.tarc.warehouserit3g2.Data.RackProduct
 import my.edu.tarc.warehouserit3g2.Data.RackProductAdapter
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
-import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBinding
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackProductDisplayBinding
 
 
@@ -36,7 +34,7 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
     private val navController by lazy { NavHostFragment.findNavController(this)}
 
     lateinit var searchValue : ArrayList<RackProduct>
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
 
 
     override fun onCreateView(
@@ -50,8 +48,8 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
         val rackId = args.rackId
         productList.clear()
         myRecyclerView = binding.OnRackproductRecycleView
-        Person = PersonViewModel.getInstance()
-        var fullname = Person.getPerson().fullName
+        person = ViewModel.getInstance()
+        var fullname = person.getPerson().fullName
         Log.w(ContentValues.TAG, "get value 3 = ${rackId}")
 
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)

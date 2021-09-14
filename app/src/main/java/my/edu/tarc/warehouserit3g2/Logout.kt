@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.person.PersonDB
 import my.edu.tarc.warehouserit3g2.person.PersonDao
 
 class Logout : Fragment() {
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
     private lateinit var dao: PersonDao
 
     override fun onCreateView(

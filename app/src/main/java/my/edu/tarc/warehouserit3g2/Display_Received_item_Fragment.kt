@@ -1,7 +1,6 @@
 package my.edu.tarc.warehouserit3g2
 
 import android.content.ContentValues
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -11,18 +10,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
-import com.google.common.collect.Collections2.filter
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Data.Product
 import my.edu.tarc.warehouserit3g2.Data.ProductAdapter
-import my.edu.tarc.warehouserit3g2.databinding.ActivityOnReceivedBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBinding
-import java.util.Locale.filter
 import androidx.appcompat.widget.SearchView
-import com.google.common.collect.Sets.filter
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
-import java.util.*
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import kotlin.collections.ArrayList
 
 
@@ -34,7 +28,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
     lateinit var myRecyclerView : RecyclerView
     private val navController by lazy { NavHostFragment.findNavController(this)}
     lateinit var searchValue : ArrayList<Product>
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
 
 
 
@@ -59,8 +53,8 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
         val partNumber : Array<String?> = arrayOfNulls<String>(100)
         val serialNumber : Array<String?> = arrayOfNulls<String>(100)
-        Person = PersonViewModel.getInstance()
-        var fullname = Person.getPerson().fullName
+        person = ViewModel.getInstance()
+        var fullname = person.getPerson().fullName
 
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
             .get()

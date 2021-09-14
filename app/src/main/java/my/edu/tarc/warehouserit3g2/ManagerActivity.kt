@@ -12,7 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import my.edu.tarc.warehouserit3g2.Models.PersonViewModel
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.databinding.ActivityManagerBinding
 
 class ManagerActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class ManagerActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityManagerBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var Person: PersonViewModel
+    private lateinit var person: ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +43,13 @@ class ManagerActivity : AppCompatActivity() {
         val navController = findNavController(R.id.managerNavHostFragment)
         val username : TextView = headerView.findViewById(R.id.usernameDis)
 
-        Person = PersonViewModel.getInstance()
-        username.text = Person.getPerson().fullName
+        person = ViewModel.getInstance()
+        username.text = person.getPerson().fullName
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment,
-                R.id.profileEdit_Fragment2
+                R.id.profileEdit_Fragment2,R.id.currentQty_Fragment
             ),drawerLayout
         )
 
