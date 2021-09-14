@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/pickupListFragment"
-        android:icon="@drawable/pickuptruck"
+        android:icon="@drawable/pickup"
         android:title="Pick up list" />
 
     <item
