@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.person
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -13,12 +13,15 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentProfileEditBinding
 import java.util.regex.Pattern
 
@@ -28,6 +31,7 @@ class profileEdit_Fragment : Fragment() {
 
     private lateinit var binding: FragmentProfileEditBinding
     private lateinit var person: ViewModel
+    private lateinit var aPerson: Person
     private  var duplicate = 0
     private var duplicatePhone = 0
     private val navController by lazy { NavHostFragment.findNavController(this) }
@@ -47,6 +51,7 @@ class profileEdit_Fragment : Fragment() {
         binding.phone.isEnabled = false
 
         person = ViewModel.getInstance()
+        aPerson = person.getPerson()
         binding.EditUsername.setText(person.getPerson().username)
         binding.Name.setText(person.getPerson().fullName)
         binding.email.setText(person.getPerson().email)
@@ -90,13 +95,23 @@ class profileEdit_Fragment : Fragment() {
                             "email" to binding.email.text.toString()
                         )
                     )
-                binding.EditUsername.setEnabled(false)
-                binding.Name.setEnabled(false)
-                binding.email.setEnabled(false)
-                binding.phone.setEnabled(false)
+                aPerson.fullName = binding.Name.text.toString()
+                aPerson.email = binding.email.text.toString()
+                aPerson.phoneNo = binding.phone.text.toString()
+                person.setaPerson(aPerson)
 
-                binding.btnProfileEdit.setVisibility(VISIBLE)
-                binding.btnProfileSubmit.setVisibility(INVISIBLE)
+                val navView: NavigationView = binding.root.rootView.findViewById<NavigationView>(R.id.navView)
+                val headerView = navView.getHeaderView(0)
+                val username : TextView = headerView.findViewById(R.id.usernameDis)
+                username.text = binding.Name.text.toString()
+
+                binding.EditUsername.isEnabled = false
+                binding.Name.isEnabled = false
+                binding.email.isEnabled = false
+                binding.phone.isEnabled = false
+
+                binding.btnProfileEdit.visibility = VISIBLE
+                binding.btnProfileSubmit.visibility = INVISIBLE
                 binding.Name.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 binding.email.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 binding.phone.onEditorAction(EditorInfo.IME_ACTION_DONE)
@@ -253,7 +268,5 @@ class profileEdit_Fragment : Fragment() {
         }
         return true
     }
-
-
 
 }

@@ -2,40 +2,49 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeManager_Fragment"
-        android:title="Home" />
-
-    <item
-        android:id="@+id/receiveProduct_Fragment"
-        android:icon="@drawable/add"
-        android:title="Add Product" />
-
-    <item
-        android:id="@+id/addRack"
-        android:icon="@drawable/add"
-        android:title="Add Rack"/>
-    <item
-        android:id="@+id/productMovement_Fragment2"
-        android:title="Product Movement"/>
-
-    <item
-        android:id="@+id/transitList_Fragment"
-        android:title="Transit" />
-
-    <item
         android:title="Report">
         <menu>
+
+    <item
+        android:id="@+id/searchStock_Fragment"
+        android:icon="@drawable/search"
+        android:title="Search Stock" />
+
     <item
         android:id="@+id/stockIn_Fragment"
+        android:icon="@drawable/stockin"
         android:title="Stock In" />
 
     <item
         android:id="@+id/stockOut_Fragment"
+        android:icon="@drawable/stockout"
         android:title="Stock Out" />
 
     <item
         android:id="@+id/currentQty_Fragment"
         android:title="Current Quantity"/>
+        </menu>
+    </item>
+
+    <item
+        android:title="Stock">
+        <menu>
+            <item
+                android:id="@+id/receiveProduct_Fragment"
+                android:icon="@drawable/add"
+                android:title="Add Product" />
+
+            <item
+                android:id="@+id/addRack"
+                android:icon="@drawable/add"
+                android:title="Add Rack"/>
+            <item
+                android:id="@+id/productMovement_Fragment2"
+                android:title="Product Movement"/>
+
+            <item
+                android:id="@+id/transitList_Fragment"
+                android:title="Transit" />
         </menu>
     </item>
 

@@ -40,7 +40,6 @@ class CurrentQty_Fragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_current_qty_, container, false)
 
-
         val db = Firebase.firestore
         db.collection("ReceivedProduct")
             .orderBy("PartNo")
@@ -86,6 +85,8 @@ class CurrentQty_Fragment : Fragment() {
                                     if(qty < min.data?.get("MinQty").toString().toInt()) {
                                         belowMin = "yes"
                                         //---------------------------------------------
+                                    } else if (min.data?.get("MinQty").toString().toInt() == 0) {
+                                        belowMin = "null"
                                     }
 
                                 }else {
@@ -97,7 +98,7 @@ class CurrentQty_Fragment : Fragment() {
                                         "PartNo" to p.toString()
                                     )
                                     db.collection("StockQuantity").document(p.toString()).set(stockMin)
-                                    belowMin = "null"
+
                                 }
                             }
                             progress = ((qty.toDouble() / total.toDouble()) * 100)

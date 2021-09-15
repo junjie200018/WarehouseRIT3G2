@@ -15,7 +15,7 @@ import my.edu.tarc.warehouserit3g2.R
 class RackProductAdapter(private var productList:MutableList<RackProduct>, private val listener: OnRack_Product_Display_Fragment) : RecyclerView.Adapter<RackProductAdapter.myViewHolder>(),
     Filterable {
 
-    var searchV = ArrayList<RackProduct>();
+    var searchV = ArrayList<RackProduct>()
 
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 

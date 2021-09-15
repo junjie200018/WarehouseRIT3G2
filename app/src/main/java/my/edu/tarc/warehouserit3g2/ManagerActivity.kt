@@ -1,8 +1,13 @@
 package my.edu.tarc.warehouserit3g2
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -22,6 +27,9 @@ class ManagerActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var person: ViewModel
 
+    private lateinit var img : ImageView
+    private var imgUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_manager)
@@ -40,16 +48,27 @@ class ManagerActivity : AppCompatActivity() {
 
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)
-        val navController = findNavController(R.id.managerNavHostFragment)
         val username : TextView = headerView.findViewById(R.id.usernameDis)
+        val profilePhoto : ImageView = headerView.findViewById(R.id.ProfilePhoto)
+
+        profilePhoto.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+
+            launchSomeActivity.launch(intent)
+
+        }
+
+        val navController = findNavController(R.id.managerNavHostFragment)
 
         person = ViewModel.getInstance()
         username.text = person.getPerson().fullName
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeManager_Fragment,R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment,
-                R.id.profileEdit_Fragment2,R.id.currentQty_Fragment, R.id.transitList_Fragment
+                R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment,
+                R.id.profileEdit_Fragment2,R.id.currentQty_Fragment, R.id.transitList_Fragment,
+                R.id.searchStock_Fragment, R.id.addRack, R.id.receiveProduct_Fragment
             ),drawerLayout
         )
 
@@ -57,8 +76,19 @@ class ManagerActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    var launchSomeActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+
+            imgUri  = data?.data
+            img.setImageURI(data?.data)
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.managerNavHostFragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
 }

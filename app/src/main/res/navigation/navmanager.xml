@@ -69,7 +69,7 @@
         tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/profileEdit_Fragment2"
-        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.profileEdit_Fragment"
         android:label="Profile Edit">
         <action
             android:id="@+id/action_profileEdit_Fragment2_to_changePass_Fragment2"
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePass_Fragment2"
-        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.ChangePass_Fragment"
         android:label="Change Password">
         <action
             android:id="@+id/action_changePass_Fragment2_to_profileEdit_Fragment2"
@@ -88,11 +88,20 @@
         android:name="my.edu.tarc.warehouserit3g2.currectQty.CurrentQty_Fragment"
         android:label="Stock Current Quantity" />
     <fragment
-        android:id="@+id/receiveProduct_Fragment2"
+        android:id="@+id/receiveProduct_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.receiveProduct_Fragment"
-        android:label="receiveProduct_Fragment" />
+        android:label="Add New Product" />
     <fragment
-        android:id="@+id/addRack2"
+        android:id="@+id/addRack"
         android:name="my.edu.tarc.warehouserit3g2.AddRack"
         android:label="AddRack" />
+    <fragment
+        android:id="@+id/searchStock_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.searchStock.SearchStock_Fragment"
+        android:label="Search Stock"
+        tools:layout="@layout/fragment_search_stock_" >
+        <action
+            android:id="@+id/action_searchStock_Fragment_to_stockDetail_Fragment"
+            app:destination="@id/stockDetail_Fragment" />
+    </fragment>
 </navigation>

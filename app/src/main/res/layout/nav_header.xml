@@ -40,7 +40,7 @@
     <!--        tools:ignore="VectorDrawableCompat" />-->
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ProfilePhoto"
         android:layout_width="96dp"
         android:layout_height="92dp"
         android:layout_marginTop="20dp"
@@ -60,10 +60,10 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/ProfilePhoto"
         app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/ProfilePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/ProfilePhoto"
         app:layout_constraintVertical_bias="0.306" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

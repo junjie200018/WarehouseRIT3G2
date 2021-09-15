@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity() {
 
                     val db = Firebase.firestore
 
+                    binding.forgetPassword.setOnClickListener {
+
+                    }
+
                     binding.btnLogin.setOnClickListener {
 
                         val InputUsername = binding.username.text.toString().trim()

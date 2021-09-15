@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/profileEdit_Fragment3"
-        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.profileEdit_Fragment"
         android:label="Profile Edit" >
         <action
             android:id="@+id/action_profileEdit_Fragment3_to_changePass_Fragment3"
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePass_Fragment3"
-        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.ChangePass_Fragment"
         android:label="Change Password">
         <action
             android:id="@+id/action_changePass_Fragment3_to_profileEdit_Fragment3"

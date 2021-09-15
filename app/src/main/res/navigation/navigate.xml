@@ -5,15 +5,10 @@
     android:id="@+id/navigate"
     app:startDestination="@id/onReceived_Fragment">
     <fragment
-        android:id="@+id/home_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.Home_Fragment"
-        android:label="fragment_home_"
-        tools:layout="@layout/fragment_home_" />
-    <fragment
         android:id="@+id/onReceivedDetail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnReceivedDetail_Fragment"
-        android:label="fragment_on_received_detail_"
-        tools:layout="@layout/fragment_on_received_detail_" >
+        android:label="Product Details"
+        tools:layout="@layout/fragment_on_received_detail_">
         <argument
             android:name="barcodeValue"
             app:argType="string" />
@@ -33,7 +28,7 @@
     <fragment
         android:id="@+id/onReceived_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnReceived_Fragment"
-        android:label="OnReceived_Fragment" >
+        android:label="Scan New Product">
         <action
             android:id="@+id/action_onReceived_Fragment_to_onReceivedDetail_Fragment"
             app:destination="@id/onReceivedDetail_Fragment" />
@@ -41,7 +36,7 @@
     <fragment
         android:id="@+id/display_Received_item_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.Display_Received_item_Fragment"
-        android:label="Display_Received_item_Fragment" >
+        android:label="Received Item List">
         <action
             android:id="@+id/action_display_Received_item_Fragment_to_onReceivedDetail_Fragment"
             app:destination="@id/onReceivedDetail_Fragment" />
@@ -49,7 +44,7 @@
     <fragment
         android:id="@+id/onRack_Product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Product_Fragment"
-        android:label="OnRack_Product_Fragment" >
+        android:label="Scan Product Barcode">
         <action
             android:id="@+id/action_onRack_Product_Fragment_to_onRack_Rack_Fragment"
             app:destination="@id/onRack_Rack_Fragment" />
@@ -83,7 +78,7 @@
     <fragment
         android:id="@+id/onRack_Display_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment"
-        android:label="OnRack_Display_Fragment" >
+        android:label="Rack List Display">
         <action
             android:id="@+id/action_onRack_Display_Fragment_to_onRack_Product_Display_Fragment"
             app:destination="@id/onRack_Product_Display_Fragment" />
@@ -91,8 +86,9 @@
     <fragment
         android:id="@+id/onRack_Product_Display_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Product_Display_Fragment"
-        android:label="OnRack_Product_Display_Fragment" >
-        <argument android:name="rackId"
+        android:label="Product List Display">
+        <argument
+            android:name="rackId"
             app:argType="string" />
         <action
             android:id="@+id/action_onRack_Product_Display_Fragment_to_onRack_Display_Detail_Fragment"
@@ -101,8 +97,8 @@
     <fragment
         android:id="@+id/onRack_Display_Detail_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.OnRack_Display_Detail_Fragment"
-        android:label="fragment_on_rack_display_detail"
-        tools:layout="@layout/fragment_on_rack_display_detail" >
+        android:label="Product Details"
+        tools:layout="@layout/fragment_on_rack_display_detail">
         <argument
             android:name="serialNo"
             app:argType="string" />
@@ -113,7 +109,7 @@
     <fragment
         android:id="@+id/changeRack_product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.changeRack_product_Fragment"
-        android:label="changeRack_product_Fragment" >
+        android:label="Scan Product">
         <action
             android:id="@+id/action_changeRack_product_Fragment_to_changeRack_Rack_Fragment"
             app:destination="@id/changeRack_Rack_Fragment" />
@@ -121,7 +117,7 @@
     <fragment
         android:id="@+id/changeRack_Rack_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.changeRack_Rack_Fragment"
-        android:label="changeRack_Rack_Fragment" >
+        android:label="Change Rack Scan">
         <argument
             android:name="serialNo"
             app:argType="string" />
@@ -132,10 +128,10 @@
     <fragment
         android:id="@+id/scanScrap_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.ScanScrap_Fragment"
-        android:label="ScanScrap_Fragment" />
+        android:label="Scan Scrap" />
     <fragment
         android:id="@+id/profileEdit_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.profileEdit_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.profileEdit_Fragment"
         android:label="Profile Edit"
         tools:layout="@layout/fragment_profile_edit">
         <action
@@ -149,7 +145,7 @@
         tools:layout="@layout/fragment_logout" />
     <fragment
         android:id="@+id/changePass_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.ChangePass_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.person.ChangePass_Fragment"
         android:label="Change Password"
         tools:layout="@layout/fragment_change_pass">
         <action
@@ -159,7 +155,7 @@
     <fragment
         android:id="@+id/receiveProductList_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.ReceiveProductList_Fragment"
-        android:label="ReceiveProductList_Fragment" >
+        android:label="New Product List">
         <action
             android:id="@+id/action_receiveProductList_Fragment_to_displayBarcode_Fragment"
             app:destination="@id/displayBarcode_Fragment" />
@@ -167,7 +163,7 @@
     <fragment
         android:id="@+id/displayBarcode_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.displayBarcode_Fragment"
-        android:label="displayBarcode_Fragment" >
+        android:label="Barcode Display">
         <argument
             android:name="barcodeNo"
             app:argType="string" />
@@ -204,9 +200,9 @@
     <fragment
         android:id="@+id/scanTransit_Product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.scanTransit_Product_Fragment"
-        android:label="scanTransit_Product_Fragment" />
+        android:label="Scan Transit Product" />
     <fragment
         android:id="@+id/rackList_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.RackList_Fragment"
-        android:label="RackList_Fragment" />
+        android:label="Rack List" />
 </navigation>

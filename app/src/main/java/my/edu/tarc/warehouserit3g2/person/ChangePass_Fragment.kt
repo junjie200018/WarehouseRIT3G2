@@ -1,11 +1,8 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.person
 
-import android.content.ContentValues
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +15,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentChangePassBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentChangeRackRackBinding
 import java.util.regex.Pattern
 
 
@@ -27,6 +24,7 @@ class ChangePass_Fragment : Fragment() {
 
     private lateinit var binding: FragmentChangePassBinding
     private lateinit var Person: ViewModel
+    private lateinit var aPerson: Person
     private val navController by lazy { NavHostFragment.findNavController(this) }
 
 
@@ -42,8 +40,8 @@ class ChangePass_Fragment : Fragment() {
         binding.btnChangeSubmit.setOnClickListener {
 
 
-
             Person = ViewModel.getInstance()
+            aPerson = Person.getPerson()
             var userName = Person.getPerson().username
             var oldPass = Person.getPerson().password
             var newPassword = binding.newPassword.text.toString()
@@ -82,6 +80,8 @@ class ChangePass_Fragment : Fragment() {
                             ).show()
 
                             binding.oldPassword.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                            aPerson.password = passHash
+                            Person.setaPerson(aPerson)
 
                             if(Person.getPerson().role == "worker") {
                                 navController.navigate(R.id.action_changePass_Fragment_to_profileEdit_Fragment)

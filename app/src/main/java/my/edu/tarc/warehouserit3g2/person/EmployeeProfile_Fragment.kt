@@ -3,6 +3,7 @@ package my.edu.tarc.warehouserit3g2.person
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,17 +31,22 @@ class EmployeeProfile_Fragment : DialogFragment() {
         var email :String = ""
         var phoneNo :String = ""
 
-        db.collection("Employees").document(person.getfullName())
+        db.collection("Employees")
             .get()
-            .addOnSuccessListener { perInfo ->
-                if(perInfo.data?.get("fullName").toString() == person.getfullName() ) {
-                    binding.tvfullname.text = perInfo.data?.get("fullName").toString()
-                    email = perInfo.data?.get("email").toString()
-                    phoneNo = perInfo.data?.get("phoneNo").toString()
-                    binding.tvemail.text = email
-                    binding.tvphoneno.text = phoneNo
-
+            .addOnSuccessListener { result ->
+                for(perInfo in result)
+                {
+                    if(perInfo.data?.get("fullName").toString() == person.getfullName()) {
+                        binding.tvfullname.text = perInfo.data?.get("fullName").toString()
+                        email = perInfo.data?.get("email").toString()
+                        phoneNo = perInfo.data?.get("phoneNo").toString()
+                        binding.tvemail.text = email
+                        binding.tvphoneno.text = phoneNo
+                    }
                 }
+            }
+            .addOnFailureListener {
+                Log.d("fail", "Fail to load data")
             }
 
         binding.tvemail.setOnClickListener() {
@@ -62,4 +68,5 @@ class EmployeeProfile_Fragment : DialogFragment() {
 
         return binding.root
     }
+
 }

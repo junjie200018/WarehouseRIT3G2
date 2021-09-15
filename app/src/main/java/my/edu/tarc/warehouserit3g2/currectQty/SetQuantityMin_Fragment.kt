@@ -1,21 +1,19 @@
 package my.edu.tarc.warehouserit3g2.currectQty
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentSetQuantityMinBinding
-
-
+import my.edu.tarc.warehouserit3g2.ManagerActivity
 
 
 class SetQuantityMin_Fragment : DialogFragment() {
@@ -63,13 +61,8 @@ class SetQuantityMin_Fragment : DialogFragment() {
                 ).show()
                 val prev = parentFragmentManager.findFragmentByTag("setMinQty") as DialogFragment
                 prev.dismiss()
-
-
-                var fra = requireActivity().supportFragmentManager.findFragmentByTag("current_qty")
-                var ftran = requireActivity().supportFragmentManager.beginTransaction()
-                if (fra != null) {
-                    ftran.detach(fra).attach(fra).commit()
-                }
+                val intent = Intent(activity, ManagerActivity::class.java)
+                startActivity(intent)
 
             }
         }
