@@ -28,50 +28,60 @@ class ForgetPassword_email_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_forget_password_email_, container, false)
+
+        //connect firebase
         val db = Firebase.firestore
-
-
 
         binding.btnfgemail.setOnClickListener {
 
             var username = binding.fgusername.text.toString()
             var email = binding.fgEmail.text.toString()
 
+            //validate input field
             if(binding.fgusername.text.toString().isEmpty() || binding.fgusername.text.toString().isBlank()) {
                 if(binding.fgEmail.text.toString().isEmpty() || binding.fgEmail.text.toString().isBlank()) {
                     binding.fgEmailLayout.error = "This field is required !"
                     binding.fgEmail.requestFocus()
+
                 }else {
                     binding.fgEmailLayout.isErrorEnabled = false
                 }
+
                 binding.fgusernameLayout.error = "This field is required !"
                 binding.fgusernameLayout.requestFocus()
             } else if(binding.fgEmail.text.toString().isEmpty() || binding.fgEmail.text.toString().isBlank()) {
                 binding.fgEmailLayout.error = "This field is required !"
                 binding.fgusernameLayout.isErrorEnabled = false
                 binding.fgEmail.requestFocus()
+
             } else {
                 binding.fgEmailLayout.isErrorEnabled = false
                 binding.fgusernameLayout.isErrorEnabled = false
                 var check = false
+
                 db.collection("Employees")
                     .get()
                     .addOnSuccessListener { result ->
                         for(perInfo in result)
                         {
-
+                            //check username and email same with database or not
                             if(perInfo.data?.get("username").toString() == username &&
                                 perInfo.data?.get("email").toString() == email  ) {
                                 check = true
+
+                                //create random reset token
                                 var no  = (Math.random()*999999).toInt()
 
 
+                                //send email
                                 GlobalScope.launch(IO) {
                                     Transport.send(plainMail(no, email))
                                 }
 
+                                //update reset token to database
                                 db.collection("Employees").document(username)
                                     .update(
                                         mapOf(
@@ -82,12 +92,10 @@ class ForgetPassword_email_Fragment : Fragment() {
                                 val action = ForgetPassword_email_FragmentDirections.actionForgetPasswordEmailFragmentToResetTokenValidateFragment(username)
                                 Navigation.findNavController(it).navigate(action)
 
-                                Toast.makeText(
-                                    context,
+                                Toast.makeText(context,
                                     "Username and email founded, please check reset password token in your email",
                                     Toast.LENGTH_LONG
                                 ).show()
-
                             }
                         }
                         if(!check) {
@@ -102,14 +110,14 @@ class ForgetPassword_email_Fragment : Fragment() {
                         Log.d("fail", "Fail to load data")
                     }
             }
-
         }
 
         return binding.root
     }
 
+    //send email
     private fun plainMail(no : Int, email: String): MimeMessage {
-        val from = "victorritdemo@gmail.com"
+        val from = "victorritdemo@gmail.com" //sender
 
         val properties = System.getProperties()
 

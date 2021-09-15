@@ -34,14 +34,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var ac = this
+        val ac = this
         CoroutineScope(IO).launch {
-            dao = PersonDB.getInstance(applicationContext).personDao
-            Person = ViewModel.getInstance()
-            //dao.removeAll()
 
+            //connect local database
+            dao = PersonDB.getInstance(applicationContext).personDao
+
+            //get view model
+            Person = ViewModel.getInstance()
+
+            //get person from local database
             var person = dao.getPerson()
 
+            //remember me
             if(person != null) {
                 Person.setaPerson(person)
                 if (person.role == "worker") {
@@ -56,8 +61,10 @@ class MainActivity : AppCompatActivity() {
                 CoroutineScope(Main).launch {
                     binding = DataBindingUtil.setContentView(ac, R.layout.activity_main)
 
+                    //connect firebase
                     val db = Firebase.firestore
 
+                    //call forget password activity
                     binding.forgetPassword.setOnClickListener {
                         intent("forget")
                     }
@@ -66,13 +73,13 @@ class MainActivity : AppCompatActivity() {
 
                         val InputUsername = binding.username.text.toString().trim()
                         val InputPassword = binding.password.text.toString()
-//            val passHash = BCrypt.withDefaults().hashToString(12, "12345".toCharArray())
-//            Log.d("register", "$passHash")
+
                         binding.usernameLayout.isFocusable = true
                         binding.usernameLayout.isEnabled = true
+                        //validate
                         when {
-                            TextUtils.isEmpty(InputUsername) -> {
-                                if (TextUtils.isEmpty(InputPassword)) {
+                            TextUtils.isEmpty(InputUsername) || InputUsername.isBlank() -> {
+                                if (TextUtils.isEmpty(InputPassword) || InputPassword.isBlank()) {
                                     binding.passwordLayout.error = "This field is required!"
                                 } else {
                                     binding.passwordLayout.isErrorEnabled = false
@@ -80,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                                 binding.usernameLayout.error = "This field is required!"
                                 binding.username.requestFocus()
                             }
-                            TextUtils.isEmpty(InputPassword) -> {
+                            TextUtils.isEmpty(InputPassword) || InputPassword.isBlank() -> {
                                 binding.passwordLayout.error = "This field is required!"
                                 binding.usernameLayout.isErrorEnabled = false
                                 binding.password.requestFocus()
@@ -89,10 +96,10 @@ class MainActivity : AppCompatActivity() {
                                 binding.loadingIndi.visibility = View.VISIBLE
                                 binding.usernameLayout.isErrorEnabled = false
                                 binding.passwordLayout.isErrorEnabled = false
+
                                 db.collection("Employees").document(InputUsername)
                                     .get()
                                     .addOnSuccessListener { acc ->
-
                                         if (acc.data != null) {
                                             aPerson = Person(
                                                 0,
@@ -104,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                                                 acc.data?.get("phoneNo").toString()
                                             )
 
+                                            //verify password with hash format
                                             val correct = BCrypt.verifyer().verify(
                                                 InputPassword.toCharArray(),
                                                 aPerson.password
@@ -111,13 +119,13 @@ class MainActivity : AppCompatActivity() {
 
                                             if (correct.verified) {
 
-
                                                 if (binding.rmbCheck.isChecked) {
                                                     CoroutineScope(IO).launch {
                                                         dao.insertPerson(aPerson)
                                                     }
                                                 }
                                                 Person.setaPerson(aPerson)
+
                                                 if (aPerson.role == "worker") {
                                                     intent("worker")
                                                     Toast.makeText(
@@ -126,7 +134,6 @@ class MainActivity : AppCompatActivity() {
                                                         Toast.LENGTH_LONG
                                                     ).show()
                                                     binding.loadingIndi.visibility = View.INVISIBLE
-                                                    //startActivity(intent)
 
                                                 } else if (aPerson.role == "manager") {
                                                     intent("manager")
@@ -136,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                                                         Toast.LENGTH_LONG
                                                     ).show()
                                                     binding.loadingIndi.visibility = View.INVISIBLE
-                                                    //startActivity(intent)
+
                                                 } else if (aPerson.role == "driver") {
                                                     intent("driver")
                                                     Toast.makeText(
@@ -145,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                                                         Toast.LENGTH_LONG
                                                     ).show()
                                                     binding.loadingIndi.visibility = View.INVISIBLE
-                                                    //startActivity(intent)
+
                                                 }
                                                 binding.username.clearFocus()
                                                 binding.password.clearFocus()
@@ -180,9 +187,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
-
         }
     }
 

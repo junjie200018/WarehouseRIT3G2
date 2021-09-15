@@ -25,19 +25,26 @@ class ResetTokenValidate_Fragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_reset_token_validate_, container, false)
 
+        //get safe args
         val args = ResetTokenValidate_FragmentArgs.fromBundle(requireArguments())
+
+        //connect firebase
         val db = Firebase.firestore
 
         binding.btnfgtoken.setOnClickListener {
 
+            //validate
            if(binding.fgtoken.text.toString().isEmpty() || binding.fgtoken.text.toString().isBlank()) {
                binding.fgtokenLayout.error = "This field is required !"
                binding.fgtokenLayout.requestFocus()
+
            } else {
                binding.fgtokenLayout.isErrorEnabled = false
+
                db.collection("Employees").document(args.username)
                    .get()
                    .addOnSuccessListener { result ->
+                       //check reset token
                        if(binding.fgtoken.text.toString() == result.data?.get("resetToken").toString()) {
                            Toast.makeText(
                                context,

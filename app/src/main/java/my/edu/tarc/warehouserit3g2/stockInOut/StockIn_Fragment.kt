@@ -32,20 +32,26 @@ class StockIn_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stock_in_, container, false)
+
+        //spinner
         var arrayAdapter = ArrayAdapter(this.requireContext(),
             R.layout.support_simple_spinner_dropdown_item, sortBy)
         binding.sortBySpinner.adapter = arrayAdapter
 
         RecProductList.clear()
 
+        //connect firebase
         val db = Firebase.firestore
+
         CoroutineScope(Dispatchers.IO).launch {
             db.collection("ReceivedProduct")
                 .orderBy("PartNo")
                 .get()
                 .addOnSuccessListener { result ->
                     for (recPro in result) {
+                        //show product in home
                         if (recPro.data?.get("Status") == "In Rack" || recPro.data?.get("Status") == "Received") {
                             val recP = Stock(
                                 recPro.data?.get("PartNo").toString(),
@@ -68,6 +74,7 @@ class StockIn_Fragment : Fragment() {
                 }
 
             CoroutineScope(Main).launch {
+                //sort by
                 binding.sortBySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                         select = p0?.getItemAtPosition(p2).toString()
@@ -88,17 +95,16 @@ class StockIn_Fragment : Fragment() {
 
                         }
 
-
                         myRecyclerView = binding.stockInRecyclerView
                         myRecyclerView.adapter = RecProductAdapter(RecProductList)
                         myRecyclerView.setHasFixedSize(true)
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
-
                     }
                 }
 
+                //sort ascending
                 binding.ascending.setOnClickListener() {
                     binding.descending.isVisible = true
                     binding.descending.isClickable = true
@@ -121,6 +127,7 @@ class StockIn_Fragment : Fragment() {
                     myRecyclerView.setHasFixedSize(true)
                 }
 
+                //sort descending
                 binding.descending.setOnClickListener() {
                     binding.descending.isVisible = false
                     binding.descending.isClickable = false

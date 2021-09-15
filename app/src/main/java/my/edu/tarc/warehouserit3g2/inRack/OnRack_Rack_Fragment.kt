@@ -1,9 +1,7 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.inRack
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +13,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackRackBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 
 
 class OnRack_Rack_Fragment : Fragment() {
@@ -69,7 +67,10 @@ class OnRack_Rack_Fragment : Fragment() {
                             Toast.makeText(context, "Invalid Rack QR code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
 //
-                            val action : NavDirections = OnRack_Rack_FragmentDirections.actionOnRackRackFragmentToOnRackDetailFragment(serialNo , valueQRcode)
+                            val action : NavDirections = OnRack_Rack_FragmentDirections.actionOnRackRackFragmentToOnRackDetailFragment(
+                                    serialNo,
+                                    valueQRcode
+                                )
 
                             navController.navigate(action)
 

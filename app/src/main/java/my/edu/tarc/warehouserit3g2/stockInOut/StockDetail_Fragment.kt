@@ -27,10 +27,16 @@ class StockDetail_Fragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stock_detail_, container, false)
 
+        //get safe args
         val args = StockDetail_FragmentArgs.fromBundle(requireArguments())
+
+        //connect firebase
         val db = Firebase.firestore
+
+        //get view model
         person = ViewModel.getInstance()
 
+        //display product detail
         db.collection("ReceivedProduct").document(args.serialNo)
             .get()
             .addOnSuccessListener { recPro ->
@@ -50,6 +56,7 @@ class StockDetail_Fragment : Fragment() {
                 Log.d("full", "${recProduct.RecBy}")
                 binding.stockDetail = recProduct
 
+                //check empty, if not will show
                 if(recProduct.RackId != "-"){
                     binding.rackid.isVisible = true
                 }
@@ -59,16 +66,30 @@ class StockDetail_Fragment : Fragment() {
                 if (recProduct.RackOutDate != "-") {
                     binding.rackoutdate.isVisible = true
                 }
+
+                //check item status, if transit then show from and to location
+                if (recProduct.Status == "Transit") {
+                    Log.d("knn", "${recProduct.Status}")
+                    db.collection("Transfer")
+                        .whereEqualTo("serialNo", recProduct.SerialNo)
+                        .get()
+                        .addOnSuccessListener { result ->
+                            for (re in result) {
+                                binding.tvto.text = re.data?.get("to").toString()
+                                binding.tvfrom.text = re.data?.get("from").toString()
+                            }
+                        }
+                    binding.from.isVisible = true
+                    binding.to.isVisible = true
+                }
             }
 
+        //open dialog
         binding.tvrecBy.setOnClickListener() {
 
             var dialog = EmployeeProfile_Fragment()
             dialog.show(parentFragmentManager,"personalInfo")
         }
-
-
-
 
         return binding.root
     }

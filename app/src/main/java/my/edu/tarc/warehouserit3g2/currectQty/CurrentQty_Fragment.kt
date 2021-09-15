@@ -40,14 +40,16 @@ class CurrentQty_Fragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_current_qty_, container, false)
 
+        //connect firebase
         val db = Firebase.firestore
         db.collection("ReceivedProduct")
             .orderBy("PartNo")
-            .get()
+            .get() //retrieve data
             .addOnSuccessListener { result ->
                 var count = 0
 
                 for (currentQty in result) {
+                    //filter Stock In
                     if (currentQty.data?.get("Status") == "In Rack" || currentQty.data?.get("Status") == "Received") {
                         val curQty = CurrentQty (
                             currentQty.data?.get("PartNo").toString(),
@@ -64,7 +66,7 @@ class CurrentQty_Fragment : Fragment() {
                         PartNo[x] = cql.PartNo
                     }
                 }
-                var partNo = PartNo.distinct()
+                var partNo = PartNo.distinct() // remove duplicate
                 db.collection("StockQuantity")
                     .orderBy("PartNo")
                     .get()
@@ -77,19 +79,19 @@ class CurrentQty_Fragment : Fragment() {
                             for(cq in currentQtyList) {
                                 if(p == cq.PartNo) {
                                     qty += cq.Qty.toInt()
-
                                 }
                             }
                             for(min in result) {
                                 if(p == min.data?.get("PartNo").toString()) {
+                                    //check minimum quantity
                                     if(qty < min.data?.get("MinQty").toString().toInt()) {
                                         belowMin = "yes"
-                                        //---------------------------------------------
                                     }
 
                                 }else {
                                     count++
                                 }
+                                //add new product to minimum quantity list
                                 if(count == result.size()) {
                                     val stockMin = hashMapOf(
                                         "MinQty" to 0,
@@ -116,16 +118,12 @@ class CurrentQty_Fragment : Fragment() {
 
                         val activity = context as FragmentActivity
                         val fm: FragmentManager = activity.supportFragmentManager
-                        Log.d("total", "$currentTotalQtyList")
+
                         myRecyclerView = binding.currentQtyRecyclerView
                         myRecyclerView.adapter = CurrentQtyAdapter(currentTotalQtyList, fm)
                         myRecyclerView.setHasFixedSize(true)
                     }
-
-
-
             }
-
         return binding.root
     }
 

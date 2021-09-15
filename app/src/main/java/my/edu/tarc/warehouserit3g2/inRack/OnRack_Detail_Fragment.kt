@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.inRack
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackDetailBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedDetailBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +27,8 @@ class OnRack_Detail_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_rack_detail, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_on_rack_detail, container, false)
         val args = OnRack_Detail_FragmentArgs.fromBundle(requireArguments())
 
 

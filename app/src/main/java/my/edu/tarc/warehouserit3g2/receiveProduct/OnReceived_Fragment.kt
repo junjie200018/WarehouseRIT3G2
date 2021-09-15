@@ -1,9 +1,7 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.receiveProduct
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 
 
@@ -28,7 +27,7 @@ class OnReceived_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_received_, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_received_, container, false)
 
 
         binding.btnScan.setOnClickListener {
@@ -65,7 +64,11 @@ class OnReceived_Fragment : Fragment() {
                             Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
 //
-                            val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(valueBarcode, "receive" , "0")
+                            val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(
+                                    valueBarcode,
+                                    "receive",
+                                    "0"
+                                )
 
                             navController.navigate(action)
 

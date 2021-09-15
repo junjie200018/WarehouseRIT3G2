@@ -89,11 +89,11 @@
         android:label="Stock Current Quantity" />
     <fragment
         android:id="@+id/receiveProduct_Fragment"
-        android:name="my.edu.tarc.warehouserit3g2.receiveProduct_Fragment"
+        android:name="my.edu.tarc.warehouserit3g2.productBarcode.receiveProduct_Fragment"
         android:label="Add New Product" />
     <fragment
         android:id="@+id/addRack"
-        android:name="my.edu.tarc.warehouserit3g2.AddRack"
+        android:name="my.edu.tarc.warehouserit3g2.inRack.AddRack"
         android:label="AddRack" />
     <fragment
         android:id="@+id/searchStock_Fragment"
@@ -103,5 +103,21 @@
         <action
             android:id="@+id/action_searchStock_Fragment_to_stockDetail_Fragment"
             app:destination="@id/stockDetail_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiveProductList_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.productBarcode.ProductList_Fragment"
+        android:label="Product List">
+        <action
+            android:id="@+id/action_receiveProductList_Fragment2_to_displayBarcode_Fragment2"
+            app:destination="@id/displayBarcode_Fragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayBarcode_Fragment2"
+        android:name="my.edu.tarc.warehouserit3g2.productBarcode.displayBarcode_Fragment"
+        android:label="Product Barcode">
+        <action
+            android:id="@+id/action_displayBarcode_Fragment2_to_receiveProductList_Fragment2"
+            app:destination="@id/receiveProductList_Fragment2" />
     </fragment>
 </navigation>

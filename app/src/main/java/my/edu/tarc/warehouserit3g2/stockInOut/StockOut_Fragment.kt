@@ -31,12 +31,14 @@ class StockOut_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stock_out_, container, false)
+        //spinner
         var arrayAdapter = ArrayAdapter(this.requireContext(),
             R.layout.support_simple_spinner_dropdown_item, sortBy)
         binding.sortBySpinner2.adapter = arrayAdapter
 
         SendProductList.clear()
 
+        //connect firebase
         val db = Firebase.firestore
         CoroutineScope(Dispatchers.IO).launch {
             db.collection("ReceivedProduct")
@@ -44,6 +46,7 @@ class StockOut_Fragment : Fragment() {
                 .get()
                 .addOnSuccessListener { result ->
                     for (sendPro in result) {
+                        //show product out of store
                         if (sendPro.data?.get("Status") != "In Rack" && sendPro.data?.get("Status") != "Received") {
                             val recP = Stock(
                                 sendPro.data?.get("PartNo").toString(),
@@ -65,6 +68,7 @@ class StockOut_Fragment : Fragment() {
 
                 }
 
+            //sort by
             CoroutineScope(Dispatchers.Main).launch {
                 binding.sortBySpinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -93,6 +97,7 @@ class StockOut_Fragment : Fragment() {
                     }
                 }
 
+                //sort ascending
                 binding.ascending2.setOnClickListener() {
                     binding.descending2.isVisible = true
                     binding.descending2.isClickable = true
@@ -113,6 +118,7 @@ class StockOut_Fragment : Fragment() {
                     myRecyclerView.setHasFixedSize(true)
                 }
 
+                //sort descending
                 binding.descending2.setOnClickListener() {
                     binding.descending2.isVisible = false
                     binding.descending2.isClickable = false

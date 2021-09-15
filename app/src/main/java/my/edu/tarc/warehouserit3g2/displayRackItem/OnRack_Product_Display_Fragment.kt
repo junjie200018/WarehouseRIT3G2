@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.displayRackItem
 
 import android.content.ContentValues
 import android.content.Context
@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDirections
@@ -21,6 +20,7 @@ import my.edu.tarc.warehouserit3g2.Data.ProductAdapter
 import my.edu.tarc.warehouserit3g2.Data.RackProduct
 import my.edu.tarc.warehouserit3g2.Data.RackProductAdapter
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackProductDisplayBinding
 
 
@@ -42,9 +42,12 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_rack_product_display, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_on_rack_product_display, container, false)
         val db = Firebase.firestore
-        val args = OnRack_Product_Display_FragmentArgs.fromBundle(requireArguments())
+        val args = OnRack_Product_Display_FragmentArgs.fromBundle(
+            requireArguments()
+        )
         val rackId = args.rackId
         productList.clear()
         myRecyclerView = binding.OnRackproductRecycleView
@@ -105,7 +108,9 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
         val clickedItem : RackProduct = productList[position]
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
-        val action : NavDirections = OnRack_Product_Display_FragmentDirections.actionOnRackProductDisplayFragmentToOnRackDisplayDetailFragment(clickedItem.SerialNo)
+        val action : NavDirections = OnRack_Product_Display_FragmentDirections.actionOnRackProductDisplayFragmentToOnRackDisplayDetailFragment(
+                clickedItem.SerialNo
+            )
 
         navController.navigate(action)
 

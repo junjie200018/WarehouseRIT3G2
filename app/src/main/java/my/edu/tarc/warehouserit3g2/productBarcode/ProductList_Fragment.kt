@@ -1,29 +1,26 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.productBarcode
 
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Data.Product
 import my.edu.tarc.warehouserit3g2.Data.ReceiveProductAdapter
 import my.edu.tarc.warehouserit3g2.Data.newProductBarcode
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentReceiveProductListBinding
 
 
-class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListener {
+class ProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListener {
 
 
     private lateinit var binding: FragmentReceiveProductListBinding
@@ -31,16 +28,20 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
     lateinit var adapter: ReceiveProductAdapter
     lateinit var myRecyclerView : RecyclerView
     private val navController by lazy { NavHostFragment.findNavController(this)}
+    private lateinit var person: ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_receive_product_list_, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_receive_product_list_, container, false)
         val db = Firebase.firestore
         receiveProduct.clear()
         myRecyclerView = binding.ReceiveProductRecycleView
+
+        person = ViewModel.getInstance()
 
         db.collection("Barcode").orderBy("partNo")
             .get()
@@ -61,8 +62,6 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
 
                 binding.receiveProductsearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
-//                    val myRecyclerView : RecyclerView = binding
-
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -88,8 +87,14 @@ class ReceiveProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClic
         val clickedItem  = receiveProduct[position]
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
-        val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
-        navController.navigate(action)
-//        ProductAdapter.notifyItemChanged(position)
+        person.setbarcode(clickedItem.barodeNo)
+        if(person.getPerson().role == "worker") {
+            navController.navigate(R.id.action_receiveProductList_Fragment_to_displayBarcode_Fragment)
+//            val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
+//            navController.navigate(action)
+        } else if(person.getPerson().role == "manager") {
+            navController.navigate(R.id.action_receiveProductList_Fragment2_to_displayBarcode_Fragment2)
+        }
+
     }
 }

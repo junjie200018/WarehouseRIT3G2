@@ -1,26 +1,19 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.transit
 
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
-import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Data.DisplayTransit
 import my.edu.tarc.warehouserit3g2.Data.DisplayTransitAdapter
-import my.edu.tarc.warehouserit3g2.Data.Product
-import my.edu.tarc.warehouserit3g2.Data.ProductAdapter
-import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBinding
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayTransitBinding
 
 class DisplayTransit_Fragment : Fragment(), DisplayTransitAdapter.OnItemClickListener {
@@ -35,7 +28,8 @@ class DisplayTransit_Fragment : Fragment(), DisplayTransitAdapter.OnItemClickLis
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_display_transit, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_display_transit, container, false)
         val db = Firebase.firestore
         transitProduct.clear()
         myRecyclerView = binding.TransitRecycleView

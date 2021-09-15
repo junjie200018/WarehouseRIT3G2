@@ -1,7 +1,5 @@
 package my.edu.tarc.warehouserit3g2.Data
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +7,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment
 import my.edu.tarc.warehouserit3g2.R
-import my.edu.tarc.warehouserit3g2.RackList_Fragment
+import my.edu.tarc.warehouserit3g2.changeRack.RackList_Fragment
 
 class RackListAdapter ( private var rackList: ArrayList<String>, private val listener: RackList_Fragment
 ) : RecyclerView.Adapter<RackListAdapter.myViewHolder>(), Filterable {

@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.productBarcode
 
 import android.content.ContentValues
 import android.graphics.Bitmap
@@ -17,6 +17,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentReceiveProductBinding
 import java.util.*
 
@@ -30,7 +31,8 @@ class receiveProduct_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receive_product_, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_receive_product_, container, false)
         binding.submitBtn.setOnClickListener {
 
             val productID = binding.EnterProductID.text.toString()

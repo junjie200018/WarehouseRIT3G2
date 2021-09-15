@@ -9,7 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import my.edu.tarc.warehouserit3g2.OnRack_Product_Display_Fragment
+import my.edu.tarc.warehouserit3g2.displayRackItem.OnRack_Product_Display_Fragment
 import my.edu.tarc.warehouserit3g2.R
 
 class RackProductAdapter(private var productList:MutableList<RackProduct>, private val listener: OnRack_Product_Display_Fragment) : RecyclerView.Adapter<RackProductAdapter.myViewHolder>(),

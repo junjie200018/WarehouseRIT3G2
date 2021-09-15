@@ -1,8 +1,6 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.inRack
 
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
@@ -12,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.firestore.ktx.firestore
@@ -20,8 +17,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentAddRackBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentReceiveProductBinding
 
 
 class AddRack : Fragment() {

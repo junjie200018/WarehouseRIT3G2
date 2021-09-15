@@ -1,10 +1,8 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.productBarcode
 
-import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,29 +11,42 @@ import androidx.annotation.ColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import com.google.zxing.oned.Code128Writer
+import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayBarcodeBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackProductDisplayBinding
 
 
 class displayBarcode_Fragment : Fragment() {
 
     private lateinit var binding: FragmentDisplayBarcodeBinding
+    private lateinit var person: ViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_display_barcode_, container, false)
-        val args = displayBarcode_FragmentArgs.fromBundle(requireArguments())
-        val barcode = args.barcodeNo
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_display_barcode_, container, false)
+//        val args = displayBarcode_FragmentArgs.fromBundle(requireArguments())
+//        var barcode = args.barcodeNo
 
-        displayBitmap(barcode)
+        person = ViewModel.getInstance()
+
+        //if(barcode == null) {
+            //var barcode = person.getbarcode()
+        //}
+
+        displayBitmap(person.getbarcode())
 
 
         binding.btnBack.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
+            if(person.getPerson().role == "worker") {
+                Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
+            } else {
+                Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
+            }
+
         }
 
         return binding.root

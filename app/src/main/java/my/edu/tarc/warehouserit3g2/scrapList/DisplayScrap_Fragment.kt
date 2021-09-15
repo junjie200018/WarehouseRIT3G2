@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.scrapList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayScrapBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedDetailBinding
 
 
 class displayScrap_Fragment : Fragment() {
@@ -24,7 +23,8 @@ class displayScrap_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_display_scrap, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_display_scrap, container, false)
         val args = displayScrap_FragmentArgs.fromBundle(requireArguments())
         val serialNo = args.serialNo
         val db = Firebase.firestore

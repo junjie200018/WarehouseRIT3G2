@@ -1,9 +1,7 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.inRack
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +13,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnRackProductBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 
 
 class OnRack_Product_Fragment : Fragment() {
@@ -31,7 +29,8 @@ class OnRack_Product_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_rack__product_, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_on_rack__product_, container, false)
 
         binding.RackProductScan.setOnClickListener{
             run {
@@ -87,7 +86,9 @@ class OnRack_Product_Fragment : Fragment() {
                                         }
 
                                         if(checkExist == 0){
-                                            val action : NavDirections = OnRack_Product_FragmentDirections.actionOnRackProductFragmentToOnRackRackFragment(scannedResult)
+                                            val action : NavDirections = OnRack_Product_FragmentDirections.actionOnRackProductFragmentToOnRackRackFragment(
+                                                    scannedResult
+                                                )
                                             navController.navigate(action)
 
                                         }else{

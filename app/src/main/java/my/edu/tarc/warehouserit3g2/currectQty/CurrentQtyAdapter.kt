@@ -40,6 +40,7 @@ class CurrentQtyAdapter (private val CurrentQtyList : ArrayList<CurrentQty>, pri
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
 
+        //get ViewModel
         person = ViewModel.getInstance()
         val CurrentQty = CurrentQtyList[position]
 
@@ -47,19 +48,24 @@ class CurrentQtyAdapter (private val CurrentQtyList : ArrayList<CurrentQty>, pri
         holder.qty.text = CurrentQty.Qty
         holder.probar.progress = CurrentQty.progress.toInt()
         holder.per.text = String.format ("%.2f",CurrentQty.progress) + "%"
+
+        //Check low quantity
         if(CurrentQty.BelowMin == "yes") {
             holder.probar.progressTintList = ColorStateList.valueOf(Color.RED)
             holder.warning.text = "Low Quantity"
             holder.warning.setTextColor(Color.RED)
             holder.warning.isVisible = true
+
         } else if (CurrentQty.BelowMin == "null") {
             holder.probar.progressTintList = ColorStateList.valueOf(Color.rgb(210,237,252))
             holder.warning.text = "Set Minimum Quantity"
             holder.warning.setTextColor(Color.rgb(25, 152,42))
             holder.warning.isVisible = true
+
         }
         holder.probar.max = 100
 
+        //interacting with recycler view item
         holder.itemView.setOnClickListener {
             val partNo = CurrentQty.PartNo
             person.setMin(partNo)

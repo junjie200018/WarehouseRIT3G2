@@ -1,9 +1,7 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.receiveProduct
 
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -19,6 +17,7 @@ import my.edu.tarc.warehouserit3g2.Data.ProductAdapter
 import my.edu.tarc.warehouserit3g2.databinding.FragmentDisplayReceivedItemBinding
 import androidx.appcompat.widget.SearchView
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import kotlin.collections.ArrayList
 
 
@@ -39,7 +38,8 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_display__received_item_, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_display__received_item_, container, false)
         val db = Firebase.firestore
         productList.clear()
 
@@ -112,7 +112,11 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         val clickedItem : Product = productList[position]
-        val action : NavDirections = Display_Received_item_FragmentDirections.actionDisplayReceivedItemFragmentToOnReceivedDetailFragment("0", "view", clickedItem.SerialNo)
+        val action : NavDirections = Display_Received_item_FragmentDirections.actionDisplayReceivedItemFragmentToOnReceivedDetailFragment(
+                "0",
+                "view",
+                clickedItem.SerialNo
+            )
         navController.navigate(action)
 
     }

@@ -9,6 +9,7 @@ class ViewModel: ViewModel() {
     private lateinit var aPerson : Person
     private lateinit var fullName :String
     private lateinit var partNo :String
+    private lateinit var barcode:String
 
     fun setaPerson (aPerson : Person) {
         this.aPerson = aPerson
@@ -22,6 +23,10 @@ class ViewModel: ViewModel() {
         this.partNo = partNo
     }
 
+    fun setbarcode(barcode:String) {
+        this.barcode = barcode
+    }
+
     fun getfullName() :String {
         return fullName
     }
@@ -32,6 +37,10 @@ class ViewModel: ViewModel() {
 
     fun getMin() : String {
         return partNo
+    }
+
+    fun getbarcode(): String {
+        return barcode
     }
 
     companion object{

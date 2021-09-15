@@ -30,6 +30,10 @@
         android:title="Stock">
         <menu>
             <item
+                android:id="@+id/receiveProductList_Fragment2"
+                android:title="Product List" />
+
+            <item
                 android:id="@+id/receiveProduct_Fragment"
                 android:icon="@drawable/add"
                 android:title="Add Product" />

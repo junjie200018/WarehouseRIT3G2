@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.receiveProduct
 
 import android.content.ContentValues
 import android.graphics.Bitmap
@@ -17,6 +17,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedDetailBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,7 +31,8 @@ class OnReceivedDetail_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_on_received_detail_, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_on_received_detail_, container, false)
 
 
 

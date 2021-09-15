@@ -1,9 +1,7 @@
-package my.edu.tarc.warehouserit3g2
+package my.edu.tarc.warehouserit3g2.changeRack
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +13,8 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
+import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentChangeRackProductBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentOnReceivedBinding
 
 class changeRack_product_Fragment : Fragment() {
 
@@ -30,7 +28,8 @@ class changeRack_product_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_change_rack_product, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_change_rack_product, container, false)
 
         binding.ChangeRackProductScan.setOnClickListener {
             run {
@@ -66,7 +65,9 @@ class changeRack_product_Fragment : Fragment() {
                             if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
                                 if(result.data?.get("RackID").toString() != ""){
 
-                                    val action : NavDirections = changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(scannedResult)
+                                    val action : NavDirections = changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(
+                                            scannedResult
+                                        )
                                     navController.navigate(action)
 
                                 }else {

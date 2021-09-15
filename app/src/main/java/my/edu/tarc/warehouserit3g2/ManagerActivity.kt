@@ -51,11 +51,10 @@ class ManagerActivity : AppCompatActivity() {
         person = ViewModel.getInstance()
         val db = Firebase.firestore
 
-
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)
         val username : TextView = headerView.findViewById(R.id.usernameDis)
-        val profilePhoto : ImageView = headerView.findViewById(R.id.ProfilePhoto)
+
         img = headerView.findViewById(R.id.ProfilePhoto)
 
         db.collection("Employees").document(person.getPerson().username)
@@ -67,8 +66,6 @@ class ManagerActivity : AppCompatActivity() {
                 img.setImageBitmap(decodedByte)
             }
 
-
-
         img.setOnClickListener(){
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -77,14 +74,13 @@ class ManagerActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.managerNavHostFragment)
 
-
         username.text = person.getPerson().fullName
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.productMovement_Fragment2,R.id.stockIn_Fragment, R.id.stockOut_Fragment,
                 R.id.profileEdit_Fragment2,R.id.currentQty_Fragment, R.id.transitList_Fragment,
-                R.id.searchStock_Fragment, R.id.addRack, R.id.receiveProduct_Fragment
+                R.id.searchStock_Fragment, R.id.addRack, R.id.receiveProduct_Fragment, R.id.receiveProductList_Fragment2
             ),drawerLayout
         )
 
@@ -119,6 +115,5 @@ class ManagerActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.managerNavHostFragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
 
 }

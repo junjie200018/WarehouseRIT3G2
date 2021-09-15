@@ -1,7 +1,5 @@
 package my.edu.tarc.warehouserit3g2.Data
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +7,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import my.edu.tarc.warehouserit3g2.OnRack_Display_Fragment
 import my.edu.tarc.warehouserit3g2.R
-import my.edu.tarc.warehouserit3g2.ReceiveProductList_Fragment
-import my.edu.tarc.warehouserit3g2.receiveProduct_Fragment
+import my.edu.tarc.warehouserit3g2.productBarcode.ProductList_Fragment
 
 class ReceiveProductAdapter(
-    private var receiveProductList: ArrayList<newProductBarcode>, private val listener: ReceiveProductList_Fragment
+    private var receiveProductList: ArrayList<newProductBarcode>, private val listener: ProductList_Fragment
 ) : RecyclerView.Adapter<ReceiveProductAdapter.myViewHolder>(), Filterable {
     var searchV = ArrayList<newProductBarcode>();
 

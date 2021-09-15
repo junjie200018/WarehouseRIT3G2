@@ -9,7 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import my.edu.tarc.warehouserit3g2.DisplayTransit_Fragment
+import my.edu.tarc.warehouserit3g2.transit.DisplayTransit_Fragment
 import my.edu.tarc.warehouserit3g2.R
 
 
