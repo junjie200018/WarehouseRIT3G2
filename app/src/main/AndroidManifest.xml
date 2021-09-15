@@ -19,7 +19,9 @@
         android:theme="@style/Theme.WarehouseRIT3G2" >
         <activity
             android:name=".forgetPassword.ForgetPasswordActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.WarehouseRIT3G2.NoActionBar"
+            />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

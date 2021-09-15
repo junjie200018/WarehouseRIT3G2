@@ -11,9 +11,9 @@ import androidx.navigation.Navigation
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.R
-import my.edu.tarc.warehouserit3g2.databinding.FragmentForgetPasswordEmailBinding
 import my.edu.tarc.warehouserit3g2.databinding.FragmentResetTokenValidateBinding
 import my.edu.tarc.warehouserit3g2.stockInOut.StockDetail_FragmentArgs
+
 
 class ResetTokenValidate_Fragment : Fragment() {
     private lateinit var binding : FragmentResetTokenValidateBinding
@@ -28,27 +28,35 @@ class ResetTokenValidate_Fragment : Fragment() {
         val args = ResetTokenValidate_FragmentArgs.fromBundle(requireArguments())
         val db = Firebase.firestore
 
-        db.collection("Employees").document(args.username)
-            .get()
-            .addOnSuccessListener { result ->
-                if(binding.fgtoken.text.toString() == result.data?.get("resetToken")) {
-//                    val action = ResetTokenValidate_FragmentDirections.actionResetTokenValidateFragmentToResetPasswordFragment(args.username)
-//                    Navigation.findNavController(it).navigate(action)
+        binding.btnfgtoken.setOnClickListener {
 
-                    Toast.makeText(
-                        context,
-                        "Token validate Successful",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }else {
-                    Toast.makeText(
-                        context,
-                        "Reset token not match, please check again ",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+           if(binding.fgtoken.text.toString().isEmpty() || binding.fgtoken.text.toString().isBlank()) {
+               binding.fgtokenLayout.error = "This field is required !"
+               binding.fgtokenLayout.requestFocus()
+           } else {
+               binding.fgtokenLayout.isErrorEnabled = false
+               db.collection("Employees").document(args.username)
+                   .get()
+                   .addOnSuccessListener { result ->
+                       if(binding.fgtoken.text.toString() == result.data?.get("resetToken").toString()) {
+                           Toast.makeText(
+                               context,
+                               "Token validate successful",
+                               Toast.LENGTH_LONG
+                           ).show()
+                           val action = ResetTokenValidate_FragmentDirections.actionResetTokenValidateFragmentToResetPasswordFragment(args.username)
+                           Navigation.findNavController(it).navigate(action)
+                       } else {
+                           Toast.makeText(
+                               context,
+                               "Token not correct, please check your email again",
+                               Toast.LENGTH_LONG
+                           ).show()
+                       }
+                   }
+           }
 
-            }
+        }
         return binding.root
     }
 

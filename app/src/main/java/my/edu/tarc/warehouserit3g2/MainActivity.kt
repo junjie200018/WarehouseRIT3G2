@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
 
 import my.edu.tarc.warehouserit3g2.databinding.ActivityMainBinding
+import my.edu.tarc.warehouserit3g2.forgetPassword.ForgetPasswordActivity
 import my.edu.tarc.warehouserit3g2.person.Person
 import my.edu.tarc.warehouserit3g2.person.PersonDB
 import my.edu.tarc.warehouserit3g2.person.PersonDao
@@ -27,7 +28,7 @@ import my.edu.tarc.warehouserit3g2.person.PersonDao
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var person: my.edu.tarc.warehouserit3g2.Models.ViewModel
+    private lateinit var Person: ViewModel
     private lateinit var dao: PersonDao
     private lateinit var aPerson: Person
 
@@ -36,13 +37,13 @@ class MainActivity : AppCompatActivity() {
         var ac = this
         CoroutineScope(IO).launch {
             dao = PersonDB.getInstance(applicationContext).personDao
-            person = ViewModel.getInstance()
+            Person = ViewModel.getInstance()
             //dao.removeAll()
 
             var person = dao.getPerson()
 
             if(person != null) {
-                this@MainActivity.person.setaPerson(person)
+                Person.setaPerson(person)
                 if (person.role == "worker") {
                     intent("worker")
                 } else if (person.role == "manager") {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     val db = Firebase.firestore
 
                     binding.forgetPassword.setOnClickListener {
-
+                        intent("forget")
                     }
 
                     binding.btnLogin.setOnClickListener {
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                                                         dao.insertPerson(aPerson)
                                                     }
                                                 }
-                                                this@MainActivity.person.setaPerson(aPerson)
+                                                Person.setaPerson(aPerson)
                                                 if (aPerson.role == "worker") {
                                                     intent("worker")
                                                     Toast.makeText(
@@ -194,6 +195,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         } else if(role == "driver") {
             val intent = Intent(this, DriverActivity::class.java)
+            startActivity(intent)
+        } else if(role == "forget") {
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
             startActivity(intent)
         }
     }

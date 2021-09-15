@@ -85,8 +85,6 @@ class CurrentQty_Fragment : Fragment() {
                                     if(qty < min.data?.get("MinQty").toString().toInt()) {
                                         belowMin = "yes"
                                         //---------------------------------------------
-                                    } else if (min.data?.get("MinQty").toString().toInt() == 0) {
-                                        belowMin = "null"
                                     }
 
                                 }else {
@@ -96,9 +94,14 @@ class CurrentQty_Fragment : Fragment() {
                                     val stockMin = hashMapOf(
                                         "MinQty" to 0,
                                         "PartNo" to p.toString()
+
                                     )
+                                    belowMin = "null"
                                     db.collection("StockQuantity").document(p.toString()).set(stockMin)
 
+                                }
+                                if(p == min.data?.get("PartNo").toString() && min.data?.get("MinQty").toString().toInt() == 0) {
+                                    belowMin = "null"
                                 }
                             }
                             progress = ((qty.toDouble() / total.toDouble()) * 100)
