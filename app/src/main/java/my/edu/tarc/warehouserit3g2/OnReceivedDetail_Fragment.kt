@@ -85,7 +85,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                             partNumberDatabase,
                             quantityDataBase,
                             serialNumber,
-                            "received",
+                            "Received",
                             currentDate,
                             receivedBy
                         )

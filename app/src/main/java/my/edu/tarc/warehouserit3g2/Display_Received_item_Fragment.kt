@@ -65,7 +65,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
                 for (document in result) {
 
 
-                    if(document.data?.get("Status").toString() == "In Rack" || document.data?.get("Status").toString() != "Received") {
+                    if(document.data?.get("Status").toString() == "In Rack" || document.data?.get("Status").toString() == "Received" ) {
 
                         val p = Product("${document.data.get("PartNo").toString()}", "${document.id}", "${document.data?.get("ReceivedDate").toString()}", "${document.data?.get("Quantity").toString()}")
                         productList.add(p)

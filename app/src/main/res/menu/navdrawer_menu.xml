@@ -80,6 +80,7 @@
             />
             <item
                 android:id="@+id/displayTransit_Fragment"
+                android:icon="@drawable/truck"
                 android:title="Transit List"
                 />
 

@@ -56,6 +56,7 @@ class profileEdit_Fragment : Fragment() {
         binding.Name.setText(person.getPerson().fullName)
         binding.email.setText(person.getPerson().email)
         binding.phone.setText(person.getPerson().phoneNo)
+        var oldName = person.getPerson().fullName
 
         binding.btnProfileEdit.setOnClickListener {
             Log.w(ContentValues.TAG, "partNo 2 ")
@@ -87,6 +88,7 @@ class profileEdit_Fragment : Fragment() {
             var phone = binding.phone.text.toString()
 
             if(isValidate()){
+                Log.w(ContentValues.TAG, "${binding.EditUsername.text.toString()}")
                 db.collection("Employees").document(binding.EditUsername.text.toString())
                     .update(
                         mapOf(
@@ -95,6 +97,25 @@ class profileEdit_Fragment : Fragment() {
                             "email" to binding.email.text.toString()
                         )
                     )
+
+                db.collection("ReceivedProduct")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for(document in  result){
+                            if(oldName == document.data?.get("ReceivedBy").toString())
+                            {
+                                db.collection("ReceivedProduct").document(document.id)
+                                    .update(
+                                        mapOf(
+                                            "ReceivedBy" to fullname
+                                        )
+
+                                    )
+                            }
+                        }
+
+                    }
+
                 aPerson.fullName = binding.Name.text.toString()
                 aPerson.email = binding.email.text.toString()
                 aPerson.phoneNo = binding.phone.text.toString()

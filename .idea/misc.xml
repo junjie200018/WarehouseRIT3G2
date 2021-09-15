@@ -13,6 +13,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/current_qty_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/display_rack.xml" value="0.34193840579710144" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/display_rack_product.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/display_receive_product.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/display_transit.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_add_rack.xml" value="0.1537037037037037" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_stock_in_.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_tracking.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/fragment_transit_list_.xml" value="0.35104166666666664" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/nav_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/rack_image.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/received_item.xml" value="0.1" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/WarehouseRIT3G2/app/src/main/res/layout/transit_item.xml" value="0.35104166666666664" />

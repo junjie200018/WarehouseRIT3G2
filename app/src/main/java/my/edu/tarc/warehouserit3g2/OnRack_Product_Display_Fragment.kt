@@ -58,8 +58,9 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
                 val i = 0
                 for (document in result) {
 
-                    if(document.data.get("Status") == "In Rack" || document.data.get("Status") != "Received") {
+                    if(document.data?.get("Status") == "In Rack" || document.data?.get("Status") == "Received") {
                         if (rackId == (document.data.get("RackID").toString())) {
+                            Log.w(ContentValues.TAG, "get value 3 = ${document.data}")
                             val p = RackProduct(
                                 "${document.data.get("PartNo").toString()}",
                                 "${document.id}","${document.data.get("RackID").toString()}","${document.data.get("RackInDate").toString()}",
