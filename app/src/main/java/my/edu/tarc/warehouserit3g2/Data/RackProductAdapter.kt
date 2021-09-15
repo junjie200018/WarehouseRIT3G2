@@ -68,7 +68,7 @@ class RackProductAdapter(private var productList:MutableList<RackProduct>, priva
     }
 
     override fun getItemCount(): Int {
-        Log.w(ContentValues.TAG, "search value 57 = ")
+
         return searchV.size
     }
 
@@ -76,34 +76,34 @@ class RackProductAdapter(private var productList:MutableList<RackProduct>, priva
         return object: Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                Log.w(ContentValues.TAG, "search value 75 = ${charSearch} ")
+
                 if (charSearch.isEmpty()) {
-                    Log.w(ContentValues.TAG, "77 ")
+
                     searchV = productList as ArrayList<RackProduct>
 
 
                 } else {
                     val resultList = ArrayList<RackProduct>()
                     for (row in productList) {
-                        Log.w(ContentValues.TAG, " 999 ")
+
                         if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.quantity.contains(charSearch) ||
                             row.rackID.contains(charSearch) || row.rackInDate.contains(charSearch)){
-                            Log.w(ContentValues.TAG, "search value 83 = ${row} ")
+
                             resultList.add(row)
                         }
                     }
                     searchV = resultList
-                    Log.w(ContentValues.TAG, "search value 88 = ${searchV} ")
+
                 }
                 val filterResults = FilterResults()
                 filterResults.values = searchV
-                Log.w(ContentValues.TAG, "Final2 = ${filterResults} ")
+
                 return filterResults
             }
 
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
-                Log.w(ContentValues.TAG, "final= ${filterResults} ")
+
                 searchV = filterResults!!.values as ArrayList<RackProduct>
                 notifyDataSetChanged()
             }

@@ -29,12 +29,12 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
 
         init {
-            Log.w(ContentValues.TAG, "search value 30 = ")
+
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            Log.w(ContentValues.TAG, "search value 34 = ")
+
             val position = adapterPosition
             if(position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(position)
@@ -47,14 +47,14 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
-        Log.w(ContentValues.TAG, "search value 42 = ")
+
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.received_item, parent, false)
 
         return myViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
-        Log.w(ContentValues.TAG, "search value 49 = ")
+
 
         val currentProduct = searchV[position]
 //        holder.itemView.setOnClickListener(
@@ -65,7 +65,7 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
     }
 
     override fun getItemCount(): Int {
-        Log.w(ContentValues.TAG, "search value 57 = ")
+
         return searchV.size
     }
 
@@ -77,37 +77,37 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
     }
 
     override fun getFilter(): Filter {
-        Log.w(ContentValues.TAG, "search value 5 = ")
+
         return object: Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
-                Log.w(ContentValues.TAG, "search value 75 = ${charSearch} ")
+
                 if (charSearch.isEmpty()) {
-                    Log.w(ContentValues.TAG, "77 ")
+
                     searchV = productList as ArrayList<Product>
 
 
                 } else {
                     val resultList = ArrayList<Product>()
                     for (row in productList) {
-                        Log.w(ContentValues.TAG, " 999 ")
+
                        if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.date.contains(charSearch) || row.quantity.contains(charSearch)){
-                           Log.w(ContentValues.TAG, "search value 83 = ${row} ")
+
                            resultList.add(row)
                        }
                     }
                     searchV = resultList
-                    Log.w(ContentValues.TAG, "search value 88 = ${searchV} ")
+
                 }
                 val filterResults = FilterResults()
                 filterResults.values = searchV
-                Log.w(ContentValues.TAG, "Final2 = ${filterResults} ")
+
                 return filterResults
             }
 
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
-                Log.w(ContentValues.TAG, "final= ${filterResults} ")
+
                 searchV = filterResults!!.values as ArrayList<Product>
                 notifyDataSetChanged()
             }

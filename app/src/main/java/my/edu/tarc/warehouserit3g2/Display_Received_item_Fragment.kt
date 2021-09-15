@@ -75,8 +75,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
                 productList.sortBy { it.partNo }
 
-                adapter = ProductAdapter(productList, this)
-                myRecyclerView.adapter = adapter
+
 
                 binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
@@ -97,6 +96,8 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
                         return false
                     }
                 })
+                adapter = ProductAdapter(productList, this)
+                myRecyclerView.adapter = adapter
             }
 
 
