@@ -96,7 +96,7 @@ class receiveProduct_Fragment : Fragment() {
                                 "quantity" to qty.toString().toInt()
                             )
 
-                            // save data to databse
+                            // save data to database
                             db.collection("Barcode").document(no).set(barcodeValue)
 
                             Toast.makeText(

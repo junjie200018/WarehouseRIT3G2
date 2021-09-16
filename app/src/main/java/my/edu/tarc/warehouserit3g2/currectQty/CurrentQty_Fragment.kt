@@ -1,9 +1,6 @@
 package my.edu.tarc.warehouserit3g2.currectQty
 
-import android.nfc.Tag
 import android.os.Bundle
-import android.provider.Telephony
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentCurrentQtyBinding
-import my.edu.tarc.warehouserit3g2.databinding.FragmentStockInBinding
-import my.edu.tarc.warehouserit3g2.stockInOut.RecProductAdapter
-import my.edu.tarc.warehouserit3g2.stockInOut.Stock
-import kotlin.concurrent.fixedRateTimer
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 
@@ -71,6 +63,24 @@ class CurrentQty_Fragment : Fragment() {
                     .orderBy("PartNo")
                     .get()
                     .addOnSuccessListener { result ->
+                        for(min in result){
+                            var count = 0
+                            for(p in partNo) {
+                                if( min.data?.get("PartNo").toString() != p) {
+                                    count++
+                                }
+                                if(count == partNo.size) {
+                                    var Etotal = CurrentQty (
+                                        min.data?.get("PartNo").toString(),
+                                        "0",
+                                        0.00,
+                                        "yes"
+                                    )
+                                    currentTotalQtyList.add(Etotal)
+                                }
+                            }
+                        }
+
                         for(p in partNo) {
                             var qty = 0
                             var progress = 0.00
@@ -116,11 +126,13 @@ class CurrentQty_Fragment : Fragment() {
                             currentTotalQtyList.add(Etotal)
                         }
 
-                        val activity = context as FragmentActivity
-                        val fm: FragmentManager = activity.supportFragmentManager
+                        val ac = context as FragmentActivity
+                        val fm: FragmentManager = ac.supportFragmentManager
+                        val activity = requireActivity()
 
                         myRecyclerView = binding.currentQtyRecyclerView
-                        myRecyclerView.adapter = CurrentQtyAdapter(currentTotalQtyList, fm)
+                        currentTotalQtyList.sortBy { it.PartNo }
+                        myRecyclerView.adapter = CurrentQtyAdapter(currentTotalQtyList, fm, activity)
                         myRecyclerView.setHasFixedSize(true)
                     }
             }
