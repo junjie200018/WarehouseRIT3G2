@@ -75,7 +75,7 @@ class RackListAdapter ( private var rackList: ArrayList<String>, private val lis
                     val resultList = ArrayList<String>()
                     for (row in rackList) {
 
-                        if(row.contains(charSearch) || row.contains(charSearch)){
+                        if(row.contains(charSearch.uppercase()) || row.contains(charSearch.uppercase())){
 
                             resultList.add(row)
                         }

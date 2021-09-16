@@ -79,7 +79,7 @@ class ReceiveProductAdapter(
                     val resultList = ArrayList<newProductBarcode>()
                     for (row in receiveProductList) {
 
-                        if(row.partNo.contains(charSearch) || row.quantity.contains(charSearch) || row.barodeNo.contains(charSearch)){
+                        if(row.partNo.contains(charSearch.uppercase()) || row.quantity.contains(charSearch.uppercase()) || row.barodeNo.contains(charSearch.uppercase())){
 
                             resultList.add(row)
                         }

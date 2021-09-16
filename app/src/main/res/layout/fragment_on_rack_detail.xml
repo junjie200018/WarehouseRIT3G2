@@ -149,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:fontFamily="@font/cantata_one"
-                        android:text="Rack In Date :"
+                        android:text="Rack Out Date :"
                         android:textSize="20sp" />
 
                     <TextView

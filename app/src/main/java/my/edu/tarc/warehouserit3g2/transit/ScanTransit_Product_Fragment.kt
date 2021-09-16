@@ -1,7 +1,9 @@
 package my.edu.tarc.warehouserit3g2.transit
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +50,7 @@ class scanTransit_Product_Fragment : Fragment() {
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
         val sdf = SimpleDateFormat("dd/M/yyyy")
-        val rackOutDate = sdf.format(Date())
+        var rackOutDate = sdf.format(Date())
 
         // connect to database
         val db = Firebase.firestore
@@ -82,7 +84,8 @@ class scanTransit_Product_Fragment : Fragment() {
                                     for (transferProduct in documents) {
                                         // check the partno and quantity of the transfer detail and received product detail
                                         if (result.data?.get("PartNo").toString() == transferProduct.data?.get("partNo").toString()
-                                            && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity").toString())
+                                            && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity").toString()
+                                            && transferProduct.data?.get("status").toString() == "pending")
                                         {
                                             correct = 1
                                             transferID = transferProduct.id
@@ -96,6 +99,7 @@ class scanTransit_Product_Fragment : Fragment() {
                                             "Transit successful",
                                             Toast.LENGTH_LONG
                                         ).show()
+                                        Log.d(ContentValues.TAG, " abaaba ${transferID}")
 
                                         // update the database
                                         db.collection("Transfer").document(transferID)
@@ -106,6 +110,10 @@ class scanTransit_Product_Fragment : Fragment() {
                                                 )
                                             )
 
+                                        if(result.data?.get("RackInDate").toString() == "-"){
+                                            rackOutDate = "-"
+                                        }
+                                        Log.d(ContentValues.TAG, " abaaba ${rackOutDate}")
                                         //update the database
                                         db.collection("ReceivedProduct").document(scannedResult)
                                             .update(

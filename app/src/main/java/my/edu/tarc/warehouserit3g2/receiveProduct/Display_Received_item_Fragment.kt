@@ -50,7 +50,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
         var fullname = person.getPerson().fullName
 
         // get the received product data from database
-        db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
+        db.collection("ReceivedProduct")
             .get()
             .addOnSuccessListener { result ->
 

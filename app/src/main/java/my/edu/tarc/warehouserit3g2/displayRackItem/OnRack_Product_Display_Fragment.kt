@@ -54,7 +54,7 @@ class OnRack_Product_Display_Fragment : Fragment(), ProductAdapter.OnItemClickLi
 
 
         //get the receivedProduct detail from database
-        db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
+        db.collection("ReceivedProduct")
             .get()
             .addOnSuccessListener { result ->
                 val i = 0

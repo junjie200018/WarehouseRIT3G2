@@ -1,10 +1,8 @@
 package my.edu.tarc.warehouserit3g2.person
 
-import android.content.ContentValues
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +31,8 @@ class profileEdit_Fragment : Fragment() {
     private lateinit var binding: FragmentProfileEditBinding
     private lateinit var person: ViewModel
     private lateinit var aPerson: Person
+    private lateinit var person1: ViewModel
+    private lateinit var aPerson1: Person
     private  var duplicate = 0
     private var duplicatePhone = 0
     private val navController by lazy { NavHostFragment.findNavController(this) }
@@ -60,11 +60,11 @@ class profileEdit_Fragment : Fragment() {
         binding.Name.setText(person.getPerson().fullName)
         binding.email.setText(person.getPerson().email)
         binding.phone.setText(person.getPerson().phoneNo)
-        var oldName = person.getPerson().fullName
+
 
         //button for allow to edit
         binding.btnProfileEdit.setOnClickListener {
-            Log.w(ContentValues.TAG, "partNo 2 ")
+
 
             binding.Name.setEnabled(true)
             binding.email.setEnabled(true)
@@ -90,7 +90,12 @@ class profileEdit_Fragment : Fragment() {
         }
 
         // button for edit profile
-        binding.btnProfileSubmit.setOnClickListener {
+        binding.btnProfileSubmit.setOnClickListener{
+
+            person1 = ViewModel.getInstance()
+            aPerson1 = person.getPerson()
+            var oldName = person1.getPerson().fullName
+
             var fullname = binding.Name.text.toString()
             var email = binding.email.text.toString().lowercase(Locale.getDefault())
             var phone = binding.phone.text.toString()
@@ -106,6 +111,7 @@ class profileEdit_Fragment : Fragment() {
                             "email" to email
                         )
                     )
+
 
                 db.collection("ReceivedProduct")
                     .get()
@@ -126,10 +132,10 @@ class profileEdit_Fragment : Fragment() {
                     }
 
                 // set value to view model
-                aPerson.fullName = fullname
-                aPerson.email = email
-                aPerson.phoneNo = phone
-                person.setaPerson(aPerson)
+                aPerson1.fullName = fullname
+                aPerson1.email = email
+                aPerson1.phoneNo = phone
+                person1.setaPerson(aPerson)
 
                 //set the navigation header name
                 val navView: NavigationView = binding.root.rootView.findViewById<NavigationView>(R.id.navView)
@@ -278,7 +284,7 @@ class profileEdit_Fragment : Fragment() {
                 for (document in result) {
                     if (binding.phone.text?.contains(document.data.get("phoneNo").toString()) == true) {
                         duplicatePhone = 1
-                        Log.w(ContentValues.TAG, "chackemail")
+
                     }
                 }
 

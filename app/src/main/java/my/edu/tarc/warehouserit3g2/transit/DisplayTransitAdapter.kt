@@ -71,8 +71,8 @@ class DisplayTransitAdapter(
                     val resultList = ArrayList<DisplayTransit>()
                     for (row in TransitProductList) {
 
-                        if (row.partNo.contains(charSearch) || row.quantity.contains(charSearch) || row.destination.contains(charSearch)
-                            || row.from.contains(charSearch)) {
+                        if (row.partNo.contains(charSearch.uppercase()) || row.quantity.contains(charSearch.uppercase()) || row.destination.contains(charSearch.uppercase())
+                            || row.from.contains(charSearch.uppercase())) {
 
                             resultList.add(row)
                         }

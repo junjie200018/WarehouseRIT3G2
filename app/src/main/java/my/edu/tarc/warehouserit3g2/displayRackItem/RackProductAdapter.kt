@@ -86,8 +86,8 @@ class RackProductAdapter(private var productList:MutableList<RackProduct>, priva
                     val resultList = ArrayList<RackProduct>()
                     for (row in productList) {
 
-                        if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.quantity.contains(charSearch) ||
-                            row.rackID.contains(charSearch) || row.rackInDate.contains(charSearch)){
+                        if(row.partNo.contains(charSearch.uppercase()) || row.SerialNo.contains(charSearch.uppercase()) || row.quantity.contains(charSearch.uppercase()) ||
+                            row.rackID.contains(charSearch) || row.rackInDate.contains(charSearch.uppercase())){
 
                             resultList.add(row)
                         }

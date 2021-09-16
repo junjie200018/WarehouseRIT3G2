@@ -59,7 +59,6 @@ class OnRack_Detail_Fragment : Fragment() {
                         mapOf(
                             "RackID" to rackId,
                             "RackInDate" to rackInDate,
-                            "RackOutDate" to "",
                             "Status" to rackStatus
                         )
                     )

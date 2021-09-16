@@ -90,7 +90,8 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
                     val resultList = ArrayList<Product>()
                     for (row in productList) {
 
-                       if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.date.contains(charSearch) || row.quantity.contains(charSearch)){
+                       if(row.partNo.contains(charSearch.uppercase()) || row.SerialNo.contains(charSearch.uppercase())
+                           || row.date.contains(charSearch.uppercase()) || row.quantity.contains(charSearch.uppercase())){
 
                            resultList.add(row)
                        }

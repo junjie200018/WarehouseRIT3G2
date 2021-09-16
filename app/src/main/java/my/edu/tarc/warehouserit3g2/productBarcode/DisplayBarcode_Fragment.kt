@@ -178,7 +178,7 @@ class displayBarcode_Fragment : Fragment() {
 
                                 Toast.makeText(
                                     context,
-                                    "Still got product in the rack or received, cannot delete",
+                                    "Still got product in store, cannot delete",
                                     Toast.LENGTH_LONG
                                 ).show()
                             }else{

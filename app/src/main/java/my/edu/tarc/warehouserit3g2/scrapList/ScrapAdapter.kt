@@ -1,7 +1,5 @@
-package my.edu.tarc.warehouserit3g2.Data
+package my.edu.tarc.warehouserit3g2.scrapList
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +7,10 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import my.edu.tarc.warehouserit3g2.Data.Product
 import my.edu.tarc.warehouserit3g2.R
 
-class ScrapAdapter (private var productList :MutableList<Product>, private val listener: ScrapAdapter.OnItemClickListener) : RecyclerView.Adapter<ScrapAdapter.myViewHolder>(),
+class ScrapAdapter (private var productList :MutableList<Product>, private val listener: OnItemClickListener) : RecyclerView.Adapter<ScrapAdapter.myViewHolder>(),
     Filterable {
     var searchV = ArrayList<Product>();
     //    fun setData(searchV: ArrayList<Product>){
@@ -87,7 +86,7 @@ class ScrapAdapter (private var productList :MutableList<Product>, private val l
                     val resultList = ArrayList<Product>()
                     for (row in productList) {
 
-                        if(row.partNo.contains(charSearch) || row.SerialNo.contains(charSearch) || row.date.contains(charSearch)){
+                        if(row.partNo.contains(charSearch.uppercase()) || row.SerialNo.contains(charSearch.uppercase()) || row.date.contains(charSearch.uppercase())){
 
                             resultList.add(row)
                         }
