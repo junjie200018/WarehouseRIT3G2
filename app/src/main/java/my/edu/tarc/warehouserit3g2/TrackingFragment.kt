@@ -3,12 +3,8 @@ package my.edu.tarc.warehouserit3g2
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.PendingIntent
 import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +22,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.GeoPoint
@@ -40,12 +35,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-//const val REQUEST_LOCATION_PERMISSION = 1
-//const val GEOFENCE_LOCATION_PERMISSION = 11
-const val GEOFENCE_RADIUS = 100
-const val GEOFENCE_ID = "GEOFENCE_ID"
-const val GEOFENCE_EXPIRATION = 2 * 60 * 60 * 1000 // 2hr
-const val GEOFENCE_DWELL_DELAY = 10 * 1000 // 10 secs // 2 minutes
+
 const val GEOFENCE_LOCATION_REQUEST_CODE = 12345
 const val CAMERA_ZOOM_LEVEL = 15f
 const val LOCATION_REQUEST_CODE = 123
@@ -69,20 +59,18 @@ class TrackingFragment : Fragment() {
             db.collection("Transfer").document(id)
                 .update("location", geoPoint)
 
-            //des lat = 4.8228315
-            //des long = 100.7109581
 
-            val latmin = destinationLoc.latitude - 0.0001 //4.8227315
-            val latmax = destinationLoc.latitude + 0.0001 //4.8229315
-            val longmin = destinationLoc.longitude - 0.0001 //100.7108581
-            val longmax = destinationLoc.longitude + 0.0001 //100.7110581
+            val latmin = destinationLoc.latitude - 0.0001
+            val latmax = destinationLoc.latitude + 0.0001
+            val longmin = destinationLoc.longitude - 0.0001
+            val longmax = destinationLoc.longitude + 0.0001
 
             if ((location.latitude >= latmin) && (location.latitude <= latmax)){
                 if ((location.longitude >= longmin) && (location.longitude <= longmax)){
-                    //Log.d(ContentValues.TAG, "in")
+
                     db.collection("Transfer").document(id)
                         .update("status", "complete")
-//comment line 173
+
                     db.collection("ReceivedProduct").document(product)
                         .update("Status", "Complete")
 
@@ -101,16 +89,6 @@ class TrackingFragment : Fragment() {
         }
     }
 
-//    lateinit var geofence: Geofence
-
-    //    private val callback = OnMapReadyCallback { googleMap ->
-//        gMap = googleMap
-//        gMap.uiSettings.isMyLocationButtonEnabled = true
-//        map.uiSettings.isZoomControlsEnabled = true
-//
-//        enableMyLocation()
-//        Log.d(ContentValues.TAG, "qwer")
-//    }
     @SuppressLint("MissingPermission")
     private val callback = OnMapReadyCallback { googleMap ->
         gMap = googleMap
@@ -198,19 +176,18 @@ class TrackingFragment : Fragment() {
 
                 gMap.addMarker(
                     MarkerOptions().position(location)
-                        .title("Current location")
+                        .title("Destination")
                 ).showInfoWindow()
 
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, CAMERA_ZOOM_LEVEL))
 
-                //createGeoFence(LatLng(location.latitude, location.longitude), geofencingClient)
             }
         }
         //empty
         return inflater.inflate(R.layout.fragment_tracking, container, false)
     }
 
-    //
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mapFragment = childFragmentManager.findFragmentById(R.id.tMap) as SupportMapFragment
@@ -257,55 +234,6 @@ class TrackingFragment : Fragment() {
         requestLocationUpdates(false)
     }
 
-//    private fun createGeoFence(location: LatLng, geofencingClient: GeofencingClient) {
-//        val geofence = Geofence.Builder()
-//            .setRequestId(GEOFENCE_ID)
-//            .setCircularRegion(location.latitude, location.longitude, GEOFENCE_RADIUS.toFloat())
-//            .setExpirationDuration(GEOFENCE_EXPIRATION.toLong()) //2hr
-//            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_DWELL)
-//            .setLoiteringDelay(GEOFENCE_DWELL_DELAY)
-//            .build()
-//
-//        Log.d(ContentValues.TAG, "geolatlng = ${location}")
-//        Log.d(ContentValues.TAG, "geoid = ${id}")
-//
-//
-//        val geofenceRequest = GeofencingRequest.Builder()
-//            .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-//            .addGeofence(geofence)
-//            .build()
-//
-//        val intent = Intent(this.requireContext(), GeofenceBroadcastReceiver::class.java)
-//            .putExtra("id", id)
-//
-//        val pendingIntent = PendingIntent.getBroadcast(
-//            this.context,
-//            0,
-//            intent,
-//            PendingIntent.FLAG_UPDATE_CURRENT
-//        )
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            if (ContextCompat.checkSelfPermission(
-//                    this.requireContext(),
-//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-//                ) != PackageManager.PERMISSION_GRANTED
-//            ) {
-//                ActivityCompat.requestPermissions(
-//                    this.requireActivity(),
-//                    arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION),
-//                    GEOFENCE_LOCATION_REQUEST_CODE
-//                )
-//                Log.d(ContentValues.TAG, "line 318")
-//            } else {
-//                Log.d(ContentValues.TAG, "line 320")
-//                geofencingClient.addGeofences(geofenceRequest, pendingIntent)
-//            }
-//        } else {
-//            Log.d(ContentValues.TAG, "line 323")
-//            geofencingClient.addGeofences(geofenceRequest, pendingIntent)
-//        }
-//    }
 
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -369,13 +297,4 @@ class TrackingFragment : Fragment() {
         }
     }
 
-//    companion object {
-//        fun removeGeofences(context: Context, triggeringGeofenceList: MutableList<Geofence>) {
-//            val geofenceIdList = mutableListOf<String>()
-//            for (entry in triggeringGeofenceList) {
-//                geofenceIdList.add(entry.requestId)
-//            }
-//            LocationServices.getGeofencingClient(context).removeGeofences(geofenceIdList)
-//        }
-//    }
 }
