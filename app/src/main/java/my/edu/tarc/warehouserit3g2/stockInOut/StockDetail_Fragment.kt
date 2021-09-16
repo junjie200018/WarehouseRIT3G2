@@ -1,7 +1,6 @@
 package my.edu.tarc.warehouserit3g2.stockInOut
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,7 +52,6 @@ class StockDetail_Fragment : Fragment() {
                 )
 
                 person.setfullName(recProduct.RecBy)
-                Log.d("full", "${recProduct.RecBy}")
                 binding.stockDetail = recProduct
 
                 //check empty, if not will show
@@ -69,7 +67,6 @@ class StockDetail_Fragment : Fragment() {
 
                 //check item status, if transit then show from and to location
                 if (recProduct.Status == "Transit") {
-                    Log.d("knn", "${recProduct.Status}")
                     db.collection("Transfer")
                         .whereEqualTo("serialNo", recProduct.SerialNo)
                         .get()

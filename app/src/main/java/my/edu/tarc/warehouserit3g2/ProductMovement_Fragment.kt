@@ -26,6 +26,8 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.tasks.await
 import my.edu.tarc.warehouserit3g2.databinding.FragmentProductMovementBinding
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 
@@ -205,7 +207,8 @@ class ProductMovement_Fragment : Fragment() {
 
                 if (duplicateCheck(selectedFrom,selectedTo)){
                     val wLoc = (warehouse+factory).indexOf(selectedFrom)
-                    val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                    val localZone = ZoneId.of("Asia/Kuala_Lumpur")
+                    val currentTime = ZonedDateTime.now(localZone).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
                     CoroutineScope(IO).launch{
                         val selectedProd = hashMapOf(
@@ -224,13 +227,8 @@ class ProductMovement_Fragment : Fragment() {
                             .addOnFailureListener {
                                 Toast.makeText(context,"Action failed, Please Try Again",Toast.LENGTH_LONG).show()
                             }
-                        selectedPart = ""
-                        selectedQuantity = 0
-                        selectedFrom = ""
-                        selectedTo = ""
                     }
                 }
-
             }
         }
         // Inflate the layout for this fragment
@@ -238,8 +236,6 @@ class ProductMovement_Fragment : Fragment() {
     }
 
     private fun duplicateCheck(loc1 :String, loc2 :String) :Boolean{
-        Log.d(ContentValues.TAG, "log= ${loc1}")
-        Log.d(ContentValues.TAG, "log= ${loc2}")
         if (loc1 == loc2){
             Toast.makeText(context,"Departure and destination cannot be the same",Toast.LENGTH_LONG).show()
             return false

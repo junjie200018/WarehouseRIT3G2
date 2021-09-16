@@ -42,14 +42,6 @@ class MapFragment : Fragment() {
         val db = Firebase.firestore
         val args = MapFragmentArgs.fromBundle(requireArguments())
 
-//        val manager: FragmentManager = requireActivity().supportFragmentManager
-//        val trans: FragmentTransaction = manager.beginTransaction()
-//        val frag = requireFragmentManager().findFragmentByTag("transitTag")
-//        trans.remove(frag!!)
-//        trans.commit()
-//        manager.popBackStack()
-//        Log.d(ContentValues.TAG, "id= ${id}")
-
         GlobalScope.launch(IO) {
 
             db.collection("Transfer").document(args.id)
@@ -75,7 +67,6 @@ class MapFragment : Fragment() {
                             googleMap.animateCamera(
                                 CameraUpdateFactory.newLatLngZoom(marker.position, 15f)
                             )
-                            Log.d(ContentValues.TAG, "time= ${currentTime}")
                         }
 
                         if ((value.get("status")).toString() == "complete"){
@@ -95,9 +86,7 @@ class MapFragment : Fragment() {
                             .show()
                     }
                 }
-//            withContext(Main){
-//
-//            }
+
         }
 
         // Inflate the layout for this fragment

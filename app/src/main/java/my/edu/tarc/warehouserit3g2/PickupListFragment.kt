@@ -53,11 +53,9 @@ class PickupListFragment : Fragment(), TransitAdapter.OnItemClickListener {
                         if (!transitList.contains(t)){
                             transitList.add(t)
                         }
-
-//                        Log.d(ContentValues.TAG, "t= ${t}")
                     }
                 }
-//                Log.d(ContentValues.TAG, "list= ${transitList}")
+
                 myRecyclerView.adapter = TransitAdapter(transitList, this)
                 load.visibility = View.INVISIBLE
             }

@@ -77,13 +77,10 @@ class SearchStock_Fragment : Fragment() {
                         adapter.filter.filter(newText)
                         return false
                     }
-
                 })
 
-                Log.d("total", "$SearchStockList")
                 adapter = SearchStockAdapter(SearchStockList)
                 myRecyclerView.adapter = adapter
-
 
             }
 

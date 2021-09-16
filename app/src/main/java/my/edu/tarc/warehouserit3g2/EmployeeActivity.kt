@@ -36,19 +36,14 @@ class EmployeeActivity : AppCompatActivity() {
     private lateinit var img : ImageView
     private var imgUri: Uri? = null
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_employee)
 
         drawerLayout = binding.drawerLayout
         setSupportActionBar(binding.appBarMain.toolbar)
         person = ViewModel.getInstance()
-
-
 
         val db = Firebase.firestore
         val navView: NavigationView = binding.navView
@@ -67,8 +62,6 @@ class EmployeeActivity : AppCompatActivity() {
                 img.setImageBitmap(decodedByte)
             }
 
-
-
         img.setOnClickListener(){
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
@@ -76,9 +69,7 @@ class EmployeeActivity : AppCompatActivity() {
 
         }
 
-
         username.text = person.getPerson().fullName
-
 
         appBarConfiguration = AppBarConfiguration(
             setOf(

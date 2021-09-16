@@ -52,8 +52,6 @@ class DriverActivity : AppCompatActivity() {
         val db = Firebase.firestore
         person = ViewModel.getInstance()
 
-
-
         val navView: NavigationView = binding.navView
         val headerView = navView.getHeaderView(0)
         val navController = findNavController(R.id.DriverNavHostFragment)
@@ -69,14 +67,11 @@ class DriverActivity : AppCompatActivity() {
                 img.setImageBitmap(decodedByte)
             }
 
-
-
         img.setOnClickListener(){
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             launchSomeActivity.launch(intent)
         }
-
 
         username.text = person.getPerson().fullName
 

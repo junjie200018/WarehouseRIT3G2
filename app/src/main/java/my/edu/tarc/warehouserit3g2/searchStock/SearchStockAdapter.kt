@@ -28,17 +28,14 @@ class SearchStockAdapter (private val SearchProductList : ArrayList<Stock>) : Re
 
     init {
         searchProductFilterList = SearchProductList
-        Log.d("kkn1", "$searchProductFilterList")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.search_stock_item, parent, false)
-        Log.d("kkn", "$searchProductFilterList")
         return myViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
-        Log.d("kkn2", "$searchProductFilterList")
         val currentRecProduct = searchProductFilterList[position]
         holder.partNo.text = currentRecProduct.PartNo
         holder.recBy.text = currentRecProduct.RecBy
@@ -54,7 +51,6 @@ class SearchStockAdapter (private val SearchProductList : ArrayList<Stock>) : Re
     }
 
     override fun getItemCount(): Int {
-        Log.d("kkn3", "$searchProductFilterList")
         return searchProductFilterList.size
 
     }

@@ -1,26 +1,18 @@
 package my.edu.tarc.warehouserit3g2
 
-import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
-import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import my.edu.tarc.warehouserit3g2.Data.Transit
 import my.edu.tarc.warehouserit3g2.Data.TransitAdapter
 import java.util.ArrayList
@@ -29,7 +21,6 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
 
     lateinit var myRecyclerView: RecyclerView
     var transitList: MutableList<Transit> = ArrayList()
-    //var pause = false
 
     private val navController by lazy { NavHostFragment.findNavController(this) }
 
@@ -60,10 +51,8 @@ class TransitList_Fragment : Fragment(), TransitAdapter.OnItemClickListener {
                             transitList.add(t)
                         }
 
-//                        Log.d(ContentValues.TAG, "t= ${t}")
                     }
                 }
-//                Log.d(ContentValues.TAG, "list= ${transitList}")
                 myRecyclerView.adapter = TransitAdapter(transitList, this)
                 load.visibility = View.INVISIBLE
             }
