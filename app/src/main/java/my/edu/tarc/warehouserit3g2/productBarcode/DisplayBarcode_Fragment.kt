@@ -1,9 +1,11 @@
 package my.edu.tarc.warehouserit3g2.productBarcode
 
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -150,24 +152,57 @@ class displayBarcode_Fragment : Fragment() {
 
         //save button of the dialog
         builder.setPositiveButton("Submit") { dialog, which ->
+            var cannotDelete = 0
+
             db.collection("Barcode").document(barcodenumber)
-                .delete()
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        context,
-                        "Delete Successful.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    if(person.getPerson().role == "worker") {
-                        //  move in worker navigation (navigate)
-                        navController.navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
-                    } else {
-                        // move in manager navigation (navmanager)
-                        navController.navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
-                    }
+                .get()
+                .addOnSuccessListener { newProductResult ->
+
+                    db.collection("ReceivedProduct")
+                        .get()
+                        .addOnSuccessListener { result ->
+
+                            for( document in result){
+                                if(document.data?.get("PartNo").toString() == newProductResult.data?.get("partNo").toString()
+                                    && document.data?.get("Quantity").toString()==newProductResult.data?.get("quantity").toString()
+                                    && (document.data.get("Status").toString() == "In Rack" || document.data.get("Status").toString() == "Received")){
+
+
+                                    cannotDelete = 1
+                                    break
+                                }
+
+                            }
+
+                            if(cannotDelete == 1){
+
+                                Toast.makeText(
+                                    context,
+                                    "Still got product in the rack or received, cannot delete",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }else{
+                                db.collection("Barcode").document(barcodenumber)
+                                    .delete()
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            context,
+                                            "Delete Successful.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        if(person.getPerson().role == "worker") {
+                                            //  move in worker navigation (navigate)
+                                            navController.navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
+                                        } else {
+                                            // move in manager navigation (navmanager)
+                                            navController.navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
+                                        }
+                                    }
+                            }
+
+                        }
+
                 }
-
-
         }
 
         // cancel button of the dialog
