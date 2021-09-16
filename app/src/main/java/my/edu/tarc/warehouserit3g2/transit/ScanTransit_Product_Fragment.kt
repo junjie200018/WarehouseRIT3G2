@@ -13,6 +13,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.integration.android.IntentIntegrator
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentScanTransitProductBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class scanTransit_Product_Fragment : Fragment() {
@@ -44,6 +46,9 @@ class scanTransit_Product_Fragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // get the data from the previous page
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        val sdf = SimpleDateFormat("dd/M/yyyy")
+        val rackOutDate = sdf.format(Date())
 
         // connect to database
         val db = Firebase.firestore
@@ -105,7 +110,8 @@ class scanTransit_Product_Fragment : Fragment() {
                                         db.collection("ReceivedProduct").document(scannedResult)
                                             .update(
                                                 mapOf(
-                                                    "Status" to "Transit"
+                                                    "Status" to "Transit",
+                                                   "RackOutDate" to rackOutDate
                                                 )
                                             )
                                     }else{

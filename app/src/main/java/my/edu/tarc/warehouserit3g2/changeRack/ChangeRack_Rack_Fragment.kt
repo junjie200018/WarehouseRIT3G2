@@ -64,23 +64,28 @@ class changeRack_Rack_Fragment : Fragment() {
                     .addOnSuccessListener { result ->
                         // use to check the product save to rack or not
                         if (result.data?.get("RackID").toString() == scannedResult) {
+
                             Toast.makeText(
                                 context,
                                 "Product already in the rack ${scannedResult}",
                                 Toast.LENGTH_LONG
                             ).show()
+
                         } else {
                             previosRackId = result.data?.get("RackID").toString()
                             db.collection("Rack").document(scannedResult)
                                 .get()
                                 .addOnSuccessListener { document ->
+
                                     // use to check the rack id exist in the database or not
                                     if (document.data == null) {
+
                                         Toast.makeText(
                                             context,
                                             "Invalid QR code. Please try again !!",
                                             Toast.LENGTH_LONG
                                         ).show()
+
                                     } else {
                                         Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG)
                                             .show()
@@ -118,6 +123,11 @@ class changeRack_Rack_Fragment : Fragment() {
                         "RackID" to RackId
                     )
                 )
+            Toast.makeText(
+                context,
+                "Change Successful",
+                Toast.LENGTH_LONG
+            ).show()
 
             navController.navigate(R.id.action_changeRack_Rack_Fragment_to_changeRack_product_Fragment)
 

@@ -97,7 +97,7 @@ class profileEdit_Fragment : Fragment() {
 
             // check input field valid or not valid
             if(isValidate()){
-                Log.w(ContentValues.TAG, "${binding.EditUsername.text.toString()}")
+
                 db.collection("Employees").document(binding.EditUsername.text.toString())
                     .update(
                         mapOf(

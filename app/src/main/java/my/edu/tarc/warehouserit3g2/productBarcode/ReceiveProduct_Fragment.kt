@@ -99,6 +99,12 @@ class receiveProduct_Fragment : Fragment() {
                             // save data to databse
                             db.collection("Barcode").document(no).set(barcodeValue)
 
+                            Toast.makeText(
+                                context,
+                                "Generate Successful",
+                                Toast.LENGTH_LONG
+                            ).show()
+
                             // generate barcode
                             displayBitmap(no)
                         }
@@ -119,8 +125,8 @@ class receiveProduct_Fragment : Fragment() {
         val heightPixels = 100
 
         val white = "#ffffff"
-        val purple = "#ffbb86fc"
-        val borderInt: Int = Color.parseColor(purple)
+        val black = "#000000"
+        val borderInt: Int = Color.parseColor(black)
         val backgroundInt: Int = Color.parseColor(white)
         binding.imageBarcode.setImageBitmap(
 

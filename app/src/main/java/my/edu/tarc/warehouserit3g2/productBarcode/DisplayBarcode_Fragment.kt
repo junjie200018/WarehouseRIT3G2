@@ -1,15 +1,22 @@
 package my.edu.tarc.warehouserit3g2.productBarcode
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
@@ -21,6 +28,7 @@ class displayBarcode_Fragment : Fragment() {
 
     private lateinit var binding: FragmentDisplayBarcodeBinding
     private lateinit var person: ViewModel
+    private val navController by lazy { NavHostFragment.findNavController(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +44,9 @@ class displayBarcode_Fragment : Fragment() {
 
         displayBitmap(person.getbarcode())
 
+        if(person.getPerson().role == "manager"){
+            binding.btnDelete.setVisibility(VISIBLE)
+        }
 
         // button for move to another page
         binding.btnBack.setOnClickListener {
@@ -47,6 +58,12 @@ class displayBarcode_Fragment : Fragment() {
                 Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
             }
 
+        }
+
+
+
+        binding.btnDelete.setOnClickListener {
+            basicAlert(person.getbarcode())
         }
 
         return binding.root
@@ -114,6 +131,50 @@ class displayBarcode_Fragment : Fragment() {
             bitMatrix.height
         )
         return bitmap
+    }
+
+
+    fun basicAlert(barcodenumber :String) {
+
+        val db = Firebase.firestore
+
+        person = ViewModel.getInstance()
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+
+        //title of the dialog
+        builder.setTitle("Delete Product")
+
+        // message of the dialog
+        builder.setMessage("Are you sure want to delete ? ")
+
+        //save button of the dialog
+        builder.setPositiveButton("Submit") { dialog, which ->
+            db.collection("Barcode").document(barcodenumber)
+                .delete()
+                .addOnSuccessListener {
+                    Toast.makeText(
+                        context,
+                        "Delete Successful.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    if(person.getPerson().role == "worker") {
+                        //  move in worker navigation (navigate)
+                        navController.navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
+                    } else {
+                        // move in manager navigation (navmanager)
+                        navController.navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
+                    }
+                }
+
+
+        }
+
+        // cancel button of the dialog
+        builder.setNegativeButton("Cancel") { dialog, which ->
+
+        }
+        builder.show()
     }
 
 
