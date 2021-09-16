@@ -23,12 +23,16 @@ class displayScrap_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_display_scrap, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_display_scrap, container, false)
+
+        // get the data from the previous page
         val args = displayScrap_FragmentArgs.fromBundle(requireArguments())
         val serialNo = args.serialNo
+
+        // connect to the database
         val db = Firebase.firestore
 
+        // get the received product data from database
         db.collection("ReceivedProduct").document(serialNo)
             .get()
             .addOnSuccessListener { result ->
@@ -49,6 +53,7 @@ class displayScrap_Fragment : Fragment() {
 
                 }
 
+                //button for back to previous page
                 binding.btnOk.setOnClickListener {
                     navController.navigate(R.id.action_displayScrap_Fragment_to_scrapList_Fragment)
                 }

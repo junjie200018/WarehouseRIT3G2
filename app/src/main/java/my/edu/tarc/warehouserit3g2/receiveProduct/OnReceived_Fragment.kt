@@ -29,7 +29,7 @@ class OnReceived_Fragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_received_, container, false)
 
-
+        // button for scan QR function
         binding.btnScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -40,30 +40,31 @@ class OnReceived_Fragment : Fragment() {
         return binding.root
     }
 
+    // scan QR function
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
 
+        // get the scanned result
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        // connect to the database
         val db = Firebase.firestore
 
         if (result != null) {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = scannedResult
-//                binding.txtValue.text = scannedResult
+
 
                 val valueBarcode : String = scannedResult
 
-
-
+                // get the barcode data from database
                 db.collection("Barcode").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//
+
                             val action : NavDirections = OnReceived_FragmentDirections.actionOnReceivedFragmentToOnReceivedDetailFragment(
                                     valueBarcode,
                                     "receive",
@@ -74,13 +75,8 @@ class OnReceived_Fragment : Fragment() {
 
                         }
                     }
-
-
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//                Log.w(ContentValues.TAG, "scan failed")
-//            }
+
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

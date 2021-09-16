@@ -30,8 +30,8 @@ class ScanScrap_Fragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_scan_scrap, container, false)
 
+        // button for scan the QR code
         binding.ScrapScan.setOnClickListener {
-
 
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -41,6 +41,7 @@ class ScanScrap_Fragment : Fragment() {
         return binding.root
     }
 
+    // scan function
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
 
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
@@ -51,20 +52,15 @@ class ScanScrap_Fragment : Fragment() {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = scannedResult
-//                binding.textView6 .text = scannedResult
-
-                val valueBarcode : String = scannedResult
 
 
-
+                // get the received product detail
                 db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Bar code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//                            Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG).show()
 
                             if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
 
@@ -78,48 +74,40 @@ class ScanScrap_Fragment : Fragment() {
                             }
 
 
-                    }
+                         }
                     }
 
 
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//                Log.w(ContentValues.TAG, "scan failed")
-//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
+    // dialog function
     fun basicAlert(serialNo: String) {
 
         val db = Firebase.firestore
         var sdf = SimpleDateFormat("dd/M/yyyy")
         var currentDate = sdf.format(Date())
 
-        db.collection("ReceivedProduct").document(serialNo)
-            .get()
-            .addOnSuccessListener { result ->
-
-            }
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+
+        // title of the dialog
         builder.setTitle("Scrap Meterial")
 
-
+        // show the message in the dialog
         builder.setMessage("Are you sure put product ${serialNo} to scrap ?? ")
 
         builder.setPositiveButton("Save") { dialog, which ->
 
+            // get the receivedProduct detail
             db.collection("ReceivedProduct").document(serialNo)
                 .get()
                 .addOnSuccessListener { result ->
 
-                    if(result.data?.get("RackID").toString() == ""){
-                        currentDate = ""
-                    }
-
+                    // update database
                     db.collection("ReceivedProduct").document(serialNo)
                         .update(
                             mapOf(
@@ -135,7 +123,4 @@ class ScanScrap_Fragment : Fragment() {
         }
         builder.show()
     }
-
-
-
 }

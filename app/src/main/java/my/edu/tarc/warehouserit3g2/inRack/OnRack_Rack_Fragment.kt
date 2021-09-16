@@ -27,10 +27,10 @@ class OnRack_Rack_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_on_rack__rack_, container, false)
 
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_rack__rack_, container, false)
+
+        // button for run the scan QR code function
         binding.RackScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -40,49 +40,40 @@ class OnRack_Rack_Fragment : Fragment() {
         return binding.root
     }
 
+    // scan QR code function
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
 
+        // get the data from the previous page
         val args = OnRack_Rack_FragmentArgs.fromBundle(requireArguments())
         val serialNo = args.serialNoOnRack
 
+        // get the scanned result
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        // connect to database
         val db = Firebase.firestore
 
         if (result != null) {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = serialNo
-//                binding.txtValue1.text = scannedResult
-
                 val valueQRcode : String = scannedResult
 
-
-
+                // get the rack detail from the database
                 db.collection("Rack").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
                         if(result.data == null){
                             Toast.makeText(context, "Invalid Rack QR code. Please try again !!", Toast.LENGTH_LONG).show()
                         }else{
-//
-                            val action : NavDirections = OnRack_Rack_FragmentDirections.actionOnRackRackFragmentToOnRackDetailFragment(
-                                    serialNo,
+
+                            val action : NavDirections = OnRack_Rack_FragmentDirections.actionOnRackRackFragmentToOnRackDetailFragment(serialNo,
                                     valueQRcode
                                 )
-
                             navController.navigate(action)
-
                         }
                     }
-
-
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//                Log.w(ContentValues.TAG, "scan failed")
-//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

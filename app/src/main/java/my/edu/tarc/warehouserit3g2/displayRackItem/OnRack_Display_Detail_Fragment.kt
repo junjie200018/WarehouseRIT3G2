@@ -25,32 +25,25 @@ class OnRack_Display_Detail_Fragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_on_rack_display_detail, container, false)
 
-        val args = OnRack_Display_Detail_FragmentArgs.fromBundle(
-            requireArguments()
-        )
+        val args = OnRack_Display_Detail_FragmentArgs.fromBundle(requireArguments())
         val serialNo = args.serialNo
+
+        // connection of the database
         val db = Firebase.firestore
 
 
-
+        //get the receivedProduct from the database
         db.collection("ReceivedProduct").document(serialNo)
             .get()
             .addOnSuccessListener { result ->
                 if(result.data != null){
 
-                    var InDate = result.data?.get("RackInDate").toString()
-                    var OutDate = result.data?.get("RackOutDate").toString()
-                    if(InDate == ""){
-                        InDate = "-"
-                    }
-                    if(OutDate == ""){
-                        OutDate = "-"
-                    }
+                    // set the value to the textView
                     binding.tvtPN.text = result.data?.get("PartNo").toString()
                     binding.tvtQ.text  = result.data?.get("Quantity").toString()
                     binding.tvtRN.text = result.data?.get("RackID").toString()
-                    binding.tvtRND.text= InDate
-                    binding.tvtROD.text= OutDate
+                    binding.tvtRND.text= result.data?.get("RackInDate").toString()
+                    binding.tvtROD.text= result.data?.get("RackOutDate").toString()
                     binding.tvtRB.text = result.data?.get("ReceivedBy").toString()
                     binding.tvtRD.text = result.data?.get("ReceivedDate").toString()
                     binding.tvtS.text  = result.data?.get("Status").toString()
@@ -58,6 +51,7 @@ class OnRack_Display_Detail_Fragment : Fragment() {
                 }
             }
 
+        // button for go to onRAck Display page
         binding.ButtonOk.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_onRack_Display_Detail_Fragment_to_onRack_Display_Fragment)

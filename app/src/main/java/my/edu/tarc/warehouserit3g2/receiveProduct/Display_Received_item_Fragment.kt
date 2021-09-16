@@ -28,7 +28,6 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
     lateinit var adapter: ProductAdapter
     lateinit var myRecyclerView : RecyclerView
     private val navController by lazy { NavHostFragment.findNavController(this)}
-    lateinit var searchValue : ArrayList<Product>
     private lateinit var person: ViewModel
 
 
@@ -46,25 +45,18 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
 
         myRecyclerView = binding.productRecycleView
 
-
-
-        searchValue = arrayListOf<Product>()
-
-
-
-
-        val partNumber : Array<String?> = arrayOfNulls<String>(100)
-        val serialNumber : Array<String?> = arrayOfNulls<String>(100)
+        // get the view model data
         person = ViewModel.getInstance()
         var fullname = person.getPerson().fullName
 
+        // get the received product data from database
         db.collection("ReceivedProduct").whereEqualTo("ReceivedBy", fullname)
             .get()
             .addOnSuccessListener { result ->
-                val i = 0
+
                 for (document in result) {
 
-
+                    // check the status
                     if(document.data?.get("Status").toString() == "In Rack" || document.data?.get("Status").toString() == "Received" ) {
 
                         val p = Product("${document.data.get("PartNo").toString()}", "${document.id}", "${document.data?.get("ReceivedDate").toString()}", "${document.data?.get("Quantity").toString()}")
@@ -73,17 +65,15 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
                     }
                 }
 
+                // sort the product list
                 productList.sortBy { it.partNo }
 
 
-
+                // connect to search function
                 binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
-                    val myRecyclerView : RecyclerView = binding.productRecycleView
-
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
-
 
                         return true
                     }
@@ -91,8 +81,6 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
                     override fun onQueryTextChange(newText: String?): Boolean {
 
                        adapter.filter.filter(newText)
-
-
                         return false
                     }
                 })
@@ -106,7 +94,7 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
       return binding.root
     }
 
-
+    // click function in recycleview
     override fun onItemClick(position: Int) {
 
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -118,7 +106,6 @@ class Display_Received_item_Fragment : Fragment(), ProductAdapter.OnItemClickLis
                 clickedItem.SerialNo
             )
         navController.navigate(action)
-
     }
 
 }

@@ -26,12 +26,13 @@ class OnRack_Detail_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_on_rack_detail, container, false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_rack_detail, container, false)
+
+        // get the data from the previous page
         val args = OnRack_Detail_FragmentArgs.fromBundle(requireArguments())
 
-
+        // connect to the database
         val db = Firebase.firestore
         val sdf = SimpleDateFormat("dd/M/yyyy")
         val rackId = args.rackId
@@ -39,6 +40,7 @@ class OnRack_Detail_Fragment : Fragment() {
         val rackStatus = "In Rack"
         val rackInDate = sdf.format(Date())
 
+        //get received product detail
         db.collection("ReceivedProduct").document(serialNo)
             .get()
             .addOnSuccessListener { result ->
@@ -51,7 +53,7 @@ class OnRack_Detail_Fragment : Fragment() {
                 binding.tvtSerialN.text = serialNo
                 binding.tvtRackOutDate.text = "-"
 
-
+                // update the received product database
                 db.collection("ReceivedProduct").document(serialNo)
                     .update(
                         mapOf(
@@ -62,17 +64,14 @@ class OnRack_Detail_Fragment : Fragment() {
                         )
                     )
 
-
-
             }.addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "getfailedwith ", exception)
             }
 
+        // button for move to onRack Product page
         binding.BtnOk.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_onRack_Detail_Fragment_to_onRack_Product_Fragment)
         }
-
-
 
         return binding.root
     }

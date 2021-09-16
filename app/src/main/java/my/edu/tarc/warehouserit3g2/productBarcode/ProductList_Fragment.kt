@@ -13,8 +13,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import my.edu.tarc.warehouserit3g2.Data.ReceiveProductAdapter
-import my.edu.tarc.warehouserit3g2.Data.newProductBarcode
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentReceiveProductListBinding
@@ -35,14 +33,20 @@ class ProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListen
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_receive_product_list_, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receive_product_list_, container, false)
+
+        // connect to database
         val db = Firebase.firestore
+
+        //clear the arraylist
         receiveProduct.clear()
         myRecyclerView = binding.ReceiveProductRecycleView
 
+        // view model of the user
         person = ViewModel.getInstance()
 
+
+        // get the barcode data from the database
         db.collection("Barcode").orderBy("partNo")
             .get()
             .addOnSuccessListener { result ->
@@ -60,6 +64,7 @@ class ProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListen
                 adapter = ReceiveProductAdapter(receiveProduct,this)
                 myRecyclerView.adapter = adapter
 
+                // connect to the search function in adapter
                 binding.receiveProductsearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
 
@@ -73,7 +78,6 @@ class ProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListen
 
                         adapter.filter.filter(newText)
 
-
                         return false
                     }
                 })
@@ -82,17 +86,19 @@ class ProductList_Fragment : Fragment(), ReceiveProductAdapter.OnItemClickListen
        return binding.root
     }
 
+    // click function of the recycleview
     override fun onItemClick(position: Int) {
 
         val clickedItem  = receiveProduct[position]
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
         person.setbarcode(clickedItem.barodeNo)
+
         if(person.getPerson().role == "worker") {
+            // move in worker navigation (navigate)
             navController.navigate(R.id.action_receiveProductList_Fragment_to_displayBarcode_Fragment)
-//            val action : NavDirections = ReceiveProductList_FragmentDirections.actionReceiveProductListFragmentToDisplayBarcodeFragment(clickedItem.barodeNo)
-//            navController.navigate(action)
         } else if(person.getPerson().role == "manager") {
+            //  move in manager navigation (navmanager)
             navController.navigate(R.id.action_receiveProductList_Fragment2_to_displayBarcode_Fragment2)
         }
 

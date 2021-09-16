@@ -26,24 +26,24 @@ class displayBarcode_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // in this page is use by worker and manager
+
         binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_display_barcode_, container, false)
-//        val args = displayBarcode_FragmentArgs.fromBundle(requireArguments())
-//        var barcode = args.barcodeNo
 
         person = ViewModel.getInstance()
 
-        //if(barcode == null) {
-            //var barcode = person.getbarcode()
-        //}
 
         displayBitmap(person.getbarcode())
 
 
+        // button for move to another page
         binding.btnBack.setOnClickListener {
             if(person.getPerson().role == "worker") {
+                //  move in worker navigation (navigate)
                 Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment_to_receiveProductList_Fragment)
             } else {
+                // move in manager navigation (navmanager)
                 Navigation.findNavController(it).navigate(R.id.action_displayBarcode_Fragment2_to_receiveProductList_Fragment2)
             }
 
@@ -51,6 +51,8 @@ class displayBarcode_Fragment : Fragment() {
 
         return binding.root
     }
+
+    // display barcode function
     private fun displayBitmap(value: String) {
 
         val widthPixels = 450
@@ -73,6 +75,7 @@ class displayBarcode_Fragment : Fragment() {
         binding.textBarcodeNumber.text = value
     }
 
+    //generate barcode function
     private fun createBarcodeBitmap(
         barcodeValue: String,
         @ColorInt barcodeColor: Int,

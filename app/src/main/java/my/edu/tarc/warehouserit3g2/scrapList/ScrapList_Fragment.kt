@@ -27,7 +27,7 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
     lateinit var adapter: ScrapAdapter
     lateinit var myRecyclerView : RecyclerView
     private val navController by lazy { NavHostFragment.findNavController(this)}
-    lateinit var searchValue : ArrayList<Product>
+
 
 
     override fun onCreateView(
@@ -36,34 +36,43 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_scrap_list_, container, false)
+
+        // connect database
         val db = Firebase.firestore
+
+        // clear the mutablelist
         productList.clear()
         myRecyclerView = binding.scrapproductRecycleView
 
+
+        // get the receivedProduct data
         db.collection("ReceivedProduct").orderBy("PartNo")
             .get()
             .addOnSuccessListener { result ->
-                val i = 0
+
                 for (document in result) {
 
-
+                    // check the status of the data
                     if(document.data?.get("Status").toString() == "Scrap") {
 
-                        val p = Product("${document.data.get("PartNo").toString()}", "${document.id}","${document.data.get("RackOutDate").toString()}","")
+                        val p = Product("${document.data.get("PartNo").toString()}",
+                            "${document.id}",
+                            "${document.data.get("RackOutDate").toString()}","")
                         productList.add(p)
 
                     }
                 }
 
+                // sort the data in the productList
                 productList.sortBy { it.partNo }
 
                 adapter = ScrapAdapter(productList, this)
                 myRecyclerView.adapter = adapter
 
+
+                // connect to the search function
                 binding.scrapsearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
-                    val myRecyclerView : RecyclerView = binding.scrapproductRecycleView
-
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -84,8 +93,10 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
         return binding.root
     }
 
+    //click function
     override fun onItemClick(position: Int) {
 
+        // get the clicked product
         val clickedItem : Product = productList[position]
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
@@ -94,6 +105,5 @@ class scrapList_Fragment : Fragment(), ScrapAdapter.OnItemClickListener {
             )
 
         navController.navigate(action)
-//        ProductAdapter.notifyItemChanged(position)
     }
 }

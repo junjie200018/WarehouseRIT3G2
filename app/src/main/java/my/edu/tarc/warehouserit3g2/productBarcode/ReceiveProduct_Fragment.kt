@@ -24,15 +24,16 @@ import java.util.*
 
 class receiveProduct_Fragment : Fragment() {
 
-    var scannedResult: String = ""
+
     private lateinit var binding: FragmentReceiveProductBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_receive_product_, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receive_product_, container, false)
+
+        // button for generate new product
         binding.submitBtn.setOnClickListener {
 
             val productID = binding.EnterProductID.text.toString()
@@ -58,6 +59,7 @@ class receiveProduct_Fragment : Fragment() {
                 binding.EnterProductID.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 binding.EnterQty.onEditorAction(EditorInfo.IME_ACTION_DONE)
 
+                // get the barcode data from the databse
                 db.collection("Barcode")
                     .get()
                     .addOnSuccessListener { result ->
@@ -79,28 +81,25 @@ class receiveProduct_Fragment : Fragment() {
                                 checkExist = 1
                                 break
                             }
-//                            else {
-//                                Log.w(ContentValues.TAG, "partNo 2 = ${partNumberDatabase}")
-//                                Log.w(ContentValues.TAG, "quantity 3 = ${quantityDataBase}")
-//                            }
 
-//
-
-                        }
-
-                        if (checkExist != 1) {
-                            while (pdID == no) {
+                            // check if barcode number is same, generate another barcode number
+                            if(pdID == no){
                                 no = rnd.nextInt(999999999).toString().format("%06d", number)
                             }
+                        }
 
+                        // check the barcode exist or not
+                        if (checkExist != 1) {
 
                             val barcodeValue = hashMapOf(
                                 "partNo" to productID,
                                 "quantity" to qty.toString().toInt()
                             )
 
+                            // save data to databse
                             db.collection("Barcode").document(no).set(barcodeValue)
 
+                            // generate barcode
                             displayBitmap(no)
                         }
 
@@ -108,15 +107,12 @@ class receiveProduct_Fragment : Fragment() {
                     .addOnFailureListener { exception ->
                         Log.w(ContentValues.TAG, "Error getting documents.", exception)
                     }
-
-
             }
-
-
         }
         return binding.root
     }
 
+    // display barcode function
     private fun displayBitmap(value: String) {
 
         val widthPixels = 450
@@ -139,6 +135,7 @@ class receiveProduct_Fragment : Fragment() {
         binding.textBarcodeNumber.text = value
     }
 
+    // generate barcode function
     private fun createBarcodeBitmap(
         barcodeValue: String,
         @ColorInt barcodeColor: Int,

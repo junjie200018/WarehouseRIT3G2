@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -23,15 +22,10 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 
-import my.edu.tarc.warehouserit3g2.Data.RackListAdapter
 import my.edu.tarc.warehouserit3g2.R
 import kotlin.collections.ArrayList
 
 import my.edu.tarc.warehouserit3g2.databinding.FragmentRackListBinding
-
-
-
-
 
 
 class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
@@ -39,9 +33,9 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
     private lateinit var binding: FragmentRackListBinding
     var rack = ArrayList<String>()
     lateinit var adapter: RackListAdapter
-    lateinit var myRecyclerView : RecyclerView
-    private  var  QR: ImageView? = null
-    private val navController by lazy { NavHostFragment.findNavController(this)}
+    lateinit var myRecyclerView: RecyclerView
+    private var QR: ImageView? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +43,15 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_rack_list_, container, false)
 
+        //connect to database
         val db = Firebase.firestore
+
+        // clear the arraylist
         rack.clear()
 
         myRecyclerView = binding.RackRecycleView
 
+        //get the rack detail
         db.collection("Rack").orderBy("Rack ID")
             .get()
             .addOnSuccessListener { result ->
@@ -62,12 +60,13 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
                     rack.add(document.id)
                 }
 
-                adapter = RackListAdapter(rack,this)
+                adapter = RackListAdapter(rack, this)
                 myRecyclerView.adapter = adapter
 
-                binding.rackListSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                // connection of the search function in adapter
+                binding.rackListSearchView.setOnQueryTextListener(object :
+                    SearchView.OnQueryTextListener,
                     android.widget.SearchView.OnQueryTextListener {
-                    val myRecyclerView : RecyclerView = binding.RackRecycleView
 
 
                     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -87,9 +86,10 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
         return binding.root
     }
 
+    //click function of the recycleview
     override fun onItemClick(position: Int) {
 
-        val clickedItem  = rack[position]
+        val clickedItem = rack[position]
 
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0)
@@ -97,9 +97,8 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
     }
 
 
+    //dialog function
     fun basicAlert(rackId: String) {
-
-
 
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
@@ -108,6 +107,7 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
 
         val bitmaps = generateQRCode(rackId)
 
+        // use to show the QR code in the dialog
         QR?.setImageBitmap(bitmaps)
         builder.setView(QR)
 
@@ -117,6 +117,7 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
         builder.show()
     }
 
+    // generate QRcode function
     private fun generateQRCode(text: String): Bitmap {
         val width = 400
         val height = 400
@@ -129,7 +130,9 @@ class RackList_Fragment : Fragment(), RackListAdapter.OnItemClickListener {
                     bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
                 }
             }
-        } catch (e: WriterException) { Log.d(ContentValues.TAG, "generateQRCode: ${e.message}") }
+        } catch (e: WriterException) {
+            Log.d(ContentValues.TAG, "generateQRCode: ${e.message}")
+        }
         return bitmap
     }
 

@@ -36,22 +36,27 @@ class OnReceivedDetail_Fragment : Fragment() {
 
 
 
+        // get the data from previous page
         val args = OnReceivedDetail_FragmentArgs.fromBundle(requireArguments())
         var partNumberDatabase = ""
         var quantityDataBase = ""
         var serialNumber = ""
+
+        // use for generate serial number
         val myArray3 = arrayOf<String>("SE","RE","SA","YO","RA","KE")
+
+        // connect database
         val db = Firebase.firestore
         val place = args.place
         val seNo = args.serialNo
+
+        // view model of the user
         person = ViewModel.getInstance()
-
-
 
 
         if(place == "receive") {
 
-
+            // get the barcode data from the database
             db.collection("Barcode").document(args.barcodeValue)
                 .get()
                 .addOnSuccessListener { result ->
@@ -76,13 +81,14 @@ class OnReceivedDetail_Fragment : Fragment() {
 
                         val bitmap = generateQRCode(serialNumber)
                         binding.imagePreview.setImageBitmap(bitmap)
-
-                        binding.tvtPartNo.text = partNumberDatabase.toString()
-                        binding.tvtQuantity.text = quantityDataBase.toString()
-                        binding.tvtSerialNo.text = serialNumber.toString()
+                        binding.tvtPartNo.text = partNumberDatabase
+                        binding.tvtQuantity.text = quantityDataBase
+                        binding.tvtSerialNo.text = serialNumber
                         binding.tvtStatus.text = "Received"
                         binding.tvtReceivedDate.text = currentDate
                         binding.tvtReceivedBy.text = receivedBy
+
+                        // save the data
                         saveData(
                             partNumberDatabase,
                             quantityDataBase,
@@ -92,6 +98,7 @@ class OnReceivedDetail_Fragment : Fragment() {
                             receivedBy
                         )
 
+                        // button for navigate to onReceived fragment
                         binding.btnOk.setOnClickListener {
                             Navigation.findNavController(it)
                                 .navigate(R.id.action_onReceivedDetail_Fragment_to_onReceived_Fragment)
@@ -104,7 +111,10 @@ class OnReceivedDetail_Fragment : Fragment() {
                 }.addOnFailureListener { exception ->
                     Log.d(ContentValues.TAG, "getfailedwith ", exception)
                 }
+
         } else if(place == "view"){
+
+            //get the receivedproduct data from database
             db.collection("ReceivedProduct").document(seNo)
                 .get()
                 .addOnSuccessListener { result ->
@@ -119,9 +129,9 @@ class OnReceivedDetail_Fragment : Fragment() {
                     val bitmap = generateQRCode(result.id)
                     binding.imagePreview.setImageBitmap(bitmap)
 
+                    // button for navigate to display received item fragment
                     binding.btnOk.setOnClickListener {
                         Navigation.findNavController(it).navigate(R.id.action_onReceivedDetail_Fragment_to_display_Received_item_Fragment)
-
                     }
 
                 }.addOnFailureListener { exception ->
@@ -134,6 +144,7 @@ class OnReceivedDetail_Fragment : Fragment() {
     }
 
 
+    // generate QRcode function
     private fun generateQRCode(text: String): Bitmap {
         val width = 400
         val height = 400
@@ -150,6 +161,7 @@ class OnReceivedDetail_Fragment : Fragment() {
         return bitmap
     }
 
+    //save record to database
     private fun saveData(partNo: String, quantity: String, serialNo: String, Status :String, Date :String, ReceivedBy :String){
 
         val db = Firebase.firestore

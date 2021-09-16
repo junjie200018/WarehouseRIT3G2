@@ -1,4 +1,4 @@
-package my.edu.tarc.warehouserit3g2.Data
+package my.edu.tarc.warehouserit3g2.changeRack
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +8,16 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import my.edu.tarc.warehouserit3g2.R
-import my.edu.tarc.warehouserit3g2.productBarcode.ProductList_Fragment
 
-class ReceiveProductAdapter(
-    private var receiveProductList: ArrayList<newProductBarcode>, private val listener: ProductList_Fragment
-) : RecyclerView.Adapter<ReceiveProductAdapter.myViewHolder>(), Filterable {
-    var searchV = ArrayList<newProductBarcode>();
+class RackListAdapter ( private var rackList: ArrayList<String>, private val listener: RackList_Fragment
+) : RecyclerView.Adapter<RackListAdapter.myViewHolder>(), Filterable {
+
+    var searchV = ArrayList<String>();
 
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
-        val partNo: TextView = itemView.findViewById(R.id.receivePartNo)
-        val quantity: TextView = itemView.findViewById(R.id.receiveQuantity)
-        val barcodeValue: TextView = itemView.findViewById(R.id.barcodeNoValue)
+        val rackid: TextView = itemView.findViewById(R.id.RackID)
+
         init {
 
             itemView.setOnClickListener(this)
@@ -35,7 +33,7 @@ class ReceiveProductAdapter(
 
     }
     init {
-        searchV = receiveProductList as ArrayList<newProductBarcode>
+        searchV = rackList
     }
 
     interface OnItemClickListener{
@@ -46,19 +44,16 @@ class ReceiveProductAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.display_receive_product, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.display_rack, parent, false)
 
         return myViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: myViewHolder, position: Int) {
 
-
-        val current = searchV[position]
+        val currentRack = searchV[position]
 //        holder.itemView.setOnClickListener(
-        holder.partNo.text = current.partNo
-        holder.quantity.text = current.quantity
-        holder.barcodeValue.text= current.barodeNo
+        holder.rackid.text = currentRack
 
     }
 
@@ -73,14 +68,14 @@ class ReceiveProductAdapter(
 
                 if (charSearch.isEmpty()) {
 
-                    searchV = receiveProductList
+                    searchV = rackList
 
 
                 } else {
-                    val resultList = ArrayList<newProductBarcode>()
-                    for (row in receiveProductList) {
+                    val resultList = ArrayList<String>()
+                    for (row in rackList) {
 
-                        if(row.partNo.contains(charSearch) || row.quantity.contains(charSearch) || row.barodeNo.contains(charSearch)){
+                        if(row.contains(charSearch) || row.contains(charSearch)){
 
                             resultList.add(row)
                         }
@@ -97,11 +92,10 @@ class ReceiveProductAdapter(
 
             override fun publishResults(p0: CharSequence?, filterResults: FilterResults?) {
 
-                searchV = filterResults!!.values as ArrayList<newProductBarcode>
+                searchV = filterResults!!.values as ArrayList<String>
                 notifyDataSetChanged()
             }
 
         }
     }
-
 }

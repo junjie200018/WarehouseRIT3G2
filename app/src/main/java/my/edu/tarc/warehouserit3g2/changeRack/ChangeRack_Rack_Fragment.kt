@@ -29,6 +29,7 @@ class changeRack_Rack_Fragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_change_rack_rack, container, false)
 
+        //button for scan rack's R code
         binding.changeRackrackScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -39,27 +40,29 @@ class changeRack_Rack_Fragment : Fragment() {
         return binding.root
     }
 
+    // run the scan QR code function
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
+        //get the scaned result
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        // get data from the previos page
         val args = changeRack_Rack_FragmentArgs.fromBundle(requireArguments())
         val serialNo = args.serialNo
         var previosRackId = ""
 
+        // connect to database
         val db = Firebase.firestore
 
         if (result != null) {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = scannedResult
-//                binding.txtValue3.text = scannedResult
 
-                val valueBarcode: String = scannedResult
-
+                // get the received product data from databasse
                 db.collection("ReceivedProduct").document(serialNo)
                     .get()
                     .addOnSuccessListener { result ->
+                        // use to check the product save to rack or not
                         if (result.data?.get("RackID").toString() == scannedResult) {
                             Toast.makeText(
                                 context,
@@ -71,6 +74,7 @@ class changeRack_Rack_Fragment : Fragment() {
                             db.collection("Rack").document(scannedResult)
                                 .get()
                                 .addOnSuccessListener { document ->
+                                    // use to check the rack id exist in the database or not
                                     if (document.data == null) {
                                         Toast.makeText(
                                             context,
@@ -80,33 +84,33 @@ class changeRack_Rack_Fragment : Fragment() {
                                     } else {
                                         Toast.makeText(context, "Valid Bar code", Toast.LENGTH_LONG)
                                             .show()
+                                        // use to call the dialog
                                         basicAlert(scannedResult, serialNo, previosRackId)
 
-//                            // add pop up menu
                                     }
                                 }
                         }
                     }
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//                Log.w(ContentValues.TAG, "scan failed")
-//            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    fun basicAlert(RackId: String, serialNo: String, previosRackID :String) {
+    // dialog function
+    fun basicAlert(RackId: String, serialNo: String, previosRackID: String) {
 
         val db = Firebase.firestore
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+
+        //title of the dialog
         builder.setTitle("Change Rack")
 
-
+        // message of the dialog
         builder.setMessage("Are you sure change product ${serialNo} from ${previosRackID} to ${RackId} ")
 
+        //save button of the dialog
         builder.setPositiveButton("Save") { dialog, which ->
             db.collection("ReceivedProduct").document(serialNo)
                 .update(
@@ -115,10 +119,11 @@ class changeRack_Rack_Fragment : Fragment() {
                     )
                 )
 
-           navController.navigate(R.id.action_changeRack_Rack_Fragment_to_changeRack_product_Fragment)
+            navController.navigate(R.id.action_changeRack_Rack_Fragment_to_changeRack_product_Fragment)
 
         }
 
+        // cancel button of the dialog
         builder.setNegativeButton("Cancel") { dialog, which ->
 
         }

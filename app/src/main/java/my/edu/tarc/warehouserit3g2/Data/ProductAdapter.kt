@@ -16,10 +16,7 @@ import kotlin.collections.ArrayList
 class ProductAdapter (private var productList :MutableList<Product>, private val listener: OnItemClickListener ) : RecyclerView.Adapter<ProductAdapter.myViewHolder>(), Filterable{
 
     var searchV = ArrayList<Product>();
-//    fun setData(searchV: ArrayList<Product>){
-//        this.searchV = searchV
-//        notifyDataSetChanged()
-//    }
+
     inner class myViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
         val partNo:TextView = itemView.findViewById(R.id.PartNo)
@@ -46,6 +43,7 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
         searchV = productList as ArrayList<Product>
     }
 
+    // click function of the recycleview
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.received_item, parent, false)
@@ -57,7 +55,7 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
 
         val currentProduct = searchV[position]
-//        holder.itemView.setOnClickListener(
+
         holder.partNo.text = currentProduct.partNo
         holder.serialNo.text = currentProduct.SerialNo
         holder.quanti.text = currentProduct.quantity
@@ -76,6 +74,7 @@ class ProductAdapter (private var productList :MutableList<Product>, private val
 
     }
 
+    //search function of the recycleview
     override fun getFilter(): Filter {
 
         return object: Filter(){

@@ -29,33 +29,35 @@ class AddRack : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_rack, container, false)
 
         binding.addR.setOnClickListener {
             val rackId = binding.ID.text.toString()
-            if(rackId.isEmpty() || rackId.isBlank()){
+            if (rackId.isEmpty() || rackId.isBlank()) {
 
                 Toast.makeText(context, "Please Enter the new Rack Number !!", Toast.LENGTH_SHORT).show()
 
-            }else{
+            } else {
 
                 val db = Firebase.firestore
                 var exist = 0
 
-
+                // get the rack detail
                 db.collection("Rack")
                     .get()
                     .addOnSuccessListener { result ->
-                        for (document in result){
-                            if(document.id == rackId){
+                        for (document in result) {
+
+                            // check the rack id exist in the database or not
+                            if (document.id == rackId) {
                                 exist = 1
                                 Toast.makeText(context, "${rackId} already exist !!", Toast.LENGTH_SHORT).show()
                                 break
                             }
                         }
 
-                        if(exist == 0){
+                        if (exist == 0) {
                             Toast.makeText(context, "Got Value", Toast.LENGTH_SHORT).show()
                             val bitmap = generateQRCode(rackId)
 
@@ -66,11 +68,11 @@ class AddRack : Fragment() {
                             val barcodeValue = hashMapOf(
                                 "Rack ID" to rackId
                             )
+                            // add the new rack to the database
                             db.collection("Rack").document(rackId).set(barcodeValue)
                         }
 
                     }
-
 
 
             }
@@ -79,6 +81,7 @@ class AddRack : Fragment() {
         return binding.root
     }
 
+    // function of generate the QR code for new Rack
     private fun generateQRCode(text: String): Bitmap {
         val width = 400
         val height = 400
@@ -91,10 +94,11 @@ class AddRack : Fragment() {
                     bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
                 }
             }
-        } catch (e: WriterException) { Log.d(ContentValues.TAG, "generateQRCode: ${e.message}") }
+        } catch (e: WriterException) {
+            Log.d(ContentValues.TAG, "generateQRCode: ${e.message}")
+        }
         return bitmap
     }
-
 
 
 }

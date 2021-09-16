@@ -24,9 +24,12 @@ class scanTransit_Product_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_scan_transit_product, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_scan_transit_product, container, false
+        )
 
+        // run the scan QR code function
         binding.btnTransitProductScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -36,10 +39,13 @@ class scanTransit_Product_Fragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
 
+    // scan QR code function
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // get the data from the previous page
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        // connect to database
         val db = Firebase.firestore
 
         if (result != null) {
@@ -47,59 +53,68 @@ class scanTransit_Product_Fragment : Fragment() {
             if (result.contents != null) {
                 scannedResult = result.contents
 
-
-                val valueBarcode : String = scannedResult
-
-
-
+                // get the received product detail
                 db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
-                        if(result.data == null){
-                            Toast.makeText(context, "Invalid product QR code. Please try again !!", Toast.LENGTH_LONG).show()
-                        }else{
+
+                        // check the data is empty or not
+                        if (result.data == null) {
+                            Toast.makeText(
+                                context,
+                                "Invalid product QR code. Please try again !!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
 
                             var correct = 0
                             var transferID = ""
 
+                            // get the transfer detail
                             db.collection("Transfer")
                                 .get()
                                 .addOnSuccessListener { documents ->
-                                    for(transferProduct in documents){
-                                        if(result.data?.get("PartNo").toString() == transferProduct.data?.get("partNo").toString() && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity").toString()){
+                                    for (transferProduct in documents) {
+                                        // check the partno and quantity of the transfer detail and received product detail
+                                        if (result.data?.get("PartNo").toString() == transferProduct.data?.get("partNo").toString()
+                                            && result.data?.get("Quantity").toString() == transferProduct.data?.get("quantity").toString())
+                                        {
                                             correct = 1
                                             transferID = transferProduct.id
                                             break
                                         }
                                     }
 
-                                    if(correct == 1){
+                                    if (correct == 1) {
                                         Toast.makeText(
                                             context,
                                             "Transit successful",
                                             Toast.LENGTH_LONG
                                         ).show()
+
+                                        // update the database
                                         db.collection("Transfer").document(transferID)
                                             .update(
                                                 mapOf(
                                                     "status" to "ready",
-                                                    "serialNo" to  result.data?.get("SerialNo").toString()
+                                                    "serialNo" to result.data?.get("SerialNo").toString()
                                                 )
                                             )
+
+                                        //update the database
                                         db.collection("ReceivedProduct").document(scannedResult)
                                             .update(
                                                 mapOf(
                                                     "Status" to "Transit"
-
                                                 )
                                             )
+                                    }else{
+                                        Toast.makeText(
+                                            context,
+                                            "Transit unsuccessful, Plaese match the product ID and quantity!!",
+                                            Toast.LENGTH_LONG
+                                        ).show()
                                     }
-
-                                    Toast.makeText(
-                                        context,
-                                        "Transit unsuccessful",
-                                        Toast.LENGTH_LONG
-                                    ).show()
                                 }
                         }
                     }

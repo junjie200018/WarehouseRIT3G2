@@ -20,7 +20,7 @@ class changeRack_product_Fragment : Fragment() {
 
     var scannedResult: String = ""
     private lateinit var binding: FragmentChangeRackProductBinding
-    private val navController by lazy { NavHostFragment.findNavController(this)}
+    private val navController by lazy { NavHostFragment.findNavController(this) }
 
 
     override fun onCreateView(
@@ -28,9 +28,12 @@ class changeRack_product_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_change_rack_product, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_change_rack_product, container, false
+        )
 
+        //button for scan received product QR code
         binding.ChangeRackProductScan.setOnClickListener {
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
@@ -40,48 +43,64 @@ class changeRack_product_Fragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    // run the scan QR code function
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
+        //get the scaned result
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        //connect to data base
         val db = Firebase.firestore
 
         if (result != null) {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = scannedResult
-//                binding.txtValue2 .text = scannedResult
 
-
-
+                // get the received product data from database
                 db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { result ->
-                        if(result.data == null){
-                            Toast.makeText(context, "Invalid QR code. Please try again !!", Toast.LENGTH_LONG).show()
-                        }else{
+                        if (result.data == null) {
+                            Toast.makeText(
+                                context,
+                                "Invalid QR code. Please try again !!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
 
-                            if(result.data?.get("Status").toString() != "Scrap" && result.data?.get("Status").toString() != "Transit"){
-                                if(result.data?.get("RackID").toString() != ""){
+                            //check the status of the received product
+                            if (result.data?.get("Status")
+                                    .toString() != "Scrap" && result.data?.get("Status")
+                                    .toString() != "Transit"
+                            ) {
+                                if (result.data?.get("RackID").toString() != "") {
 
-                                    val action : NavDirections = changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(
+                                    //move to another page call changeRack_Rack Fragment
+                                    val action: NavDirections =
+                                        changeRack_product_FragmentDirections.actionChangeRackProductFragmentToChangeRackRackFragment(
                                             scannedResult
                                         )
                                     navController.navigate(action)
 
-                                }else {
-                                    Toast.makeText(context, "Product not in rack. Please try again !!", Toast.LENGTH_LONG).show()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Product not in rack. Please try again !!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
-                            }else{
-                                Toast.makeText(context, "Product already become scrap or already transit", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Product already become scrap or already transit",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                         }
                     }
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//            }
+
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }

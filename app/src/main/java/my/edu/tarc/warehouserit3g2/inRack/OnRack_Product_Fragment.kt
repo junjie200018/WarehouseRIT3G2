@@ -28,38 +28,35 @@ class OnRack_Product_Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_on_rack__product_, container, false)
 
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_rack__product_, container, false)
+
+        // run the scan QR code function
         binding.RackProductScan.setOnClickListener{
             run {
                 val intentIntegrator = IntentIntegrator.forSupportFragment(this)
                 intentIntegrator.initiateScan()
             }
         }
-
         return binding.root
     }
 
 
+    // scan QR code function
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         var result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
 
+        //connect database
         val db = Firebase.firestore
 
         if (result != null) {
 
             if (result.contents != null) {
                 scannedResult = result.contents
-//                binding.textView6.text = scannedResult
-//                binding.txtValue1.text = scannedResult
-
-                val valueBarcode: String = scannedResult
 
 
-
+                // get the receivedProduct detail
                 db.collection("ReceivedProduct").document(scannedResult)
                     .get()
                     .addOnSuccessListener { documents ->
@@ -71,36 +68,27 @@ class OnRack_Product_Fragment : Fragment() {
                             ).show()
                         } else {
 
+                            // check the status of the received product
+                            if((documents.data?.get("Status").toString() == "Received" ) || (documents.data?.get("Status").toString() == "In Rack") ){
 
-                            if((documents.data?.get("Status").toString() != "Scrap" ) && (documents.data?.get("Status").toString() != "Transit") ){
-//                                db.collection("ReceivedProduct").document(scannedResult)
-//                                    .get()
-//                                    .addOnSuccessListener { result ->
+                                // check the Rack id in teh received product exist or not
+                                if(documents.data?.get("RackID").toString() != "-" ){
+                                    checkExist = 1
+                                }
 
-//                                        for(document in result){
-                                            if(documents.data?.get("RackID").toString() != "-" ){
-                                                checkExist = 1
+                                if(checkExist == 0){
+                                    val action : NavDirections = OnRack_Product_FragmentDirections.actionOnRackProductFragmentToOnRackRackFragment(scannedResult)
+                                    navController.navigate(action)
 
-//                                                break
-//                                            }
-                                        }
+                                }else{
 
-                                        if(checkExist == 0){
-                                            val action : NavDirections = OnRack_Product_FragmentDirections.actionOnRackProductFragmentToOnRackRackFragment(
-                                                    scannedResult
-                                                )
-                                            navController.navigate(action)
-
-                                        }else{
-
-                                            Toast.makeText(
-                                                context,
-                                                "The Product already exist in a rack.",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                            checkExist = 0
-                                        }
-//                                    }
+                                    Toast.makeText(
+                                        context,
+                                        "The Product already exist in a rack.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    checkExist = 0
+                                }
                             }else{
                                 Toast.makeText(
                                     context,
@@ -108,16 +96,10 @@ class OnRack_Product_Fragment : Fragment() {
                                     Toast.LENGTH_LONG
                                 ).show()
                             }
-
-
-
                         }
                     }
             }
-//            else {
-//                binding.textView6.text = "scan failed"
-//                Log.w(ContentValues.TAG, "scan failed")
-//            }
+
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
