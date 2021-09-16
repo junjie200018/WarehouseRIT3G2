@@ -23,6 +23,7 @@ import com.google.firebase.ktx.Firebase
 import my.edu.tarc.warehouserit3g2.Models.ViewModel
 import my.edu.tarc.warehouserit3g2.R
 import my.edu.tarc.warehouserit3g2.databinding.FragmentProfileEditBinding
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -42,14 +43,17 @@ class profileEdit_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //connect database
         val db = Firebase.firestore
 
+        //binding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_edit, container, false)
         binding.EditUsername.isEnabled = false
         binding.Name.isEnabled = false
         binding.email.isEnabled = false
         binding.phone.isEnabled = false
 
+        // view model
         person = ViewModel.getInstance()
         aPerson = person.getPerson()
         binding.EditUsername.setText(person.getPerson().username)
@@ -58,6 +62,7 @@ class profileEdit_Fragment : Fragment() {
         binding.phone.setText(person.getPerson().phoneNo)
         var oldName = person.getPerson().fullName
 
+        //button for allow to edit
         binding.btnProfileEdit.setOnClickListener {
             Log.w(ContentValues.TAG, "partNo 2 ")
 
@@ -70,8 +75,10 @@ class profileEdit_Fragment : Fragment() {
 
         }
 
+        // realtime checking input field
         setupListener()
 
+        //button for change password
         binding.btnChangePass.setOnClickListener {
             if(person.getPerson().role == "worker") {
                 navController.navigate(R.id.action_profileEdit_Fragment_to_changePass_Fragment)
@@ -82,19 +89,21 @@ class profileEdit_Fragment : Fragment() {
             }
         }
 
+        // button for edit profile
         binding.btnProfileSubmit.setOnClickListener {
             var fullname = binding.Name.text.toString()
-            var email = binding.email.text.toString()
+            var email = binding.email.text.toString().lowercase(Locale.getDefault())
             var phone = binding.phone.text.toString()
 
+            // check input field valid or not valid
             if(isValidate()){
                 Log.w(ContentValues.TAG, "${binding.EditUsername.text.toString()}")
                 db.collection("Employees").document(binding.EditUsername.text.toString())
                     .update(
                         mapOf(
-                           "fullName" to binding.Name.text.toString(),
-                            "phoneNo" to binding.phone.text.toString(),
-                            "email" to binding.email.text.toString()
+                           "fullName" to fullname,
+                            "phoneNo" to phone ,
+                            "email" to email
                         )
                     )
 
@@ -116,11 +125,13 @@ class profileEdit_Fragment : Fragment() {
 
                     }
 
-                aPerson.fullName = binding.Name.text.toString()
-                aPerson.email = binding.email.text.toString()
-                aPerson.phoneNo = binding.phone.text.toString()
+                // set value to view model
+                aPerson.fullName = fullname
+                aPerson.email = email
+                aPerson.phoneNo = phone
                 person.setaPerson(aPerson)
 
+                //set the navigation header name
                 val navView: NavigationView = binding.root.rootView.findViewById<NavigationView>(R.id.navView)
                 val headerView = navView.getHeaderView(0)
                 val username : TextView = headerView.findViewById(R.id.usernameDis)
@@ -136,6 +147,10 @@ class profileEdit_Fragment : Fragment() {
                 binding.Name.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 binding.email.onEditorAction(EditorInfo.IME_ACTION_DONE)
                 binding.phone.onEditorAction(EditorInfo.IME_ACTION_DONE)
+
+                binding.Name.setText(person.getPerson().fullName)
+                binding.email.setText(person.getPerson().email)
+                binding.phone.setText(person.getPerson().phoneNo)
                 Toast.makeText(
                     context,
                     "Edit successful",
@@ -167,6 +182,7 @@ class profileEdit_Fragment : Fragment() {
         validateFullName() && validateEmail() && validatePhoneNo()
 
 
+    // check the input field
     inner class TextFieldValidation(private val view: View) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -188,9 +204,8 @@ class profileEdit_Fragment : Fragment() {
     }
 
 
+    // check user fullname
     private fun validateFullName(): Boolean {
-
-
 
         if (binding.Name.text.toString().trim().isEmpty()) {
             binding.nameLayout.error = "Required Field!"
@@ -203,28 +218,28 @@ class profileEdit_Fragment : Fragment() {
         return true
     }
 
+    // check user email format and duplicate
     private fun validateEmail(): Boolean {
         val db = Firebase.firestore
 
         var trueFalse = true
         duplicate = 0
 
-
-
         db.collection("Employees").whereNotEqualTo("username", binding.EditUsername.text.toString())
             .get()
             .addOnSuccessListener { result ->
+                var email = binding.email.text.toString().lowercase(Locale.getDefault())
                 for(document in result){
-                    if(binding.email.text?.contains(document.data.get("email").toString()) == true){
+                    if(email?.contains(document.data.get("email").toString()) == true){
                         duplicate = 1
                     }
                 }
 
-                if (binding.email.text.toString().trim().isEmpty()) {
+                if (email.trim().isEmpty()) {
                     binding.emailLayout.error = "Required Field!"
                     binding.email.requestFocus()
                     trueFalse = false
-                } else if (!validEmail(binding.email.text.toString())) {
+                } else if (!validEmail(email)) {
                     binding.emailLayout.error = "Invalid Email! e.g abc@xxx.com"
                     binding.email.requestFocus()
                     trueFalse = false
@@ -250,6 +265,7 @@ class profileEdit_Fragment : Fragment() {
         return pattern.matcher(email).matches()
     }
 
+    //check user phone number format and duplicate
     private fun validatePhoneNo(): Boolean {
         val REG = "(01)[0-9]-[0-9]{7,8}"
         var trueFalse = true

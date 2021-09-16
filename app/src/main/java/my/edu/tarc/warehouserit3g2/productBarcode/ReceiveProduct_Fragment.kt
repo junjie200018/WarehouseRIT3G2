@@ -36,7 +36,7 @@ class receiveProduct_Fragment : Fragment() {
         // button for generate new product
         binding.submitBtn.setOnClickListener {
 
-            val productID = binding.EnterProductID.text.toString()
+            val productID = binding.EnterProductID.text.toString().uppercase(Locale.getDefault())
             val qty = binding.EnterQty.text.toString()
             val db = Firebase.firestore
 
