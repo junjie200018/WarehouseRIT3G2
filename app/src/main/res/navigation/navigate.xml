@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/onRack_Product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.inRack.OnRack_Product_Fragment"
-        android:label="Scan Product Barcode">
+        android:label="Scan Product QR code">
         <action
             android:id="@+id/action_onRack_Product_Fragment_to_onRack_Rack_Fragment"
             app:destination="@id/onRack_Rack_Fragment" />
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/onRack_Rack_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.inRack.OnRack_Rack_Fragment"
-        android:label="On Rack Scanning"
+        android:label="Scan Rack  QR Code"
         tools:layout="@layout/fragment_on_rack__rack_">
         <argument
             android:name="serialNoOnRack"
@@ -109,7 +109,7 @@
     <fragment
         android:id="@+id/changeRack_product_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.changeRack.changeRack_product_Fragment"
-        android:label="Scan Product">
+        android:label=" Scan Product QR Code">
         <action
             android:id="@+id/action_changeRack_product_Fragment_to_changeRack_Rack_Fragment"
             app:destination="@id/changeRack_Rack_Fragment" />
@@ -117,7 +117,7 @@
     <fragment
         android:id="@+id/changeRack_Rack_Fragment"
         android:name="my.edu.tarc.warehouserit3g2.changeRack.changeRack_Rack_Fragment"
-        android:label="Change Rack Scan">
+        android:label="Scan Rack QR Code">
         <argument
             android:name="serialNo"
             app:argType="string" />
